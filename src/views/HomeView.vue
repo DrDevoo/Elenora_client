@@ -4,6 +4,13 @@ import Footer from "../components/Footer.vue";
 import Slider from "../components/Slider.vue";
 import { RouterLink } from "vue-router";
 </script>
+<script>
+export default {
+  mounted() {
+    console.log("process.env.API_URL");
+  },
+};
+</script>
 
 <style>
 * {
@@ -391,27 +398,27 @@ section {
       </div>
       <div class="item-list">
         <div class="item">
-          <img src="../assets/images/webp/IMG_1693.webp" alt="" />
+          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
           <h2>kristalycsoda</h2>
           <p>2222 FT</p>
         </div>
         <div class="item">
-          <img src="../assets/images/webp/IMG_1693.webp" alt="" />
+          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
           <h2>kristalycsoda</h2>
           <p>2222 FT</p>
         </div>
         <div class="item">
-          <img src="../assets/images/webp/IMG_1693.webp" alt="" />
+          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
           <h2>kristalycsoda</h2>
           <p>2222 FT</p>
         </div>
         <div class="item">
-          <img src="../assets/images/webp/IMG_1693.webp" alt="" />
+          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
           <h2>kristalycsoda</h2>
           <p>2222 FT</p>
         </div>
         <div class="item">
-          <img src="../assets/images/webp/IMG_1693.webp" alt="" />
+          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
           <h2>kristalycsoda</h2>
           <p>2222 FT</p>
         </div>

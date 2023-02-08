@@ -8,7 +8,7 @@ export default {
   },
   methods: {
     async login() {
-      const response = await fetch("http://localhost:3500/admin/login", {
+      const response = await fetch("http://91.227.139.20:3900/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
