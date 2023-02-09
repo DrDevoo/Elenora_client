@@ -44,17 +44,20 @@ export default {
     <br />
     <div class="menu-link-list">
       <h3 class="linktitle">Ékszerek</h3>
-      <RouterLink to="/shop?c=female"
+      <RouterLink to="/shop/women"
         ><h3 class="link">Női karkötők</h3></RouterLink
       >
-      <RouterLink to="/shop?c=male"
+      <RouterLink to="/shop/men"
         ><h3 class="link">Férfi karkötők</h3></RouterLink
       >
-      <RouterLink to="/shop?c=couple"
+      <RouterLink to="/shop/couple"
         ><h3 class="link">Páros karkötők</h3></RouterLink
       >
-      <RouterLink to="/shop?c=sales"
+      <RouterLink to="/shop/sales"
         ><h3 class="link">Akciós karkötők</h3></RouterLink
+      >
+      <RouterLink to="/shop"
+        ><h3 class="link">Összes karkötő</h3></RouterLink
       >
       <h3 class="linktitle">Kiegészítők</h3>
       <RouterLink to="/shop/accessories"

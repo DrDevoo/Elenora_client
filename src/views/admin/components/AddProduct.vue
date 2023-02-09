@@ -9,7 +9,7 @@ export default {
         prod_collection: "",
         prod_price: 0,
         prod_description: "",
-        prod_gender: "",
+        prod_categ: "",
         prod_colors: [],
         prod_pears: [],
       },
@@ -32,7 +32,7 @@ export default {
             "/" +
             this.form.prod_description +
             "/" +
-            this.form.prod_gender +
+            this.form.prod_categ +
             "/" +
             this.form.prod_colors +
             "/" +
@@ -102,11 +102,13 @@ export default {
             rows="4"
           ></textarea>
           <br />
-          <label for="Neme">Neme</label>
+          <label for="Neme">Kategória</label>
           <select name="Neme" id="Neme" v-model="form.prod_gender">
             <option disabled selected>Termék neme</option>
             <option value="female">Női</option>
             <option value="male">Férfi</option>
+            <option value="unisex">Férfi és Női</option>
+            <option value="couple">Páros</option>
           </select>
           <br />
           <label for="colors">Színei</label>

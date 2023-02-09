@@ -7,7 +7,8 @@ import { RouterLink } from "vue-router";
 <script>
 export default {
   mounted() {
-    console.log("process.env.API_URL");
+    const a = import.meta.env.API_U_RL
+    console.log( a );
   },
 };
 </script>

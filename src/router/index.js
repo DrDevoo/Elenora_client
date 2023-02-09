@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-
 const router = createRouter({
-  history: createWebHistory("egoncompany.hu"),
+  history: createWebHistory(),
   routes: [
     {
       path: "/",
@@ -11,8 +10,28 @@ const router = createRouter({
     },
     {
       path: "/shop",
-      name: "webshop",
-      component: () => import("../views/shop/allproductView.vue"),
+      name: "webshop_all",
+      component: () => import("../views/shop/Allproduct.vue"),
+    },
+    {
+      path: "/shop/men",
+      name: "webshop_men",
+      component: () => import("../views/shop/Men.vue"),
+    },
+    {
+      path: "/shop/women",
+      name: "webshop_women",
+      component: () => import("../views/shop/Women.vue"),
+    },
+    {
+      path: "/shop/couple",
+      name: "webshop_couple",
+      component: () => import("../views/shop/Couple.vue"),
+    },
+    {
+      path: "/shop/sales",
+      name: "webshop_sales",
+      component: () => import("../views/shop/Sales.vue"),
     },
     {
       path: "/shop/picked",
