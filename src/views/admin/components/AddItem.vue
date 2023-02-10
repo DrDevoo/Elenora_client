@@ -14,7 +14,8 @@ export default {
     submitItem() {
       axios
         .post(
-          "http://localhost:3500/inventory/add/" +
+          import.meta.env.VITE_API_URL +
+            "/inventory/add/" +
             this.form.item_name +
             "/" +
             this.form.item_quatity,
@@ -42,11 +43,7 @@ export default {
       <div class="inputs_wrapper">
         <div class="left_inputs">
           <label for="">Neve</label>
-          <input
-            type="text"
-            v-model="form.item_name"
-            placeholder="Neve"
-          />
+          <input type="text" v-model="form.item_name" placeholder="Neve" />
         </div>
         <div class="right_inputs">
           <label for="">Darabszám</label>
@@ -84,8 +81,7 @@ export default {
   width: 50%;
   padding: 1rem;
 }
-input
-{
+input {
   width: 100%;
   border: none;
   background-color: rgba(255, 160, 122, 0.436);
@@ -114,31 +110,30 @@ input
   font-size: 10pt;
   text-transform: uppercase;
 }
-label{
+label {
   position: relative;
   left: 0.5rem;
   font-size: 9pt;
 }
 
 @media only screen and (max-width: 900px) {
-  .inputs_wrapper{
+  .inputs_wrapper {
     display: block;
   }
-  .left_inputs{
+  .left_inputs {
     width: 100%;
   }
-  .right_inputs{
+  .right_inputs {
     width: 100%;
   }
-input,
-select,
-textarea {
- margin-bottom: 5px;
-}
-.submit_wrapper input {
-  margin: 0.8rem;
-  font-size: 9pt;
-
-}
+  input,
+  select,
+  textarea {
+    margin-bottom: 5px;
+  }
+  .submit_wrapper input {
+    margin: 0.8rem;
+    font-size: 9pt;
+  }
 }
 </style>

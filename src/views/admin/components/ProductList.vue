@@ -9,7 +9,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3500/products/getall")
+      .get(import.meta.env.VITE_API_URL + "/products/getall")
       .then((response) => (this.products = response.data));
   },
 };
@@ -60,10 +60,9 @@ thead {
   position: sticky;
   top: 0;
 }
-tbody{
-
+tbody {
 }
-tr{
+tr {
   height: 30px;
 }
 th,

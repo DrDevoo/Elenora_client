@@ -17,7 +17,8 @@ export default {
     submitSave() {
       axios
         .post(
-          "http://localhost:3500/collections/add/" +
+          import.meta.env.VITE_API_URL +
+            "/collections/add/" +
             this.form.collection_name +
             "/" +
             this.form.collection_type +
@@ -58,6 +59,8 @@ export default {
             <option disabled selected>Kollekció neme</option>
             <option value="female">Női</option>
             <option value="male">Férfi</option>
+            <option value="unisex">Férfi és Női</option>
+            <option value="couple">Páros</option>
           </select>
         </div>
       </div>
@@ -74,7 +77,7 @@ export default {
 
 <style scoped>
 .addcolection {
-    padding: 1rem;
+  padding: 1rem;
   border-radius: 24px;
   background: #ffffff;
   box-shadow: 5px 5px 13px #bdbdbd, -5px -5px 13px #ffffff;
@@ -111,30 +114,29 @@ select {
   font-size: 9pt;
   text-transform: uppercase;
 }
-label{
+label {
   position: relative;
   left: 0.5rem;
   font-size: 9pt;
 }
 @media only screen and (max-width: 900px) {
-  .input_wrapper{
+  .input_wrapper {
     display: block;
   }
-  .left_inputs{
+  .left_inputs {
     width: 100%;
   }
-  .right_inputs{
+  .right_inputs {
     width: 100%;
   }
   .left_inputs input,
-select,
-textarea {
- margin-bottom: 5px;
-}
-.submit_wrapper input {
-  margin: 0.8rem;
-  font-size: 9pt;
-
-}
+  select,
+  textarea {
+    margin-bottom: 5px;
+  }
+  .submit_wrapper input {
+    margin: 0.8rem;
+    font-size: 9pt;
+  }
 }
 </style>

@@ -15,6 +15,7 @@ export default {
       },
       file: "",
       collections: [],
+      items: [],
     };
   },
   methods: {
@@ -23,7 +24,8 @@ export default {
       formData.append("file", this.file);
       axios
         .post(
-          "http://localhost:3500/products/add/" +
+          import.meta.env.VITE_API_URL +
+            "/products/add/" +
             this.form.prod_name +
             "/" +
             this.form.prod_collection +
@@ -57,8 +59,12 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3500/collections/getall")
+      .get(import.meta.env.VITE_API_URL + "/collections/getall")
       .then((response) => (this.collections = response.data));
+
+    axios
+      .get(import.meta.env.VITE_API_URL + "/inventory/getall")
+      .then((response) => (this.items = response.data));
   },
 };
 </script>
@@ -76,7 +82,11 @@ export default {
           />
           <br />
           <label for="kollekcio">Kollekció</label>
-          <select name="kollekcio" id="kollekcio" v-model="form.prod_collection">
+          <select
+            name="kollekcio"
+            id="kollekcio"
+            v-model="form.prod_collection"
+          >
             <option disabled selected>Kollekció</option>
             <option
               v-for="item in collections"
@@ -85,6 +95,7 @@ export default {
             >
               {{ item.col_name }}
             </option>
+            <option value="none">Nincs</option>
           </select>
           <br />
           <label for="">Ára</label>
@@ -114,15 +125,31 @@ export default {
           <label for="colors">Színei</label>
           <select name="colors" id="colors" multiple v-model="form.prod_colors">
             <option disabled selected>Termék színei</option>
+            <option value="white">fehér</option>
+            <option value="black">fekete</option>
+            <option value="blue">kék</option>
             <option value="red">piros</option>
-            <option value="blue">kek</option>
+            <option value="green">zöld</option>
+            <option value="brown">barna</option>
+            <option value="gold">arany</option>
+            <option value="purple">lila</option>
           </select>
           <br />
           <label for="gyoongyok">Gyöngyei</label>
-          <select name="gyoongyok" id="gyoongyok" multiple v-model="form.prod_pears">
+          <select
+            name="gyoongyok"
+            id="gyoongyok"
+            multiple
+            v-model="form.prod_pears"
+          >
             <option disabled selected>Termék gyöngyei</option>
-            <option value="japis">jaspis</option>
-            <option value="tigris">tigris</option>
+            <option
+              v-for="item in items"
+              :key="item._id"
+              :value="item.item_name"
+            >
+              {{ item.item_name }}
+            </option>
           </select>
         </div>
         <div class="right_inputs">
@@ -199,31 +226,30 @@ textarea {
   font-size: 10pt;
   text-transform: uppercase;
 }
-label{
+label {
   position: relative;
   left: 0.5rem;
   font-size: 9pt;
 }
 
 @media only screen and (max-width: 900px) {
-  .inputs_wrapper{
+  .inputs_wrapper {
     display: block;
   }
-  .left_inputs{
+  .left_inputs {
     width: 100%;
   }
-  .right_inputs{
+  .right_inputs {
     width: 100%;
   }
   .left_inputs input,
-select,
-textarea {
- margin-bottom: 5px;
-}
-.submit_wrapper input {
-  margin: 0.8rem;
-  font-size: 9pt;
-
-}
+  select,
+  textarea {
+    margin-bottom: 5px;
+  }
+  .submit_wrapper input {
+    margin: 0.8rem;
+    font-size: 9pt;
+  }
 }
 </style>

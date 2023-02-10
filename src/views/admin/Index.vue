@@ -8,31 +8,32 @@ export default {
   },
   methods: {
     async login() {
-      const response = await fetch("http://91.227.139.20:3900/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: this.username,
-          password: this.password,
-        }),
-      });
-      const status = await response.status
-      console.log(status)
-      if(status == "200"){
-        const { user, token } = await response.json();  
+      const response = await fetch(
+        import.meta.env.VITE_API_URL + "/admin/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: this.username,
+            password: this.password,
+          }),
+        }
+      );
+      const status = await response.status;
+      console.log(status);
+      if (status == "200") {
+        const { user, token } = await response.json();
         localStorage.name = user.name;
         this.$router.push("/admin/dashboard");
-      }else{
-        alert("Hibas felhasználónév vagy jelszó!")
+      } else {
+        alert("Hibas felhasználónév vagy jelszó!");
       }
-
     },
   },
 };
 </script>
-
 
 <template>
   <main>

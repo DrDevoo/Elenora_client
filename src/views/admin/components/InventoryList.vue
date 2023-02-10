@@ -5,17 +5,46 @@ export default {
   data() {
     return {
       items: [],
+      e_id: null,
+      e_name: null,
+      e_quan: null,
+      e_open: false,
+      item_newquatity: null,
+      new: null,
     };
   },
   mounted() {
     axios
-      .get("http://localhost:3500/inventory/getall")
+      .get(import.meta.env.VITE_API_URL + "/inventory/getall")
       .then((response) => (this.items = response.data));
+  },
+  methods: {
+    edit(id, name, quan) {
+      this.e_open = !this.e_open;
+      this.e_quan = quan;
+      this.e_name = name;
+      this.e_id = id;
+    },
+    submitEdit() {
+      this.new = this.e_quan + this.item_newquatity;
+      console.log(this.new);
+
+      this.e_open = false
+    },
   },
 };
 </script>
 
 <template>
+  <section class="edit_s" v-if="e_open">
+    <h3>
+      Mennyiség módosítása: <i>{{ e_name }}</i>
+    </h3>
+    <p>Jelenlegi mennyiség: {{ e_quan }}</p>
+    <label for="">Mennyivel módosítod</label>
+    <input type="number" placeholder="db" v-model="item_newquatity" />
+    <button v-on:click="submitEdit()">mentés</button>
+  </section>
   <section class="listprod">
     <table cellspacing="0" cellpadding="0">
       <thead>
@@ -24,6 +53,7 @@ export default {
           <th>Darab</th>
           <th>Karkötő</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -31,7 +61,13 @@ export default {
           <td>{{ item.item_name }}</td>
           <td>{{ item.item_quantity }}</td>
           <td>0</td>
-          <td class="addbtn">+ /-</td>
+          <td
+            class="addbtn"
+            @click="edit(item._id, item.item_name, item.item_quantity)"
+          >
+            + /-
+          </td>
+          <td class="addbtn">...</td>
         </tr>
       </tbody>
     </table>
@@ -54,6 +90,17 @@ export default {
   width: 100%;
   top: -8rem;
 }
+.edit_s {
+  position: relative;
+  top: 0;
+  width: 100%;
+  top: -6rem;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 5px 5px 13px #bdbdbd, -5px -5px 13px #ffffff;
+  width: 100%;
+  padding: 0.5rem;
+}
 table {
   border-radius: 24px;
   background: #ffffff;
@@ -67,10 +114,9 @@ thead {
   position: sticky;
   top: 0;
 }
-tbody{
-
+tbody {
 }
-tr{
+tr {
   height: 30px;
 }
 th,
