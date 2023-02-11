@@ -17,7 +17,7 @@ export default {
   <h1 class="title">Statisztikák</h1>
   <main>
     <section class="number_s_w">
-      <div class="box b4">
+      <div class="box b1">
         <div class="data_b">
           <h3>12</h3>
           <p>Heti rendelés</p>
@@ -26,7 +26,7 @@ export default {
           <ion-icon class="icon" name="bag-outline"></ion-icon>
         </div>
       </div>
-      <div class="box b1">
+      <div class="box b2">
         <div class="data_b">
           <h3>116</h3>
           <p>Összes rendelés</p>
@@ -35,7 +35,7 @@ export default {
           <ion-icon class="icon" name="bag-check-outline"></ion-icon>
         </div>
       </div>
-      <div class="box b2">
+      <div class="box b3">
         <div class="data_b">
           <h3>2</h3>
           <p>Aktív kampányok</p>
@@ -44,7 +44,7 @@ export default {
           <ion-icon class="icon" name="bar-chart-outline"></ion-icon>
         </div>
       </div>
-      <div class="box b3">
+      <div class="box b4">
         <div class="data_b">
           <h3>92.000 Ft</h3>
           <p>Heti bevétel</p>
@@ -59,6 +59,7 @@ export default {
 
 <style scoped>
 .number_s_w {
+  top: -5rem;
   display: flex;
   gap: 1.6rem;
   flex-wrap: wrap;
@@ -66,7 +67,7 @@ export default {
 }
 .number_s_w .box {
   display: flex;
-  width: 23%;
+  width: 46%;
   height: 150px;
   border-radius: 29px;
   box-shadow: 5px 5px 24px #d6d6d6, -5px -5px 24px #ffffff;
@@ -137,8 +138,6 @@ main {
 }
 
 @media only screen and (max-width: 900px) {
-  .box {
-    width: 49%;
-  }
+  
 }
 </style>
