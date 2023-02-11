@@ -8,16 +8,17 @@ import { RouterLink, RouterView } from "vue-router";
 export default {
   data: () => {
     return {
-      products: [],
+      response: [],
       filter: false,
-      imgurl: "http://localhost:3500/getimage/",
+      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       linkurl: "/shop/picked?id=",
+      count: 0,
     };
   },
   mounted() {
     axios
-      .get("http://localhost:3500/products/getall")
-      .then((response) => (this.products = response.data));
+      .get(import.meta.env.VITE_API_URL + "/products/getall")
+      .then((response) => (this.response = response.data));
   },
 };
 </script>
@@ -222,11 +223,11 @@ section {
     justify-content: center;
   }
   .item-list a {
-  text-decoration: none;
-  color: black;
-  width: 46%;
-  box-sizing: border-box;
-}
+    text-decoration: none;
+    color: black;
+    width: 46%;
+    box-sizing: border-box;
+  }
   aside {
     padding: 1rem;
     left: 5%;
@@ -307,7 +308,7 @@ section {
       <h1 class="picked-t">Összes karkötő</h1>
       <div class="list-header">
         <div>
-          <p class="prod-count">0 termék</p>
+          <p class="prod-count">{{ response.count }} termék</p>
         </div>
         <div @click="filter = !filter">
           <p class="rendezes">
@@ -318,7 +319,7 @@ section {
       <div class="item-list">
         <RouterLink
           :to="this.linkurl + item._id"
-          v-for="item in products"
+          v-for="item in response.products"
           :key="item._id"
         >
           <div class="item">
