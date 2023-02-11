@@ -2,7 +2,7 @@
 import axios from "axios";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink } from "vue-router";
 </script>
 <script>
 export default {
@@ -318,12 +318,12 @@ section {
       </div>
       <div class="item-list">
         <RouterLink
-          :to="this.linkurl + item._id"
           v-for="item in response.products"
+          :to="linkurl + item._id"
           :key="item._id"
         >
           <div class="item">
-            <img :src="this.imgurl + item.image" />
+            <img :src="imgurl + item.image" />
             <div class="text">
               <h3>{{ item.prodname }}</h3>
               <h4>{{ item.price }} Ft</h4>
