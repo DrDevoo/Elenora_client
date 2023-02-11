@@ -40,6 +40,9 @@ export default {
     <RouterLink to="/admin/collections"><h3 class="link">Kollekciók</h3></RouterLink>
     <RouterLink to="/admin/sales"><h3 class="link">Akciók/Kuponok</h3></RouterLink>
     <RouterLink to="/admin/inventory"><h3 class="link">Készlet</h3></RouterLink>
+    <RouterLink to="/admin/inventory"><h3 class="link">Beállítások</h3></RouterLink>
+    <RouterLink to="/admin/inventory"><h3 class="link">Hírlevél</h3></RouterLink>
+    <RouterLink to="/admin/inventory"><h3 class="link">Marketing</h3></RouterLink>
   </section>
 </template>
 
@@ -57,6 +60,8 @@ header {
   align-items: center;
   padding-left: 10px;
   padding-right: 10px;
+  height: 100%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.524);
 }
 .ham_icon {
   font-size: 20pt;
@@ -78,10 +83,13 @@ header {
   box-shadow: 5px 5px 13px #bdbdbd, -5px -5px 13px #ffffff;
 }
 .menu a {
+  height: 45px;
   text-decoration: none;
   color: black;
 }
-
+.menu a h3{
+  line-height: 0px;
+}
 .menu_icon {
   font-size: 25pt;
   color: black;

@@ -114,7 +114,7 @@ export default {
           ></textarea>
           <br />
           <label for="Neme">Kategória</label>
-          <select name="Neme" id="Neme" v-model="form.prod_gender">
+          <select name="Neme" id="Neme" v-model="form.prod_categ">
             <option disabled selected>Termék neme</option>
             <option value="female">Női</option>
             <option value="male">Férfi</option>

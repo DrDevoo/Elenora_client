@@ -10,13 +10,13 @@ export default {
     return {
       products: [],
       filter: false,
-      imgurl: "http://localhost:3500/getimage/",
+      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       linkurl: "/shop/picked?id=",
     };
   },
   mounted() {
     axios
-      .get("http://localhost:3500/products/getall")
+      .get(import.meta.env.VITE_API_URL + "/products/getall")
       .then((response) => (this.products = response.data));
   },
 };

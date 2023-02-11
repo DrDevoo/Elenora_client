@@ -1,17 +1,24 @@
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       showMenu: false,
       showCart: false,
+      header_title: null,
     };
+  },
+  mounted() {
+    axios
+      .get(import.meta.env.VITE_API_URL + "/settings/get/header_title")
+      .then((response) => (this.header_title = response.data));
   },
 };
 </script>
 
 <template>
   <div class="info">
-    <div>A mai napon kedvezény van a Tavaszi kollekcióra!</div>
+    <div>{{ this.header_title }}</div>
   </div>
   <header>
     <div class="header_wrapper">
