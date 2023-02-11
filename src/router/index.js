@@ -115,6 +115,21 @@ const router = createRouter({
       name: "admin_inventory",
       component: () => import("../views/admin/Inventory.vue"),
     },
+    {
+      path: "/admin/mail",
+      name: "admin_mail",
+      component: () => import("../views/admin/Mail.vue"),
+    },
+    {
+      path: "/admin/settings",
+      name: "admin_settings",
+      component: () => import("../views/admin/Settings.vue"),
+    },
+    {
+      path: "/admin/marketing",
+      name: "admin_marketing",
+      component: () => import("../views/admin/Marketing.vue"),
+    },
   ],
 });
 

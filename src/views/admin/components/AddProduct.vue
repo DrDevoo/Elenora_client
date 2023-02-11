@@ -52,6 +52,11 @@ export default {
         .catch(function () {
           console.log("FAILURE!!");
         });
+      this.form.prod_categ = null;
+      this.form.prod_name = null;
+      this.form.prod_price = null;
+      this.form.prod_description = null;
+      this.form.prod_collection = null;
     },
     handleFileUpload() {
       this.file = this.$refs.file.files[0];

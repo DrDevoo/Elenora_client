@@ -75,6 +75,7 @@ export default {
 </template>
 
 <style scoped>
+
 .addbtn {
   background-color: lightcoral;
   border-radius: 5px;

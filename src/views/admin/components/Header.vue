@@ -40,9 +40,9 @@ export default {
     <RouterLink to="/admin/collections"><h3 class="link">Kollekciók</h3></RouterLink>
     <RouterLink to="/admin/sales"><h3 class="link">Akciók/Kuponok</h3></RouterLink>
     <RouterLink to="/admin/inventory"><h3 class="link">Készlet</h3></RouterLink>
-    <RouterLink to="/admin/inventory"><h3 class="link">Beállítások</h3></RouterLink>
-    <RouterLink to="/admin/inventory"><h3 class="link">Hírlevél</h3></RouterLink>
-    <RouterLink to="/admin/inventory"><h3 class="link">Marketing</h3></RouterLink>
+    <RouterLink to="/admin/settings"><h3 class="link">Beállítások</h3></RouterLink>
+    <RouterLink to="/admin/mail"><h3 class="link">Hírlevél</h3></RouterLink>
+    <RouterLink to="/admin/marketing"><h3 class="link">Marketing</h3></RouterLink>
   </section>
 </template>
 
