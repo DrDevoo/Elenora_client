@@ -1,4 +1,5 @@
 <script setup>
+import axios from "axios";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { RouterLink, RouterView } from "vue-router";
@@ -10,7 +11,18 @@ export default {
       showB1: true,
       showB2: false,
       showB3: false,
+      response: [],
+      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
     };
+  },
+  mounted() {
+    axios
+      .get(
+        import.meta.env.VITE_API_URL +
+          "/products/getbyid/" +
+          this.$route.query.id
+      )
+      .then((response) => (this.response = response.data));
   },
 };
 </script>
@@ -23,16 +35,16 @@ export default {
         <div>
           <img
             class="pickedimg"
-            src="../../assets/images/webp/IMG_1720.webp"
+            :src="imgurl + response.image"
             alt="Termék képe"
           />
         </div>
       </setion>
       <setion class="texts-s">
         <div class="texts-b">
-          <h1>Fekete Jáspis Ásvány karkötő</h1>
-          <h3>Férfi - 3490 Ft</h3>
-          <p>Ez a karkötő nagyon férfias minden ruhához jól viselhető.</p>
+          <h1>{{ response.prodname }}</h1>
+          <h3>{{ response.categ }} - {{ response.price }} Ft</h3>
+          <p>{{ response.description }}</p>
         </div>
         <div class="input-b">
           <div class="selects-b">
@@ -67,8 +79,7 @@ export default {
           </div>
           <div v-if="showB1" class="text-b">
             <p>
-              Egy valami hosszabb leira s az adott termekrol hogy milyen jo es
-              milyen hatasai vannak ennek a gyongynek stb
+              {{ response.description }}
             </p>
           </div>
         </div>
@@ -116,12 +127,12 @@ export default {
 body {
   margin: 0;
   padding: 0;
+  display: block;
 }
 
 .top-s {
   height: 100vh;
   width: 100%;
-  display: flex;
   position: relative;
 }
 
@@ -205,7 +216,6 @@ body {
     top: 0;
     height: fit-content;
     width: 100%;
-    display: block;
   }
 
   .images-s {
