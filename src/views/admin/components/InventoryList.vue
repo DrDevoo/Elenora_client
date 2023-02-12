@@ -75,6 +75,7 @@ export default {
           <th>Karkötő</th>
           <th></th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -88,6 +89,7 @@ export default {
           >
             + /-
           </td>
+          <td>•</td>
           <td class="addbtn">...</td>
         </tr>
       </tbody>
@@ -105,6 +107,7 @@ export default {
   height: 90%;
   font-weight: bold;
   cursor: pointer;
+  min-width: 30px;
 }
 .listprod {
   position: relative;

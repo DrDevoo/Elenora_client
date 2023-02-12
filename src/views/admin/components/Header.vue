@@ -48,11 +48,12 @@ export default {
 
 <style scoped>
 .header {
-  position: relative;
+  z-index: 20;
+  position: sticky;
   top: 0;
   width: 100%;
   height: 40px;
-  background-color: rgba(255, 160, 122, 0.274);
+  background-color: rgb(255, 215, 199);
 }
 header {
   display: flex;

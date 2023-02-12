@@ -18,7 +18,7 @@ export default {
 
 <template>
   <div class="info">
-    <div>{{ this.header_title }}</div>
+    <div v-for="item in header_title" :key="item._id">{{ item.value }}</div>
   </div>
   <header>
     <div class="header_wrapper">
@@ -63,9 +63,7 @@ export default {
       <RouterLink to="/shop/sales"
         ><h3 class="link">Akciós karkötők</h3></RouterLink
       >
-      <RouterLink to="/shop"
-        ><h3 class="link">Összes karkötő</h3></RouterLink
-      >
+      <RouterLink to="/shop"><h3 class="link">Összes karkötő</h3></RouterLink>
       <h3 class="linktitle">Kiegészítők</h3>
       <RouterLink to="/shop/accessories"
         ><h3 class="link">Kulcstartók</h3></RouterLink

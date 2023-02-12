@@ -16,6 +16,7 @@ export default {
       file: "",
       collections: [],
       items: [],
+      pearls_count: 1,
     };
   },
   methods: {
@@ -86,6 +87,21 @@ export default {
             placeholder="Termék neve"
           />
           <br />
+          <label for="">Ára</label>
+          <input
+            type="text"
+            placeholder="Termék ára"
+            v-model="form.prod_price"
+          />
+          <br />
+          <label for="">Leírása</label>
+          <textarea
+            v-model="form.prod_description"
+            placeholder="Termék leírása"
+            cols="30"
+            rows="4"
+          ></textarea>
+          <br />
           <label for="kollekcio">Kollekció</label>
           <select
             name="kollekcio"
@@ -103,21 +119,6 @@ export default {
             <option value="none">Nincs</option>
           </select>
           <br />
-          <label for="">Ára</label>
-          <input
-            type="text"
-            placeholder="Termék ára"
-            v-model="form.prod_price"
-          />
-          <br />
-          <label for="">Leírása</label>
-          <textarea
-            v-model="form.prod_description"
-            placeholder="Termék leírása"
-            cols="30"
-            rows="4"
-          ></textarea>
-          <br />
           <label for="Neme">Kategória</label>
           <select name="Neme" id="Neme" v-model="form.prod_categ">
             <option disabled selected>Termék neme</option>
@@ -132,33 +133,70 @@ export default {
             <option disabled selected>Termék színei</option>
             <option value="white">fehér</option>
             <option value="black">fekete</option>
+            <option value="gray">szürke</option>
             <option value="blue">kék</option>
             <option value="red">piros</option>
             <option value="green">zöld</option>
             <option value="brown">barna</option>
-            <option value="gold">arany</option>
+            <option value="yellow">sárga</option>
             <option value="purple">lila</option>
-          </select>
-          <br />
-          <label for="gyoongyok">Gyöngyei</label>
-          <select
-            name="gyoongyok"
-            id="gyoongyok"
-            multiple
-            v-model="form.prod_pears"
-          >
-            <option disabled selected>Termék gyöngyei</option>
-            <option
-              v-for="item in items"
-              :key="item._id"
-              :value="item.item_name"
-            >
-              {{ item.item_name }}
-            </option>
+            <option value="pink">rózsaszín</option>
           </select>
         </div>
         <div class="right_inputs">
-          <div>
+          <div class="pearls_t_w">
+            <table class="pears-t">
+              <tr>
+                <th>Gyöngy</th>
+                <th>XS</th>
+                <th>S</th>
+                <th>M</th>
+                <th>L</th>
+                <th>XL</th>
+                <th>XXL</th>
+              </tr>
+              <tr v-for="n in this.pearls_count" :key="n">
+                <td>
+                  <select
+                    name="gyongy"
+                    id="gyongy"
+                    v-model="form.prod_collection"
+                  >
+                    <option
+                      v-for="item in items"
+                      :key="item._id"
+                      :value="item.item_name"
+                    >
+                      {{ item.item_name }}
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <input type="number" min="0" value="0" />
+                </td>
+                <td>
+                  <input type="number" min="0" value="0" />
+                </td>
+                <td>
+                  <input type="number" min="0" value="0" />
+                </td>
+                <td>
+                  <input type="number" min="0" value="0" />
+                </td>
+                <td>
+                  <input type="number" min="0" value="0" />
+                </td>
+                <td>
+                  <input type="number" min="0" value="0" />
+                </td>
+              </tr>
+            </table>
+            <div class="flex">
+              <p class="add_p" v-on:click="this.pearls_count += 1">+ gyöngy</p>
+              <p class="add_p" v-on:click="this.pearls_count -= 1">- gyöngy</p>
+            </div>
+          </div>
+          <div class="file_w">
             <input
               type="file"
               id="file"
@@ -176,6 +214,13 @@ export default {
 </template>
 
 <style scoped>
+.pears-t {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+td input {
+  width: 50px;
+}
 .addprod {
   padding-bottom: 1rem;
   position: relative;
@@ -209,16 +254,37 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
 }
-.right_inputs div {
-  background-color: rgba(255, 160, 122, 0.436);
+.flex {
+  display: flex;
+  gap: 5px;
+}
+.file_w{
+    background-color: rgba(255, 160, 122, 0.436);
   width: 90%;
-  height: 90%;
+  height: 23%;
   padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 20px;
+}
+.pearls_t_w {
+  background-color: rgba(255, 160, 122, 0.436);
+  width: 90%;
+  height: 63%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  flex-direction: column;
+}
+.add_p {
+  background-color: lightsalmon;
+  border-radius: 10px;
+  padding: 5px;
 }
 .submit_wrapper input {
   background-color: lightsalmon;
