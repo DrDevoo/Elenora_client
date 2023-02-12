@@ -27,8 +27,29 @@ export default {
     },
     submitEdit() {
       this.new = this.e_quan + this.item_newquatity;
-      console.log(this.new);
-
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/inventory/update/" +
+            this.e_name +
+            "/" +
+            this.new,
+              this.e_name,
+            {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(function () {
+          console.log("SUCCESS!!");
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        })
+        axios
+      .get(import.meta.env.VITE_API_URL + "/inventory/getall")
+      .then((response) => (this.items = response.data));
       this.e_open = false
     },
   },
