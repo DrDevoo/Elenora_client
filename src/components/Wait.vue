@@ -5,7 +5,7 @@
       <h1>Megújulunk!</h1>
       <h2>
         Hamarosan újra nyitunk és a megújult webáruházunkban várunk új
-        kollekciókat, karkötőkkel és kiegészítőkkel.
+        kollekciókkal, karkötőkkel és kiegészítőkkel.
       </h2>
       <div class="clock_b">
         <p class="time" id="d">00</p>
