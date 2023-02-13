@@ -20,97 +20,61 @@ section {
   margin-bottom: 5rem;
 }
 
-.top {
-  display: flex;
-  position: relative;
-  top: -4rem;
-}
-
-.s-left {
-  width: 50%;
-  height: 100vh;
-  padding: 1rem;
+.kategoriak {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
-
-.s-left a {
-  text-decoration: none;
-  color: rgb(28, 28, 28);
+.kategoriak h1{
+  font-weight: 300;
 }
-
-.s-left a h6 {
-  border-radius: 10px;
-  border: 1px solid rgb(116, 116, 116);
-  padding: 10px;
-  width: fit-content;
-  font-size: large;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.s-left h1 {
-  font-size: 5vw;
-}
-
-.s-right {
-  width: 50%;
-  height: 103vh;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.465);
-}
-
-.s-right img {
-  width: 100%;
-  height: 100%;
-}
-
-.kategoriak {
+.kategoriak .boxes {
   display: flex;
   justify-content: space-evenly;
 }
-.kategoriak .box {
+.kategoriak .boxes .box {
   width: 22%;
   aspect-ratio: 1/1;
+  height: fit-content;
   border-radius: 4px;
-}
+  position: relative;
+  text-align: center;
 
-.kategoriak .box img {
+}
+.kategoriak .boxes .box img {
   width: 100%;
   transition: all 0.5s ease;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0px 0px 5px rgba(41, 41, 41, 0.606);
 }
-
-.kategoriak .box h1 {
-  position: relative;
-  bottom: 24rem;
-  text-align: center;
-}
-.kategoriak .box a {
-  position: relative;
-  bottom: 10rem;
-  text-align: center;
-}
-.kategoriak .box img:hover {
-  filter: blur(3px);
-}
-
-.kategoriak .box a {
-  text-decoration: none;
-  color: white;
-}
-.kategoriak .box h1 {
+.kategoriak .boxes .box h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: white;
   letter-spacing: 2px;
   font-weight: 400;
   font-size: 25pt;
 }
+.kategoriak .boxes .box a {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.kategoriak .box img:hover {
+  filter: blur(3px);
+}
+
 
 .item-list {
   display: flex;
   gap: 1rem;
   justify-content: center;
 }
-
 .item {
   width: 18%;
 }
@@ -127,12 +91,16 @@ section {
   line-height: 1px;
   font-weight: 300;
 }
-
 .item p {
   line-height: 1px;
   font-weight: 200;
 }
 
+
+.kiemeltek {
+  background-color: rgba(252, 128, 101, 0.879);
+  box-shadow: 0px 0px 30px rgb(252, 129, 101);
+}
 .kiemelt-header {
   display: flex;
   justify-content: space-between;
@@ -140,7 +108,6 @@ section {
   padding-left: 2rem;
   padding-right: 2rem;
 }
-
 .kiemelt-header a {
   text-decoration: none;
   color: rgb(28, 28, 28);
@@ -196,161 +163,39 @@ section {
   padding-left: 2rem;
   padding-right: 2rem;
 }
-
 .instagram a {
   text-decoration: none;
   color: gray;
 }
 
-.linear {
-  height: 100px;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0),
-    rgb(255, 255, 255)
-  );
-  position: relative;
-  z-index: 9;
-  top: -6.1rem;
-}
-
-.top_mobile {
-  height: 100vh;
-  width: 100%;
-  position: relative;
-  top: -3rem;
-  display: none;
-}
-
-.top_mobile img {
-  width: 100%;
-  height: 500px;
-}
-
-.top_mobile h1 {
-  text-align: center;
-  position: relative;
-  bottom: 10rem;
-  z-index: 10;
-}
-.top_mobile a {
-  text-decoration: none;
-  color: rgb(28, 28, 28);
-  position: relative;
-  z-index: 9;
-  top: -10.5rem;
-  display: flex;
-  justify-content: center;
-}
-.top_mobile a h6 {
-  border-radius: 10px;
-  border: 1px solid rgb(116, 116, 116);
-  padding: 10px;
-  width: fit-content;
-  font-size: large;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.slideshow-container {
-  width: 100%;
-  height: 50vh;
-  position: relative;
-  margin: auto;
-}
-
-.fade {
-  animation: fade 3s;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0.7;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.slideshow-container-mobile {
-  width: 100%;
-  height: 60vh;
-}
-
-.fade-m {
-  animation: fadem 3s;
-  width: 100%;
-  height: 100px;
-}
-.fade-m img {
-  width: 100%;
-  height: 100px;
-}
-
-@keyframes fadem {
-  from {
-    opacity: 0.7;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @media only screen and (max-width: 1000px) {
+  .kategoriak .boxes{
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .kategoriak .boxes .box{
+    width: 40%;
+  }
+
   .miketnyujtunk .list {
     flex-wrap: wrap;
   }
   .item-ny {
     width: 40%;
   }
-  .kategoriak {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4rem;
-    top: 0;
-  }
-  .kategoriak .box {
-    border-radius: 5px;
-    width: 90%;
-    height: fit-content;
-    aspect-ratio: 1/1;
-  }
-  .kategoriak .box div {
-    width: 100%;
-    height: 100%;
-    height: fit-content;
-    position: relative;
-    top: 10rem;
-  }
-  .kategoriak .box img {
-    border-radius: 5px;
-    width: 100%;
-    height: 100%;
-  }
+  
   .item-list {
     flex-wrap: wrap;
   }
   .item {
     width: 40%;
   }
-  .top {
-    display: none;
-  }
-  .top_mobile {
-    display: block;
-  }
-  section {
-    position: relative;
-    top: -8rem;
-  }
+
 }
 
-.services {
-  top: -27px;
-  width: 100%;
-  height: 100px;
-  background-color: rgba(240, 128, 128, 0.146);
-}
+
 </style>
 
 <template>
@@ -359,66 +204,55 @@ section {
     <Slider />
     <section class="kategoriak">
       <h1>Kollekciók</h1>
-      <div class="box">
-        <img src="../assets/images/webp/IMG_1721.webp" alt="" />
-        <div>
+      <div class="boxes">
+        <div class="box">
+          <img src="../assets/images/webp/5.webp" alt="" />
           <h1>Férfi karkötők</h1>
         </div>
-      </div>
-      <div class="box">
-        <img src="../assets/images/webp/IMG_1721.webp" alt="" />
-        <div>
+        <div class="box">
+          <img src="../assets/images/webp/4.webp" alt="" />
           <h1>Női karkötők</h1>
         </div>
-      </div>
-      <div class="box">
-        <img src="../assets/images/webp/IMG_1746.webp" alt="" />
-        <div>
+        <div class="box">
+          <img src="../assets/images/webp/1.webp" alt="" />
           <h1>Páros karkötők</h1>
         </div>
-      </div>
-      <div class="box">
-        <img src="../assets/images/webp/IMG_1721.webp" alt="" />
-        <div>
+        <div class="box">
+          <img src="../assets/images/webp/6.webp" alt="" />
           <h1>Akciós karkötők</h1>
         </div>
       </div>
     </section>
     <section class="kiemeltek">
       <div class="kiemelt-header">
-        <h3>Ezeket ajanluk</h3>
-        <a href=""><h5>Megnezem</h5></a>
+        <h3>Ezeket is nézd meg!</h3>
+        <a href=""><h5>Megnézem</h5></a>
       </div>
       <div class="item-list">
         <div class="item">
-          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
+          <img src="../assets/images/webp/1.webp" />
           <h2>kristalycsoda</h2>
           <p>2222 FT</p>
         </div>
         <div class="item">
-          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
+          <img src="../assets/images/webp/1.webp" />
           <h2>kristalycsoda</h2>
           <p>2222 FT</p>
         </div>
         <div class="item">
-          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
+          <img src="../assets/images/webp/1.webp" />
           <h2>kristalycsoda</h2>
           <p>2222 FT</p>
         </div>
         <div class="item">
-          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
-          <h2>kristalycsoda</h2>
-          <p>2222 FT</p>
-        </div>
-        <div class="item">
-          <img src="../assets/images/webp/IMG_1746.webp" alt="" />
+          <img src="../assets/images/webp/1.webp" />
           <h2>kristalycsoda</h2>
           <p>2222 FT</p>
         </div>
       </div>
     </section>
     <section class="miketnyujtunk">
-      <h2>Miket tudunk nyujtani</h2>
+      <h2>Miket tudunk nyújtani</h2>
       <div class="list">
         <div class="item-ny">
           <div class="nyujtani-title">

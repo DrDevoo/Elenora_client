@@ -85,17 +85,29 @@ export default {
   <div class="slider-wrapper">
     <div class="slides">
       <div class="slide active">
-        <img src="../assets/images/webp/IMG_1720.webp"/>
+        <img src="../assets/images/webp/1.webp" />
+        <h2>Páros karkötő</h2>
+        <p>Oszd meg ásvány karkötődet barátoddal, pároddal</p>
       </div>
       <div class="slide">
-        <img src="../assets/images/webp/IMG_1721.webp"/>
+        <img src="../assets/images/webp/2.webp" />
+        <h2>Változatosság</h2>
+        <p>Válassz olyan karkötőt amiben megmutatkozik a sok színűséged</p>
       </div>
       <div class="slide">
-        <img src="../assets/images/webp/IMG_1746.webp"/>
+        <img src="../assets/images/webp/3.webp" />
+        <h2>Elegáns</h2>
+        <p>Hord egy ünnepélyes eseményhez, egészítse ki az öltözéked</p>
+      </div>
+      <div class="slide">
+        <img src="../assets/images/webp/4.webp" />
+        <h2>Mindennapokban</h2>
+        <p>Viseld a szürke hétköznapokban, hogy feldobják a kedved</p>
       </div>
     </div>
     <div class="controls">
       <button class="button active"></button>
+      <button class="button"></button>
       <button class="button"></button>
       <button class="button"></button>
     </div>
@@ -117,7 +129,29 @@ export default {
   opacity: 1;
   z-index: 1;
   color: #000;
+  text-align: center;
 }
+.slide h2{
+  color: white;
+  letter-spacing: 3px;
+  font-size: 30pt;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.535));
+}
+.slide p{
+  color: white;
+  letter-spacing: 3px;
+  font-size: 20pt;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.535));
+  transform: translate(-50%, -50%);
+}
+
 .slide img{
     width: 100%;
     height: 100%;

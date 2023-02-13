@@ -5,6 +5,8 @@ export default {
     return {
       showMenu: false,
       showCart: false,
+      showSearch: false,
+      showWish: false,
       header_title: "null",
     };
   },
@@ -26,7 +28,9 @@ export default {
         <a @click="showMenu = !showMenu"
           ><ion-icon name="menu-outline"></ion-icon
         ></a>
-        <ion-icon name="search-outline"></ion-icon>
+        <a @click="showSearch = !showSearch">
+          <ion-icon name="search-outline"></ion-icon>
+        </a>
       </div>
       <div>
         <RouterLink to="/"
@@ -34,7 +38,7 @@ export default {
         /></RouterLink>
       </div>
       <div>
-        <a href="javascript:void(0);" onclick="cartV()"
+        <a @click="showWish = !showWish"
           ><ion-icon name="heart-outline"></ion-icon
         ></a>
         <a @click="showCart = !showCart"
@@ -83,6 +87,18 @@ export default {
       ><ion-icon name="close-outline"></ion-icon
     ></a>
     <h1>Kosár (0)</h1>
+  </section>
+  <section v-if="showWish" class="cart_wrapper" id="cartBtn">
+    <a @click="showWish = !showWish"
+      ><ion-icon name="close-outline"></ion-icon
+    ></a>
+    <h1>Kívánságaim (0)</h1>
+  </section>
+  <section v-if="showSearch" class="menu_wrapper" id="cartBtn">
+    <a @click="showSearch = !showSearch"
+      ><ion-icon name="close-outline"></ion-icon
+    ></a>
+    <h1>Keresés</h1>
   </section>
 </template>
 
