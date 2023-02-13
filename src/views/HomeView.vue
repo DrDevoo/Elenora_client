@@ -4,14 +4,6 @@ import Footer from "../components/Footer.vue";
 import Slider from "../components/Slider.vue";
 import { RouterLink } from "vue-router";
 </script>
-<script>
-export default {
-  mounted() {
-    const a = import.meta.env.API_U_RL
-    console.log( a );
-  },
-};
-</script>
 
 <style>
 * {

@@ -5,7 +5,7 @@ export default {
     return {
       showMenu: false,
       showCart: false,
-      header_title: null,
+      header_title: "null",
     };
   },
   mounted() {
@@ -18,7 +18,7 @@ export default {
 
 <template>
   <div class="info">
-    <div v-for="item in header_title" :key="item._id">{{ item.value }}</div>
+    <div>{{ this.header_title.value }}</div>
   </div>
   <header>
     <div class="header_wrapper">
