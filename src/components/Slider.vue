@@ -131,7 +131,7 @@ export default {
   color: #000;
   text-align: center;
 }
-.slide h2{
+.slide h2 {
   color: white;
   letter-spacing: 3px;
   font-size: 30pt;
@@ -141,7 +141,7 @@ export default {
   transform: translate(-50%, -50%);
   filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.535));
 }
-.slide p{
+.slide p {
   color: white;
   letter-spacing: 3px;
   font-size: 20pt;
@@ -152,10 +152,10 @@ export default {
   transform: translate(-50%, -50%);
 }
 
-.slide img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .slide.active {
   opacity: 1;
@@ -197,7 +197,7 @@ export default {
 .button.active {
   background-color: rgba(0, 0, 0, 0.667);
   width: 30px;
-    animation: wid 0.8s ease;
+  animation: wid 0.8s ease;
 }
 @keyframes wid {
   from {
@@ -205,6 +205,21 @@ export default {
   }
   to {
     width: 30px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .slide h2 {
+    letter-spacing: 3px;
+    font-size: 25pt;
+    top: 38%;
+    width: 100%;
+  }
+  .slide p {
+    letter-spacing: 3px;
+    font-size: 15pt;
+    width: 95%;
+    top: 50%;
   }
 }
 </style>

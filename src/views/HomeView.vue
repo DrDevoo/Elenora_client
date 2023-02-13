@@ -178,6 +178,12 @@ section {
   .kategoriak .boxes .box{
     width: 40%;
   }
+  .kategoriak .boxes .box h1 {
+
+  font-weight: 400;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.535));
+  font-size: 20pt;
+}
 
   .miketnyujtunk .list {
     flex-wrap: wrap;
