@@ -13,12 +13,40 @@ export default {
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       linkurl: "/shop/picked?id=",
       count: 0,
+
+      cart: [],
+      p_product: {
+        name: "",
+        price: 0,
+        quantity: 0
+      }
     };
+  },
+  computed: {
+    total() {
+      return this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    }
   },
   mounted() {
     axios
       .get(import.meta.env.VITE_API_URL + "/products/getall")
       .then((response) => (this.response = response.data));
+  },
+  methods: {
+    addProduct() {
+      this.cart.push(this.product);
+      this.product = { name: "", price: 0, quantity: 0 };
+    },
+    removeItem(index) {
+      this.cart.splice(index, 1);
+    },
+    addToCart(product) {
+this.cart.push({
+name: product.name,
+price: product.price,
+quantity: 1
+});
+},
   },
 };
 </script>
