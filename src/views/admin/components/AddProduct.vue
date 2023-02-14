@@ -16,7 +16,17 @@ export default {
       file: "",
       collections: [],
       items: [],
-      pearls_count: 1,
+      pearls_count: 0,
+
+      saved_pearls: [],
+      pearl_name: "",
+      pearl_xs: 0,
+      pearl_s: 0,
+      pearl_m: 0,
+      pearl_l: 0,
+      pearl_xl: 0,
+      pearl_xxl: 0,
+      api_result: null,
     };
   },
   methods: {
@@ -37,9 +47,25 @@ export default {
             "/" +
             this.form.prod_categ +
             "/" +
-            this.form.prod_colors +
-            "/" +
-            this.form.prod_pears,
+            this.form.prod_colors,
+          JSON.stringify(this.saved_pearls),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/products/addimg/" +
+            this.form.prod_name,
           formData,
           {
             headers: {
@@ -47,8 +73,8 @@ export default {
             },
           }
         )
-        .then(function () {
-          console.log("SUCCESS!!");
+        .then(function (response) {
+          console.log(response)
         })
         .catch(function () {
           console.log("FAILURE!!");
@@ -58,9 +84,32 @@ export default {
       this.form.prod_price = null;
       this.form.prod_description = null;
       this.form.prod_collection = null;
+      this.saved_pearls = []
     },
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
+    },
+    addPearl() {
+      this.saved_pearls.push({
+        name: this.pearl_name,
+        xs: this.pearl_xs,
+        s: this.pearl_s,
+        m: this.pearl_m,
+        l: this.pearl_l,
+        xl: this.pearl_xl,
+        xxl: this.pearl_xxl,
+      });
+
+      this.pearl_name = "";
+      this.pearl_xs = 0;
+      this.pearl_s = 0;
+      this.pearl_m = 0;
+      this.pearl_l = 0;
+      this.pearl_xl = 0;
+      this.pearl_xxl = 0;
+    },
+    Delete(index) {
+      this.saved_pearls.splice(index, 1);
     },
   },
   mounted() {
@@ -154,14 +203,37 @@ export default {
                 <th>L</th>
                 <th>XL</th>
                 <th>XXL</th>
+                <th></th>
+              </tr>
+              <tr v-for="(item, index) in this.saved_pearls" :key="index">
+                <td style="text-align: center;">
+                  {{ item.name }}
+                </td>
+                <td style="text-align: center;">
+                  {{ item.xs }}
+                </td>
+                <td style="text-align: center;">
+                  {{ item.s }}
+                </td>
+                <td style="text-align: center;">
+                  {{item.m}}
+                </td>
+                <td style="text-align: center;">
+                  {{item.l}}
+                </td>
+                <td style="text-align: center;">
+                  {{ item.xl }}
+                </td>
+                <td style="text-align: center;">
+                  {{ item.xxl }}
+                </td>
+                <td>
+                  <button @click="Delete(index)">Törlés</button>
+                </td>
               </tr>
               <tr v-for="n in this.pearls_count" :key="n">
                 <td>
-                  <select
-                    name="gyongy"
-                    id="gyongy"
-                    v-model="form.prod_collection"
-                  >
+                  <select name="gyongy" id="gyongy" v-model="pearl_name">
                     <option
                       v-for="item in items"
                       :key="item._id"
@@ -172,28 +244,36 @@ export default {
                   </select>
                 </td>
                 <td>
-                  <input type="number" min="0" value="0" />
+                  <input v-model="pearl_xs" type="number" min="0" />
                 </td>
                 <td>
-                  <input type="number" min="0" value="0" />
+                  <input v-model="pearl_s" type="number" min="0" />
                 </td>
                 <td>
-                  <input type="number" min="0" value="0" />
+                  <input v-model="pearl_m" type="number" min="0" />
                 </td>
                 <td>
-                  <input type="number" min="0" value="0" />
+                  <input v-model="pearl_l" type="number" min="0" />
                 </td>
                 <td>
-                  <input type="number" min="0" value="0" />
+                  <input v-model="pearl_xl" type="number" min="0" />
                 </td>
                 <td>
-                  <input type="number" min="0" value="0" />
+                  <input v-model="pearl_xxl" type="number" min="0" />
+                </td>
+                <td>
+                  <button @click="addPearl()">Mentés</button>
                 </td>
               </tr>
             </table>
             <div class="flex">
-              <p class="add_p" v-on:click="this.pearls_count += 1">+ gyöngy</p>
-              <p class="add_p" v-on:click="this.pearls_count -= 1">- gyöngy</p>
+              <p
+                class="add_p"
+                v-if="this.pearls_count < 1"
+                v-on:click="this.pearls_count += 1"
+              >
+                + gyöngy
+              </p>
             </div>
           </div>
           <div class="file_w">
@@ -208,6 +288,7 @@ export default {
       </div>
       <div class="submit_wrapper">
         <input type="submit" value="Termék mentése" v-on:click="submitFile()" />
+        <h2>{{ this.api_result }}</h2>
       </div>
     </form>
   </section>
@@ -258,11 +339,12 @@ textarea {
   gap: 1rem;
 }
 .flex {
+  z-index: 20;
   display: flex;
   gap: 5px;
 }
-.file_w{
-    background-color: rgba(255, 160, 122, 0.436);
+.file_w {
+  background-color: rgba(255, 160, 122, 0.436);
   width: 90%;
   height: 23%;
   padding: 1rem;

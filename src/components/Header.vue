@@ -8,12 +8,34 @@ export default {
       showSearch: false,
       showWish: false,
       header_title: "null",
+      cart: [],
     };
   },
   mounted() {
     axios
       .get(import.meta.env.VITE_API_URL + "/settings/get/header_title")
       .then((response) => (this.header_title = response.data));
+  },
+  created() {
+    this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  },
+  computed: {
+    total() {
+      return this.cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+    },
+  },
+  methods: {
+    removeItem(index) {
+      this.cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+    },
+    openCart() {
+      this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      this.showCart = !this.showCart;
+    },
   },
 };
 </script>
@@ -83,17 +105,48 @@ export default {
   </section>
 
   <section v-if="showCart" class="cart_wrapper" id="cartBtn">
-    <a @click="showCart = !showCart"
-      ><ion-icon name="close-outline"></ion-icon
-    ></a>
-    <h1>Kosár (0)</h1>
+    <a @click="openCart()"><ion-icon name="close-outline"></ion-icon></a>
+    <h1>Kosár ({{ cart.length }})</h1>
+    <div class="cart_content">
+      <div class="cart_item" v-for="(item, index) in cart" :key="index">
+        <div class="cart_item_imgtext">
+          <div class="cart_item_img">
+            <img src="../assets/images/webp/1.webp" />
+          </div>
+          <div class="cart_item_desc">
+            <p>{{ item.name }}</p>
+            <p>Méret: M</p>
+            <input type="number" />
+          </div>
+        </div>
+        <div class="cart_item_del">
+          <div>
+            <ion-icon
+              name="close-outline"
+              @click="removeItem(index)"
+            ></ion-icon>
+          </div>
+          <br /><br /><br />
+          <div>
+            <h5>{{ item.price }} Ft</h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <p class="total">Termé(ek) ára: {{ total }} Ft</p>
+        <div class="nextbtn"><p>Fizetés</p></div>
+      </div>
+    </div>
   </section>
+
   <section v-if="showWish" class="cart_wrapper" id="cartBtn">
     <a @click="showWish = !showWish"
       ><ion-icon name="close-outline"></ion-icon
     ></a>
     <h1>Kívánságaim (0)</h1>
   </section>
+
   <section v-if="showSearch" class="menu_wrapper" id="cartBtn">
     <a @click="showSearch = !showSearch"
       ><ion-icon name="close-outline"></ion-icon
@@ -103,6 +156,70 @@ export default {
 </template>
 
 <style scoped>
+.cart_item {
+  height: 130px;
+  padding: 1rem;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  width: 90%;
+  align-items: center;
+}
+.cart_item_imgtext {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.cart_item_img {
+}
+.cart_item_img img {
+  aspect-ratio: 1/1;
+  width: 100px;
+  border-radius: 10px;
+}
+.cart_item_desc {
+}
+.cart_item_del {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+}
+
+.bottom{
+  height: 80px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: white;
+  z-index: 15;
+  box-shadow: 0px 0px 10px rgba(40, 40, 40, 0.484);
+  border-top: 1px solig rgba(128, 128, 128, 0.797);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.total{
+font-weight: bold;
+}
+.nextbtn{
+  background-color: rgb(17, 17, 17);
+  width: 150px;
+  border-radius: 5px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nextbtn p{
+  color: white;
+  font-weight: bolder;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 .info {
   z-index: 10;
   background-color: rgba(255, 160, 122, 0.895);
@@ -152,36 +269,6 @@ header ion-icon {
 .logo {
   height: 1.5rem;
   width: 200px;
-}
-
-@media only screen and (max-width: 600px) {
-  header {
-    padding: 0rem;
-  }
-
-  header ion-icon {
-    font-size: 16pt;
-    margin-left: 0.5rem;
-    color: rgb(0, 0, 0);
-  }
-
-  .logo {
-    height: 1.3rem;
-    width: 200px;
-  }
-  .info {
-    z-index: 10;
-    background-color: rgba(255, 160, 122, 0.895);
-    width: 100%;
-    height: 25px;
-    text-align: center;
-  }
-  .info div {
-    line-height: 30px;
-    color: white;
-    animation: roll 8s linear infinite;
-    position: relative;
-  }
 }
 
 .menu-link-list {
@@ -241,8 +328,8 @@ header ion-icon {
 
 .cart_wrapper {
   position: fixed;
-  height: 100vh;
-  width: 90%;
+  height: 100%;
+  width: 55%;
   background-color: rgba(255, 255, 255, 0.982);
   top: 0;
   right: 0;
@@ -273,6 +360,40 @@ header ion-icon {
   }
   to {
     right: 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  header {
+    padding: 0rem;
+  }
+
+  header ion-icon {
+    font-size: 16pt;
+    margin-left: 0.5rem;
+    color: rgb(0, 0, 0);
+  }
+
+  .logo {
+    height: 1.3rem;
+    width: 200px;
+  }
+  .info {
+    z-index: 10;
+    background-color: rgba(255, 160, 122, 0.895);
+    width: 100%;
+    height: 25px;
+    text-align: center;
+  }
+  .info div {
+    line-height: 30px;
+    color: white;
+    animation: roll 8s linear infinite;
+    position: relative;
+  }
+
+  .cart_wrapper {
+    width: 90%;
   }
 }
 </style>

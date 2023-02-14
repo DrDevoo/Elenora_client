@@ -25,7 +25,7 @@ section {
   flex-direction: column;
   align-items: center;
 }
-.kategoriak h1{
+.kategoriak h1 {
   font-weight: 300;
 }
 .kategoriak .boxes {
@@ -39,7 +39,6 @@ section {
   border-radius: 4px;
   position: relative;
   text-align: center;
-
 }
 .kategoriak .boxes .box img {
   width: 100%;
@@ -69,7 +68,6 @@ section {
   filter: blur(3px);
 }
 
-
 .item-list {
   display: flex;
   gap: 1rem;
@@ -95,7 +93,6 @@ section {
   line-height: 1px;
   font-weight: 200;
 }
-
 
 .kiemeltek {
   background-color: rgba(252, 128, 101, 0.879);
@@ -169,21 +166,20 @@ section {
 }
 
 @media only screen and (max-width: 1000px) {
-  .kategoriak .boxes{
+  .kategoriak .boxes {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
   }
-  .kategoriak .boxes .box{
+  .kategoriak .boxes .box {
     width: 40%;
   }
   .kategoriak .boxes .box h1 {
-
-  font-weight: 400;
-  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.535));
-  font-size: 20pt;
-}
+    font-weight: 400;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.535));
+    font-size: 20pt;
+  }
 
   .miketnyujtunk .list {
     flex-wrap: wrap;
@@ -191,17 +187,14 @@ section {
   .item-ny {
     width: 40%;
   }
-  
+
   .item-list {
     flex-wrap: wrap;
   }
   .item {
     width: 40%;
   }
-
 }
-
-
 </style>
 
 <template>

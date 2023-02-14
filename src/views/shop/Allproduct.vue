@@ -16,16 +16,12 @@ export default {
 
       cart: [],
       p_product: {
+        id: "",
         name: "",
         price: 0,
-        quantity: 0
-      }
+        quantity: 0,
+      },
     };
-  },
-  computed: {
-    total() {
-      return this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    }
   },
   mounted() {
     axios
@@ -33,20 +29,15 @@ export default {
       .then((response) => (this.response = response.data));
   },
   methods: {
-    addProduct() {
-      this.cart.push(this.product);
-      this.product = { name: "", price: 0, quantity: 0 };
-    },
-    removeItem(index) {
-      this.cart.splice(index, 1);
-    },
     addToCart(product) {
-this.cart.push({
-name: product.name,
-price: product.price,
-quantity: 1
-});
-},
+      this.cart.push({
+        id: product._id,
+        name: product.prodname,
+        price: product.price,
+        quantity: 1,
+      });
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+    },
   },
 };
 </script>
@@ -120,12 +111,13 @@ section {
   text-decoration: none;
   color: black;
   width: 23%;
+  height: fit-content;
   box-sizing: border-box;
 }
 .item {
   padding: 5px;
   width: 100%;
-  height: 250px;
+  height: fit-content;
   border-radius: 0.5rem;
   border-radius: 10px;
   background: #ffffff;
@@ -138,7 +130,6 @@ section {
 .item .text {
   padding: 0rem;
   position: relative;
-  top: -15px;
 }
 .item img {
   width: 100%;
@@ -148,12 +139,12 @@ section {
 }
 .item h3 {
   font-weight: 300;
-  line-height: 17px;
+  line-height: 0;
   font-size: 12pt;
 }
 .item h4 {
+  line-height: 0;
   position: relative;
-  top: -1rem;
   font-weight: 500;
 }
 .color-list {
@@ -347,11 +338,11 @@ section {
       <div class="item-list">
         <RouterLink
           v-for="item in response.products"
-          :to="linkurl + item._id"
           :key="item._id"
+          :to="linkurl + item._id"
         >
           <div class="item">
-            <img :src="imgurl + item.image" />
+            <img :src="imgurl + item.img" />
             <div class="text">
               <h3>{{ item.prodname }}</h3>
               <h4>{{ item.price }} Ft</h4>
