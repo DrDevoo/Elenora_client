@@ -389,6 +389,9 @@ label {
   .inputs_wrapper {
     display: block;
   }
+  td input {
+  width: 20px;
+}
   .left_inputs {
     width: 100%;
   }
