@@ -130,6 +130,7 @@ export default {
   z-index: 1;
   color: #000;
   text-align: center;
+  background-color: lightsalmon;
 }
 .slide h2 {
   color: white;
