@@ -134,7 +134,7 @@ export default {
       </div>
 
       <div class="bottom">
-        <p class="total">Termé(ek) ára: {{ total }} Ft</p>
+        <p class="total">Termékek ára: {{ total }} Ft</p>
         <div class="nextbtn"><p>Fizetés</p></div>
       </div>
     </div>

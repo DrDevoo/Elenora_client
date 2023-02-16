@@ -342,7 +342,7 @@ section {
           :to="linkurl + item._id"
         >
           <div class="item">
-            <img :src="imgurl + item.img" />
+            <img :src="imgurl + item.image" />
             <div class="text">
               <h3>{{ item.prodname }}</h3>
               <h4>{{ item.price }} Ft</h4>
