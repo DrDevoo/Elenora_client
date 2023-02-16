@@ -34,6 +34,7 @@ export default {
       <setion class="images-s">
         <div>
           <img
+            v-if="response.image"
             class="pickedimg"
             :src="imgurl + response.image"
             alt="Termék képe"
@@ -42,9 +43,9 @@ export default {
       </setion>
       <setion class="texts-s">
         <div class="texts-b">
-          <h1>{{ response.prodname }}</h1>
-          <h3>{{ response.categ }} - {{ response.price }} Ft</h3>
-          <p>{{ response.description }}</p>
+          <h1 v-if="response.prodname">{{ response.prodname }}</h1>
+          <h3 v-if="response.price">{{ response.categ }} - {{ response.price }} Ft</h3>
+          <p v-if="response.description">{{ response.description.split('.')[0] }}</p>
         </div>
         <div class="input-b">
           <div class="selects-b">
@@ -78,7 +79,7 @@ export default {
             ></ion-icon>
           </div>
           <div v-if="showB1" class="text-b">
-            <p>
+            <p v-if="response.description">
               {{ response.description }}
             </p>
           </div>
@@ -138,6 +139,8 @@ body {
   height: 100vh;
   width: 100%;
   position: relative;
+  display: flex;
+
 }
 
 .images-s {
@@ -145,6 +148,7 @@ body {
 }
 
 .images-s div img {
+  max-height: 750px;
   width: 93%;
   position: relative;
   left: 5%;
@@ -220,6 +224,7 @@ body {
     top: 0;
     height: fit-content;
     width: 100%;
+    flex-direction: column;
   }
 
   .images-s {
