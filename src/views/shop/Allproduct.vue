@@ -95,10 +95,12 @@ section {
 }
 
 .list-header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 95%;
+  left: 2.5%;
 }
 
 .item-list {
@@ -110,7 +112,7 @@ section {
 .item-list a {
   text-decoration: none;
   color: black;
-  width: 23%;
+  width: 18%;
   height: fit-content;
   box-sizing: border-box;
 }
@@ -136,6 +138,10 @@ section {
   aspect-ratio: 1/1;
   border-radius: 0.5rem 0.5rem 0 0;
   object-fit: cover;
+}
+.item img:hover{
+  transform: scale(1.0);
+  width: 100%;
 }
 .item h3 {
   font-weight: 300;
@@ -278,6 +284,7 @@ section {
     justify-content: space-between;
     width: 92%;
     margin: auto;
+    left: 0%;
   }
 }
 
@@ -342,7 +349,7 @@ section {
           :to="linkurl + item._id"
         >
           <div class="item">
-            <img :src="imgurl + item.image" />
+            <div class="img_w"><img :src="imgurl + item.image" /></div>
             <div class="text">
               <h3>{{ item.prodname }}</h3>
               <h4>{{ item.price }} Ft</h4>

@@ -123,6 +123,10 @@ export default {
   font-family: "Heebo", sans-serif;
   box-sizing: border-box;
 }
+main{
+  display: flex;
+  flex-direction: column;
+}
 
 body {
   margin: 0;
