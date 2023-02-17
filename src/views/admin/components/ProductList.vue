@@ -45,18 +45,7 @@ export default {
       axios
         .post(
           import.meta.env.VITE_API_URL +
-            "/products/update/" +
-            this.p_prod._id +
-            "/" +
-            this.p_prod.prodname +
-            "/" +
-            this.p_prod.prod_collection +
-            "/" +
-            this.p_prod.prod_price +
-            "/" +
-            this.p_prod.prod_description +
-            "/" +
-            this.p_prod.prod_categ,
+            "/products/update/",
           JSON.stringify(this.p_prod),
           {
             headers: {
@@ -66,10 +55,12 @@ export default {
         )
         .then(function (response) {
           console.log(response)
+
         })
         .catch(function () {
           console.log("FAILURE!!");
         });
+      this.moreopen = false
     }
   },
 };
@@ -80,14 +71,14 @@ export default {
     <h1>Termék módosítása</h1>
     <div>
       <div>
-        <img class="prodimg" :src="imgurl + p_prod.image" />
+        <img class="prodimg" v-if="p_prod.image" :src="imgurl + p_prod.image" />
       </div>
       <div>
         <label for="">Neve</label>
-        <input type="text" v-model="p_prod.prodname" placeholder="Termék neve" />
+        <input type="text" v-model="this.p_prod.prodname" placeholder="Termék neve" />
         <br />
         <label for="kollekcio">Kollekció</label>
-        <select name="kollekcio" id="kollekcio" v-model="p_prod.collections">
+        <select name="kollekcio" id="kollekcio" v-model="this.p_prod.collections">
           <option disabled selected>Kollekció</option>
           <option
             v-for="item in collections"
@@ -100,18 +91,18 @@ export default {
         </select>
         <br />
         <label for="">Ára</label>
-        <input type="text" placeholder="Termék ára" v-model="p_prod.price" />
+        <input type="text" placeholder="Termék ára" v-model="this.p_prod.price" />
         <br />
         <label for="">Leírása</label>
         <textarea
-          v-model="p_prod.description"
+          v-model="this.p_prod.description"
           placeholder="Termék leírása"
           cols="30"
           rows="4"
         ></textarea>
         <br />
         <label for="Neme">Kategória</label>
-        <select name="Neme" id="Neme" v-model="p_prod.categ">
+        <select name="Neme" id="Neme" v-model="this.p_prod.categ">
           <option disabled selected>Termék neme</option>
           <option value="female">Női</option>
           <option value="male">Férfi</option>
