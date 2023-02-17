@@ -60,10 +60,18 @@
         <button>Szállítási módok</button>
       </div>
     </section>
+
+    <footer>
+        <h5> Minden jog fenntartva</h5>
+    </footer>
   </main>
 </template>
 
 <style scoped>
+main{
+    display: flex;
+    flex-direction: column;
+}
 h3 {
   position: relative;
   left: 5%;
@@ -115,6 +123,8 @@ main {
   flex-direction: column;
 }
 .order_status {
+    margin-left: 1rem;
+    margin-right: 1rem;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -174,5 +184,14 @@ main {
 }
 .cart_icon{
     font-size: 16pt;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border-top: 1px solid gray;
+    color: black;
 }
 </style>
