@@ -19,6 +19,7 @@ export default {
       items: [],
       p_prod: [],
       moreopen: false,
+      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
     };
   },
   mounted() {
@@ -35,13 +36,41 @@ export default {
   },
   methods: {
     more(id) {
-      (this.form.prod_name = null), (this.moreopen = true);
+      (this.p_prod = null), (this.moreopen = true);
       axios
         .get(import.meta.env.VITE_API_URL + "/products/getbyid/" + id)
         .then((response) => (this.p_prod = response.data));
-
-      this.form.prod_name = this.p_prod.prodname;
     },
+    update() {
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/products/update/" +
+            this.p_prod._id +
+            "/" +
+            this.p_prod.prodname +
+            "/" +
+            this.p_prod.prod_collection +
+            "/" +
+            this.p_prod.prod_price +
+            "/" +
+            this.p_prod.prod_description +
+            "/" +
+            this.p_prod.prod_categ,
+          JSON.stringify(this.p_prod),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+    }
   },
 };
 </script>
@@ -51,14 +80,14 @@ export default {
     <h1>Termék módosítása</h1>
     <div>
       <div>
-        <img src="" />
+        <img class="prodimg" :src="imgurl + p_prod.image" />
       </div>
       <div>
         <label for="">Neve</label>
-        <input type="text" v-model="form.prod_name" placeholder="Termék neve" />
+        <input type="text" v-model="p_prod.prodname" placeholder="Termék neve" />
         <br />
         <label for="kollekcio">Kollekció</label>
-        <select name="kollekcio" id="kollekcio" v-model="form.prod_collection">
+        <select name="kollekcio" id="kollekcio" v-model="p_prod.collections">
           <option disabled selected>Kollekció</option>
           <option
             v-for="item in collections"
@@ -71,56 +100,31 @@ export default {
         </select>
         <br />
         <label for="">Ára</label>
-        <input type="text" placeholder="Termék ára" v-model="form.prod_price" />
+        <input type="text" placeholder="Termék ára" v-model="p_prod.price" />
         <br />
         <label for="">Leírása</label>
         <textarea
-          v-model="form.prod_description"
+          v-model="p_prod.description"
           placeholder="Termék leírása"
           cols="30"
           rows="4"
         ></textarea>
         <br />
         <label for="Neme">Kategória</label>
-        <select name="Neme" id="Neme" v-model="form.prod_categ">
+        <select name="Neme" id="Neme" v-model="p_prod.categ">
           <option disabled selected>Termék neme</option>
           <option value="female">Női</option>
           <option value="male">Férfi</option>
           <option value="unisex">Férfi és Női</option>
           <option value="couple">Páros</option>
         </select>
-        <br />
-        <label for="colors">Színei</label>
-        <select name="colors" id="colors" multiple v-model="form.prod_colors">
-          <option disabled selected>Termék színei</option>
-          <option value="white">fehér</option>
-          <option value="black">fekete</option>
-          <option value="blue">kék</option>
-          <option value="red">piros</option>
-          <option value="green">zöld</option>
-          <option value="brown">barna</option>
-          <option value="gold">arany</option>
-          <option value="purple">lila</option>
-        </select>
-        <br />
-        <label for="gyoongyok">Gyöngyei</label>
-        <select
-          name="gyoongyok"
-          id="gyoongyok"
-          multiple
-          v-model="form.prod_pears"
-        >
-          <option disabled selected>Termék gyöngyei</option>
-          <option v-for="item in items" :key="item._id" :value="item.item_name">
-            {{ item.item_name }}
-          </option>
-        </select>
       </div>
     </div>
+    <br>
     <div class="btn_w">
       <button class="btn gray" @click="moreopen = !moreopen">Mégse</button>
-      <button class="btn yellow">Módósítás</button>
-      <button class="btn red">Törlés</button>
+      <button class="btn yellow" @click="update()">Módósítás</button>
+      <button class="btn red" >Törlés</button>
     </div>
   </section>
 
@@ -141,7 +145,7 @@ export default {
           <td>{{ item.price }} Ft</td>
           <td>{{ item.collections }}</td>
           <td>0</td>
-          <td @click="more(item._id)">•••</td>
+          <td class="click" @click="more(item._id)">•••</td>
         </tr>
       </tbody>
     </table>
@@ -149,6 +153,12 @@ export default {
 </template>
 
 <style scoped>
+.prodimg{
+  width: 60px;
+}
+.click{
+  cursor: pointer;
+}
 input,
 select,
 textarea {
