@@ -94,7 +94,7 @@ export default {
               <p>Mennyiség</p>
               <div class="quantity_b">
                 <ion-icon name="add-outline" @click="addq()"></ion-icon>
-                <input type="number" min="1" max="15" v-model="this.quantity" />
+                <input type="number" min="1" max="15" v-model="quantity" />
                 <ion-icon name="remove-outline" @click="minq()"></ion-icon>
               </div>
             </div>

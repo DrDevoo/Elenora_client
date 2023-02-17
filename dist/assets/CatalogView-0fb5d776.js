@@ -1,0 +1,1 @@
+import{o as t,c as o,a as e,F as n,b as a,H as s,j as _}from"./index-5ad859b6.js";const l=a("main",null,[a("h1",null,"Ásvány Lexikon")],-1),m={__name:"CatalogView",setup(r){return(c,u)=>(t(),o(n,null,[e(s),l,e(_)],64))}};export{m as default};
