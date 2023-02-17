@@ -56,7 +56,7 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response)
+          console.log(response);
         })
         .catch(function () {
           console.log("FAILURE!!");
@@ -74,7 +74,7 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response)
+          console.log(response);
         })
         .catch(function () {
           console.log("FAILURE!!");
@@ -84,7 +84,7 @@ export default {
       this.form.prod_price = null;
       this.form.prod_description = null;
       this.form.prod_collection = null;
-      this.saved_pearls = []
+      this.saved_pearls = [];
     },
     handleFileUpload() {
       this.file = this.$refs.file.files[0];
@@ -206,25 +206,25 @@ export default {
                 <th></th>
               </tr>
               <tr v-for="(item, index) in this.saved_pearls" :key="index">
-                <td style="text-align: center;">
+                <td style="text-align: center">
                   {{ item.name }}
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center">
                   {{ item.xs }}
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center">
                   {{ item.s }}
                 </td>
-                <td style="text-align: center;">
-                  {{item.m}}
+                <td style="text-align: center">
+                  {{ item.m }}
                 </td>
-                <td style="text-align: center;">
-                  {{item.l}}
+                <td style="text-align: center">
+                  {{ item.l }}
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center">
                   {{ item.xl }}
                 </td>
-                <td style="text-align: center;">
+                <td style="text-align: center">
                   {{ item.xxl }}
                 </td>
                 <td>
@@ -390,8 +390,8 @@ label {
     display: block;
   }
   td input {
-  width: 20px;
-}
+    width: 20px;
+  }
   .left_inputs {
     width: 100%;
   }

@@ -9,6 +9,7 @@ export default {
       showWish: false,
       header_title: "null",
       cart: [],
+      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
     };
   },
   mounted() {
@@ -36,6 +37,7 @@ export default {
       this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
       this.showCart = !this.showCart;
     },
+    checkout() {},
   },
 };
 </script>
@@ -105,23 +107,34 @@ export default {
   </section>
 
   <section v-if="showCart" class="cart_wrapper" id="cartBtn">
-    <a @click="openCart()"><ion-icon name="close-outline"></ion-icon></a>
+    <a @click="openCart()"
+      ><ion-icon class="cart_close" name="close-outline"></ion-icon
+    ></a>
     <h1>Kosár ({{ cart.length }})</h1>
     <div class="cart_content">
       <div class="cart_item" v-for="(item, index) in cart" :key="index">
         <div class="cart_item_imgtext">
           <div class="cart_item_img">
-            <img src="../assets/images/webp/1.webp" />
+            <img :src="imgurl + item.img" />
           </div>
           <div class="cart_item_desc">
             <p>{{ item.name }}</p>
-            <p>Méret: M</p>
-            <input type="number" />
+            <p>Méret: {{ item.size }}</p>
+            <div class="quantity_b">
+              <ion-icon class="i" name="add-outline" @click="addq()"></ion-icon>
+              <input type="number" min="1" max="15" v-model="item.quantity" />
+              <ion-icon
+                class="i"
+                name="remove-outline"
+                @click="minq()"
+              ></ion-icon>
+            </div>
           </div>
         </div>
         <div class="cart_item_del">
           <div>
             <ion-icon
+              class="cart_close"
               name="close-outline"
               @click="removeItem(index)"
             ></ion-icon>
@@ -135,7 +148,7 @@ export default {
 
       <div class="bottom">
         <p class="total">Termékek ára: {{ total }} Ft</p>
-        <div class="nextbtn"><p>Fizetés</p></div>
+        <RouterLink to="/shop/checkout"><div class="nextbtn"><p>Fizetés</p></div></RouterLink>
       </div>
     </div>
   </section>
@@ -156,6 +169,37 @@ export default {
 </template>
 
 <style scoped>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.quantity_b {
+  padding: 0.2rem;
+  border-radius: 10px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(206, 206, 206, 0.497);
+}
+.quantity_b .i {
+  font-size: 13pt;
+}
+.quantity_b input {
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-size: 10pt;
+  width: fit-content;
+}
 .cart_item {
   height: 130px;
   padding: 1rem;
@@ -179,6 +223,14 @@ export default {
   border-radius: 10px;
 }
 .cart_item_desc {
+  position: relative;
+  top: -5px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+.cart_item_desc p {
+  line-height: 5px;
 }
 .cart_item_del {
   height: 100%;
@@ -187,7 +239,7 @@ export default {
   align-content: space-between;
 }
 
-.bottom{
+.bottom {
   height: 80px;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -202,10 +254,10 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-.total{
-font-weight: bold;
+.total {
+  font-weight: bold;
 }
-.nextbtn{
+.nextbtn {
   background-color: rgb(17, 17, 17);
   width: 150px;
   border-radius: 5px;
@@ -214,7 +266,7 @@ font-weight: bold;
   align-items: center;
   justify-content: center;
 }
-.nextbtn p{
+.nextbtn p {
   color: white;
   font-weight: bolder;
   text-transform: uppercase;
@@ -278,7 +330,7 @@ header ion-icon {
 .menu_wrapper {
   position: fixed;
   height: 100vh;
-  width: 90%;
+  width: 55%;
   background-color: rgba(255, 255, 255, 0.982);
   top: 0;
   left: 0;
@@ -346,7 +398,7 @@ header ion-icon {
   font-weight: 200;
   width: 100%;
 }
-.cart_wrapper ion-icon {
+.cart_close {
   font-size: 2rem;
   position: absolute;
 }
@@ -393,6 +445,9 @@ header ion-icon {
   }
 
   .cart_wrapper {
+    width: 90%;
+  }
+  .menu_wrapper {
     width: 90%;
   }
 }
