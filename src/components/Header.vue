@@ -287,15 +287,18 @@ input[type="number"] {
 .info div {
   line-height: 30px;
   color: white;
-  animation: roll 8s linear infinite;
+  animation: roll 7s linear infinite;
   position: relative;
 }
 @keyframes roll {
   0% {
-    left: 100%;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
   100% {
-    left: -100%;
+    opacity: 1;
   }
 }
 
