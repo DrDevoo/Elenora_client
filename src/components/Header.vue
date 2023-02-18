@@ -118,8 +118,8 @@ export default {
             <img :src="imgurl + item.img" />
           </div>
           <div class="cart_item_desc">
-            <p>{{ item.name }}</p>
-            <p>Méret: {{ item.size }}</p>
+            <p class="prodname">{{ item.name }}</p>
+            <p class="size">Méret: {{ item.size }}</p>
             <div class="quantity_b">
               <ion-icon class="i" name="add-outline" @click="addq()"></ion-icon>
               <input type="number" min="1" max="15" v-model="item.quantity" />
@@ -231,8 +231,11 @@ input[type="number"] {
   flex-direction: column;
   align-content: center;
 }
-.cart_item_desc p {
-  line-height: 5px;
+.cart_item_desc .prodname{
+  line-height: 15px;
+}
+.cart_item_desc .size{
+  line-height: 0px;
 }
 .cart_item_del {
   height: 100%;
@@ -451,6 +454,9 @@ header ion-icon {
   }
   .menu_wrapper {
     width: 90%;
+  }
+  .prodname{
+    line-height: 20px;
   }
 }
 </style>
