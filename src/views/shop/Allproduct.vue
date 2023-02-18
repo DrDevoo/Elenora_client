@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { RouterLink } from "vue-router";
+
 </script>
 <script>
 export default {
@@ -14,7 +15,6 @@ export default {
       linkurl: "/shop/picked?id=",
       count: 0,
 
-      cart: [],
       p_product: {
         id: "",
         name: "",

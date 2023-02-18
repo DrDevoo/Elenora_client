@@ -1,21 +1,77 @@
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      showCart: false,
+      cart: [],
+      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
+    };
+  },
+  created() {
+    this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  },
+  computed: {
+    total() {
+      return this.cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+    },
+  },
+  methods: {},
+};
+</script>
 <template>
   <main>
     <section class="datas_w">
       <div class="logo_w">
-        <img
-          class="logo"
-          src="../../assets/images/logo/logo.svg"
-          alt="ELENORA"
-        />
+        <RouterLink to="/"
+          ><img class="logo" src="../../assets/images/logo/logo.svg" alt="ELENORA"
+        /></RouterLink>
       </div>
       <div class="cart_w">
-        <div class="text">
-          <ion-icon class="cart_icon" name="cart-outline"></ion-icon>
-          <p>Tekintsd meg a kosarad tartalmát</p>
-          <ion-icon name="chevron-down-outline"></ion-icon>
+        <div class="header" @click="this.showCart = !this.showCart">
+          <div class="text">
+            <ion-icon class="cart_icon" name="cart-outline"></ion-icon>
+            <p>Tekintsd meg a kosarad tartalmát</p>
+            <ion-icon name="chevron-down-outline"></ion-icon>
+          </div>
+          <div class="price">
+            <b
+              ><p>{{ total }} Ft</p></b
+            >
+          </div>
         </div>
-        <div class="price">
-          <b><p>2000 Ft</p></b>
+
+        <div class="cart" v-if="this.showCart">
+          <div class="list">
+            <div class="cart_item" v-for="(item, index) in cart" :key="index">
+              <div class="cart_item_imgtext">
+                <div class="cart_item_img">
+                  <img :src="imgurl + item.img" />
+                </div>
+                <div class="cart_item_desc">
+                  <p>{{ item.name }}</p>
+                  <p>Méret: {{ item.size }}</p>
+                  <p class="quantity">{{ item.quantity }}</p>
+                </div>
+              </div>
+              <div class="cart_item_del">
+                  <h5>{{ item.price }} Ft</h5>
+              </div>
+            </div>
+          </div>
+          <div class="prices">
+            <div>
+              <p>Termékek</p>
+              <b><p>{{ total }} Ft</p></b>
+            </div>
+            <div>
+              <p>Szállítás</p>
+              <b><p>--</p></b>
+            </div>
+          </div>
         </div>
       </div>
       <div class="order_status">
@@ -42,10 +98,12 @@
       <div>
         <h3>Kapcsolattartási adatok</h3>
         <input type="text" placeholder="E-mail-cím" /> <br />
+
         <div class="flex">
-          <input type="checkbox" />
-          <p>Szeretnék értesűlni az aktuális ajánlatokról</p>
+           <input class="checkbox" type="checkbox" name="news" id="news" />
+        <label for="news">Szeretnék értesűlni az aktuális ajánlatokról</label>
         </div>
+       
 
         <h3>Szállítási cím</h3>
         <input type="text" placeholder="Utónév" /> <br />
@@ -60,18 +118,24 @@
         <button>Szállítási módok</button>
       </div>
     </section>
-
-    <footer>
-        <h5> Minden jog fenntartva</h5>
-    </footer>
+    <br><br>
   </main>
 </template>
 
 <style scoped>
-main{
-    display: flex;
-    flex-direction: column;
+main {
+  display: flex;
+  flex-direction: column;
 }
+.prices{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.prices div{
+  display: flex;
+  justify-content: space-between;
+}
+
 h3 {
   position: relative;
   left: 5%;
@@ -123,8 +187,8 @@ main {
   flex-direction: column;
 }
 .order_status {
-    margin-left: 1rem;
-    margin-right: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -161,15 +225,19 @@ main {
   bottom: 1.5rem;
 }
 .cart_w {
+  background-color: rgb(237, 237, 237);
+  width: 100%;
+  height: fit-content;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.527);
+}
+.cart_w .header {
+  cursor: pointer;
   padding-left: 1rem;
   padding-right: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: rgb(237, 237, 237);
-  width: 100%;
-  height: fit-content;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.527);
+  border-bottom: 1px solid gray;
 }
 .cart_w .text {
   align-items: center;
@@ -180,20 +248,80 @@ main {
   align-items: center;
   display: flex;
   color: rgb(40, 40, 40);
-
 }
-.cart_icon{
-    font-size: 16pt;
+.cart_icon {
+  font-size: 16pt;
 }
 
-footer{
-    position: relative;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    border-top: 1px solid gray;
-    color: black;
+footer {
+  position: relative;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  border-top: 1px solid gray;
+  color: black;
+}
+
+
+.quantity {
+  padding: 0.2rem;
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightsalmon;
+  color: white;
+}
+
+.cart_item {
+  height: 110px;
+  padding: 1rem;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
+  width: 90%;
+  align-items: center;
+}
+.cart_item_imgtext {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.cart_item_img img {
+  aspect-ratio: 1/1;
+  width: 100px;
+  border-radius: 10px;
+}
+.cart_item_desc {
+  max-height: 100px;
+  position: relative;
+  top: -5px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+.cart_item_desc p {
+  line-height: 0px;
+}
+
+.cart_item_del{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox{
+  width: fit-content;
+}
+label{
+  position: relative;
+  top: 0;
+  left: 0;
 }
 </style>

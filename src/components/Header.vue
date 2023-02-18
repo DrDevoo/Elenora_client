@@ -148,7 +148,9 @@ export default {
 
       <div class="bottom">
         <p class="total">Termékek ára: {{ total }} Ft</p>
-        <RouterLink to="/shop/checkout"><div class="nextbtn"><p>Fizetés</p></div></RouterLink>
+        <RouterLink to="/shop/checkout"
+          ><div class="nextbtn"><p>Fizetés</p></div></RouterLink
+        >
       </div>
     </div>
   </section>

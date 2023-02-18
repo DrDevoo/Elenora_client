@@ -16,6 +16,8 @@ export default {
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       quantity: 1,
       size: "M",
+
+      key: 0,
     };
   },
   mounted() {
@@ -39,7 +41,7 @@ export default {
         quantity: quantity,
       });
       localStorage.setItem("cart", JSON.stringify(this.cart));
-      window.location.reload();
+      this.key += 1
     },
     addq() {
       if (this.quantity < 15) {
@@ -57,7 +59,7 @@ export default {
 
 <template>
   <main>
-    <Header />
+    <Header :key="key" />
     <section class="top-s">
       <setion class="images-s">
         <div>
