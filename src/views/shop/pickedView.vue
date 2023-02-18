@@ -102,7 +102,7 @@ export default {
             </div>
           </div>
           <div class="add-b">
-            <button @click="addToCart(this.response, this.quantity, this.size)">
+            <button @click="addToCart(response, quantity, size)">
               Kosárba teszem<ion-icon name="cart-outline"></ion-icon>
             </button>
           </div>
