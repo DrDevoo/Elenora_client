@@ -2,9 +2,6 @@
 import AddProduct from "./components/AddProduct.vue";
 import ProductList from "./components/ProductList.vue";
 import Header from "./components/Header.vue";
-import AddCupon from "./components/AddCupon.vue";
-import AddSale from "./components/AddSale.vue";
-import AddColection from "./components/AddColection.vue";
 import { RouterLink } from "vue-router";
 </script>
 

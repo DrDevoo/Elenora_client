@@ -2,7 +2,8 @@
 import ColectionList from "./components/ColectionList.vue";
 import Header from "./components/Header.vue";
 import AddCupon from "./components/AddCupon.vue";
-import AddSale from "./components/AddSale.vue";
+import AddSaleProd from "./components/AddSaleProduct.vue";
+import AddSaleColle from "./components/AddSaleCollection.vue";
 </script>
 
 <script>
@@ -11,6 +12,8 @@ export default {
     return {
       showCupon: false,
       showSale: false,
+      showSaleProd: false,
+      showSaleColle: false,
     };
   },
 };
@@ -24,9 +27,15 @@ export default {
       <div @click="showCupon = !showCupon"><h3>Új Kupon</h3></div>
       <div @click="showSale = !showSale"><h3>Új Akció</h3></div>
     </section>
+    <div class="sales-options" v-if="this.showSale">
+      <div @click="showSaleProd = !showSaleProd"><h3>Termékre</h3></div>
+      <div @click="showSaleColle = !showSaleColle"><h3>Kollekcióra</h3></div>
+    </div>
 
     <AddCupon v-if="showCupon" />
-    <AddSale v-if="showSale" />
+    <AddSaleProd v-if="showSaleProd" />
+    <AddSaleColle v-if="showSaleColle" />
+
     <ColectionList />
   </main>
 </template>
@@ -49,6 +58,32 @@ main {
   top: -4rem;
   display: flex;
   justify-content: right;
+}
+.sales-options{
+  width: 100%;
+  position: relative;
+  top: -8rem;
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.sales-options div{
+  background-color: lightsalmon;
+  padding: 1rem;
+  width: 140px;
+  height: 40px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.sales-options div h3 {
+  color: white;
+  font-weight: 200;
+  user-select: none;
+  cursor: pointer;
 }
 .new-wrapper div {
   background-color: lightsalmon;
