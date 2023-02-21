@@ -88,7 +88,7 @@ export default {
       <RouterLink to="/shop/couple"
         ><h3 class="link">Páros karkötők</h3></RouterLink
       >
-      <RouterLink to="/shop/set"
+      <RouterLink to="/shop/sets"
         ><h3 class="link">Szettek</h3></RouterLink
       >
       <RouterLink class="flexlink" to="/shop/sales"

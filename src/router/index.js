@@ -34,6 +34,11 @@ const router = createRouter({
       component: () => import("../views/shop/Couple.vue"),
     },
     {
+      path: "/shop/sets",
+      name: "webshop_sets",
+      component: () => import("../views/shop/Sets.vue"),
+    },
+    {
       path: "/shop/sales",
       name: "webshop_sales",
       component: () => import("../views/shop/Saled.vue"),

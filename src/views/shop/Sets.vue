@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     axios
-      .get(import.meta.env.VITE_API_URL + "/products/getbycateg/couple")
+      .get(import.meta.env.VITE_API_URL + "/products/getbycateg/set")
       .then((response) => (this.response = response.data));
   },
   methods: {
@@ -359,7 +359,7 @@ section {
       </div>
     </aside>
     <section class="s">
-      <h1 class="picked-t">Páros karkötő</h1>
+      <h1 class="picked-t">Szettek</h1>
       <div class="list-header">
         <div>
           <p class="prod-count">{{ response.count }} termék</p>

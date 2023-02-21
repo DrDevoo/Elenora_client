@@ -22,6 +22,8 @@ export default {
 };
 </script>
 
+
+
 <style>
 * {
   font-family: "Heebo", sans-serif;
@@ -75,10 +77,12 @@ section {
 }
 
 .list-header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 95%;
+  left: 2.5%;
 }
 
 .item-list {
@@ -90,13 +94,14 @@ section {
 .item-list a {
   text-decoration: none;
   color: black;
-  width: 23%;
+  width: 18%;
+  height: fit-content;
   box-sizing: border-box;
 }
 .item {
   padding: 5px;
   width: 100%;
-  height: 250px;
+  height: fit-content;
   border-radius: 0.5rem;
   border-radius: 10px;
   background: #ffffff;
@@ -109,7 +114,6 @@ section {
 .item .text {
   padding: 0rem;
   position: relative;
-  top: -15px;
 }
 .item img {
   width: 100%;
@@ -117,14 +121,18 @@ section {
   border-radius: 0.5rem 0.5rem 0 0;
   object-fit: cover;
 }
+.item img:hover{
+  transform: scale(1.0);
+  width: 100%;
+}
 .item h3 {
   font-weight: 300;
-  line-height: 17px;
+  line-height: 20px;
   font-size: 12pt;
 }
 .item h4 {
+  line-height: 0;
   position: relative;
-  top: -1rem;
   font-weight: 500;
 }
 .color-list {
@@ -222,11 +230,11 @@ section {
     justify-content: center;
   }
   .item-list a {
-  text-decoration: none;
-  color: black;
-  width: 46%;
-  box-sizing: border-box;
-}
+    text-decoration: none;
+    color: black;
+    width: 46%;
+    box-sizing: border-box;
+  }
   aside {
     padding: 1rem;
     left: 5%;
@@ -258,6 +266,7 @@ section {
     justify-content: space-between;
     width: 92%;
     margin: auto;
+    left: 0%;
   }
 }
 
@@ -272,6 +281,34 @@ section {
 }
 .prod-count {
   color: gray;
+}
+
+.saleprecent {
+  position: absolute;
+  top: -15px;
+  right: 8px;
+  width: 35px;
+  height: 18px;
+  text-align: center;
+  line-height: 18px;
+  color: white;
+  border-radius: 5px;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+.img_w {
+  position: relative;
+  text-align: center;
+}
+.prices_b{
+  display: flex;
+  gap: 1rem;
+}
+.oldprice{
+  text-decoration: line-through;
+}
+.newprice{
+  color: tomato;
 }
 </style>
 
@@ -317,15 +354,26 @@ section {
       </div>
       <div class="item-list">
         <RouterLink
-          :to="linkurl + item._id"
           v-for="item in response.products"
           :key="item._id"
+          :to="linkurl + item._id"
         >
-          <div class="item">
-            <img :src="imgurl + item.image" />
+        <div class="item">
+            <div class="img_w">
+              <img :src="imgurl + item.image" />
+              <h5 class="saleprecent" v-if="item.activesale === 'true'">
+                {{ item.saleprecent }} %
+              </h5>
+            </div>
             <div class="text">
               <h3>{{ item.prodname }}</h3>
-              <h4>{{ item.price }} Ft</h4>
+              <div class="prices_b">
+                <h4 v-if="item.activesale === 'false'">{{ item.price }} Ft</h4>
+                <h4 class="oldprice"  v-if="item.activesale === 'true'">{{ item.price }} Ft</h4>
+                <h4 class="newprice" v-if="item.activesale === 'true'">
+                  {{ item.price - (item.price / 100) * item.saleprecent }} Ft
+                </h4>
+              </div>
             </div>
           </div>
         </RouterLink>
