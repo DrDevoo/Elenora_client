@@ -18,6 +18,8 @@ export default {
       collections: [],
       items: [],
       p_prod: [],
+      pearls_count: 1,
+
       moreopen: false,
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
     };
@@ -44,8 +46,7 @@ export default {
     update() {
       axios
         .post(
-          import.meta.env.VITE_API_URL +
-            "/products/update/",
+          import.meta.env.VITE_API_URL + "/products/update/",
           JSON.stringify(this.p_prod),
           {
             headers: {
@@ -54,14 +55,35 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response)
-
+          console.log(response);
         })
         .catch(function () {
           console.log("FAILURE!!");
         });
-      this.moreopen = false
-    }
+      this.moreopen = false;
+    },
+    Delete(index) {
+      this.p_prod.pearls.splice(index, 1);
+    },
+    addPearl() {
+      this.p_prod.pearls.push({
+        name: this.pearl_name,
+        xs: this.pearl_xs,
+        s: this.pearl_s,
+        m: this.pearl_m,
+        l: this.pearl_l,
+        xl: this.pearl_xl,
+        xxl: this.pearl_xxl,
+      });
+
+      this.pearl_name = "";
+      this.pearl_xs = 0;
+      this.pearl_s = 0;
+      this.pearl_m = 0;
+      this.pearl_l = 0;
+      this.pearl_xl = 0;
+      this.pearl_xxl = 0;
+    },
   },
 };
 </script>
@@ -72,13 +94,23 @@ export default {
     <div>
       <div>
         <img class="prodimg" v-if="p_prod.image" :src="imgurl + p_prod.image" />
+        <img class="prodimg" v-if="p_prod.image2" :src="imgurl + p_prod.image2" />
+        <img class="prodimg" v-if="p_prod.image3" :src="imgurl + p_prod.image3" />
       </div>
       <div>
         <label for="">Neve</label>
-        <input type="text" v-model="this.p_prod.prodname" placeholder="Termék neve" />
+        <input
+          type="text"
+          v-model="this.p_prod.prodname"
+          placeholder="Termék neve"
+        />
         <br />
         <label for="kollekcio">Kollekció</label>
-        <select name="kollekcio" id="kollekcio" v-model="this.p_prod.collections">
+        <select
+          name="kollekcio"
+          id="kollekcio"
+          v-model="this.p_prod.collections"
+        >
           <option disabled selected>Kollekció</option>
           <option
             v-for="item in collections"
@@ -91,7 +123,11 @@ export default {
         </select>
         <br />
         <label for="">Ára</label>
-        <input type="text" placeholder="Termék ára" v-model="this.p_prod.price" />
+        <input
+          type="text"
+          placeholder="Termék ára"
+          v-model="this.p_prod.price"
+        />
         <br />
         <label for="">Leírása</label>
         <textarea
@@ -109,13 +145,97 @@ export default {
           <option value="unisex">Férfi és Női</option>
           <option value="couple">Páros</option>
         </select>
+
+        <div class="pearls_t_w">
+          <table class="pears-t">
+            <tr>
+              <th>Gyöngy</th>
+              <th>XS</th>
+              <th>S</th>
+              <th>M</th>
+              <th>L</th>
+              <th>XL</th>
+              <th>XXL</th>
+              <th></th>
+            </tr>
+            <tr v-for="(item, index) in this.p_prod.pearls" :key="index">
+              <td style="text-align: center">
+                {{ item.name }}
+              </td>
+              <td style="text-align: center">
+                {{ item.xs }}
+              </td>
+              <td style="text-align: center">
+                {{ item.s }}
+              </td>
+              <td style="text-align: center">
+                {{ item.m }}
+              </td>
+              <td style="text-align: center">
+                {{ item.l }}
+              </td>
+              <td style="text-align: center">
+                {{ item.xl }}
+              </td>
+              <td style="text-align: center">
+                {{ item.xxl }}
+              </td>
+              <td>
+                <button @click="Delete(index)">Törlés</button>
+              </td>
+            </tr>
+            <tr v-for="n in this.pearls_count" :key="n">
+              <td>
+                <select name="gyongy" id="gyongy" v-model="pearl_name">
+                  <option
+                    v-for="item in items"
+                    :key="item._id"
+                    :value="item.item_name"
+                  >
+                    {{ item.item_name }}
+                  </option>
+                </select>
+              </td>
+              <td>
+                <input v-model="pearl_xs" type="number" min="0" />
+              </td>
+              <td>
+                <input v-model="pearl_s" type="number" min="0" />
+              </td>
+              <td>
+                <input v-model="pearl_m" type="number" min="0" />
+              </td>
+              <td>
+                <input v-model="pearl_l" type="number" min="0" />
+              </td>
+              <td>
+                <input v-model="pearl_xl" type="number" min="0" />
+              </td>
+              <td>
+                <input v-model="pearl_xxl" type="number" min="0" />
+              </td>
+              <td>
+                <button @click="addPearl()">Mentés</button>
+              </td>
+            </tr>
+          </table>
+          <div class="flex">
+            <p
+              class="add_p"
+              v-if="this.pearls_count < 1"
+              v-on:click="this.pearls_count += 1"
+            >
+              + gyöngy
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-    <br>
+    <br />
     <div class="btn_w">
       <button class="btn gray" @click="moreopen = !moreopen">Mégse</button>
       <button class="btn yellow" @click="update()">Módósítás</button>
-      <button class="btn red" >Törlés</button>
+      <button class="btn red">Törlés</button>
     </div>
   </section>
 
@@ -144,10 +264,10 @@ export default {
 </template>
 
 <style scoped>
-.prodimg{
+.prodimg {
   width: 60px;
 }
-.click{
+.click {
   cursor: pointer;
 }
 input,

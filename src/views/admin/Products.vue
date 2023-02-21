@@ -3,7 +3,6 @@ import AddProduct from "./components/AddProduct.vue";
 import ProductList from "./components/ProductList.vue";
 import AddProductBoravia from "./components/AddProductBoravia.vue";
 import Header from "./components/Header.vue";
-import { RouterLink } from "vue-router";
 </script>
 
 <script>
@@ -33,17 +32,17 @@ export default {
 </template>
 
 <style scoped>
-.title{
-    position: relative;
-    top: -4rem;
-    left: 0.8rem;
-    text-transform: uppercase;
-    font-weight: 200;
-    text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.809);
-    letter-spacing: 1px;
+.title {
+  position: relative;
+  top: -4rem;
+  left: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 200;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.809);
+  letter-spacing: 1px;
 }
-main{
-    padding: 1rem;
+main {
+  padding: 1rem;
 }
 .new-wrapper {
   position: relative;
