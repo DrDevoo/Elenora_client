@@ -14,6 +14,11 @@ const router = createRouter({
       component: () => import("../views/shop/Allproduct.vue"),
     },
     {
+      path: "/shop/boravia",
+      name: "webshop_boravia",
+      component: () => import("../views/shop/AllproductBoravia.vue"),
+    },
+    {
       path: "/shop/men",
       name: "webshop_men",
       component: () => import("../views/shop/Men.vue"),

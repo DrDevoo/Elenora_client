@@ -92,7 +92,11 @@ export default {
         ><h3 class="link">Akciós karkötők</h3></RouterLink
       >
       <RouterLink to="/shop"><h3 class="link">Összes karkötő</h3></RouterLink>
+
       <h3 class="linktitle">Kiegészítők</h3>
+      <RouterLink class="flexlink" to="/shop/boravia"
+        ><h3 class="link">Fonott karkötők</h3> <h6>Készlet erejéig!</h6></RouterLink
+      >
       <RouterLink to="/shop/accessories"
         ><h3 class="link">Kulcstartók</h3></RouterLink
       >
@@ -171,6 +175,21 @@ export default {
 </template>
 
 <style scoped>
+.flexlink{
+  width: 330px;
+  height: 30px;
+display: flex;
+align-items: center;
+}
+.flexlink h6{
+  letter-spacing: 1px;
+  color: white;
+  width: 170px;
+  background-color: lightsalmon;
+  padding: 4px;
+  text-align: center;
+  border-radius: 6px;
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

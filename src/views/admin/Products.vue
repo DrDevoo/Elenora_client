@@ -1,6 +1,7 @@
 <script setup>
 import AddProduct from "./components/AddProduct.vue";
 import ProductList from "./components/ProductList.vue";
+import AddProductBoravia from "./components/AddProductBoravia.vue";
 import Header from "./components/Header.vue";
 import { RouterLink } from "vue-router";
 </script>
@@ -10,6 +11,7 @@ export default {
   data() {
     return {
       showAdd: false,
+      showAddB: false,
     };
   },
 };
@@ -21,9 +23,11 @@ export default {
   <main>
     <section class="new-wrapper">
       <div @click="showAdd = !showAdd"><h3>Új termék</h3></div>
+      <div @click="showAddB = !showAddB"><h3>Új Boravia</h3></div>
     </section>
 
     <AddProduct v-if="showAdd" />
+    <AddProductBoravia v-if="showAddB" />
     <ProductList />
   </main>
 </template>
