@@ -84,6 +84,75 @@ export default {
       this.pearl_xl = 0;
       this.pearl_xxl = 0;
     },
+    handleFileUpload1() {
+      this.file = this.$refs.file1.files[0];
+      let formData = new FormData();
+      formData.append("file", this.file);
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/products/addimg1/" +
+            this.p_prod.prodname,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+    },
+    handleFileUpload2() {
+      this.file = this.$refs.file2.files[0];
+      let formData = new FormData();
+      formData.append("file", this.file);
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/products/addimg2/" +
+            this.p_prod.prodname,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+    },
+    handleFileUpload3() {
+      this.file = this.$refs.file3.files[0];
+      let formData = new FormData();
+      formData.append("file", this.file);
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/products/addimg3/" +
+            this.p_prod.prodname,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+    },
   },
 };
 </script>
@@ -92,11 +161,6 @@ export default {
   <section class="prodmore" v-if="this.moreopen">
     <h1>Termék módosítása</h1>
     <div>
-      <div>
-        <img class="prodimg" v-if="p_prod.image" :src="imgurl + p_prod.image" />
-        <img class="prodimg" v-if="p_prod.image2" :src="imgurl + p_prod.image2" />
-        <img class="prodimg" v-if="p_prod.image3" :src="imgurl + p_prod.image3" />
-      </div>
       <div>
         <label for="">Neve</label>
         <input
@@ -229,6 +293,35 @@ export default {
             </p>
           </div>
         </div>
+        <div>
+          <div class="updateimg_b">  
+            <input
+              type="file"
+              id="file1"
+              ref="file1"
+              @change="handleFileUpload1()"
+            />
+            <img class="prodimg" v-if="p_prod.image" :src="imgurl + p_prod.image" />
+          </div>
+          <div class="updateimg_b">  
+            <input
+              type="file"
+              id="file2"
+              ref="file2"
+              @change="handleFileUpload2()"
+            />
+            <img class="prodimg" v-if="p_prod.image2" :src="imgurl + p_prod.image2" />
+          </div>
+          <div class="updateimg_b">  
+            <input
+              type="file"
+              id="file3"
+              ref="file3"
+              @change="handleFileUpload3()"
+            />
+            <img class="prodimg" v-if="p_prod.image3" :src="imgurl + p_prod.image3" />
+          </div>
+        </div>
       </div>
     </div>
     <br />
@@ -264,6 +357,14 @@ export default {
 </template>
 
 <style scoped>
+.updateimg_b{
+  margin-top: 0.7rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+}
+.updateimg_b img{
+  border-radius: 10px;
+}
 .prodimg {
   width: 60px;
 }
