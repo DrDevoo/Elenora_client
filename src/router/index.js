@@ -36,7 +36,7 @@ const router = createRouter({
     {
       path: "/shop/sales",
       name: "webshop_sales",
-      component: () => import("../views/shop/Sales.vue"),
+      component: () => import("../views/shop/Saled.vue"),
     },
     {
       path: "/shop/picked",

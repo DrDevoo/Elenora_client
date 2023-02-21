@@ -3,7 +3,6 @@ import axios from "axios";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { RouterLink } from "vue-router";
-
 </script>
 <script>
 export default {
@@ -25,7 +24,7 @@ export default {
   },
   mounted() {
     axios
-      .get(import.meta.env.VITE_API_URL + "/products/getall")
+      .get(import.meta.env.VITE_API_URL + "/sales/getsaled")
       .then((response) => (this.response = response.data));
   },
   methods: {
@@ -139,8 +138,8 @@ section {
   border-radius: 0.5rem 0.5rem 0 0;
   object-fit: cover;
 }
-.item img:hover{
-  transform: scale(1.0);
+.item img:hover {
+  transform: scale(1);
   width: 100%;
 }
 .item h3 {
@@ -359,7 +358,7 @@ section {
       </div>
     </aside>
     <section class="s">
-      <h1 class="picked-t">Összes karkötő</h1>
+      <h1 class="picked-t">Kedvezményes karkötők</h1>
       <div class="list-header">
         <div>
           <p class="prod-count">{{ response.count }} termék</p>
@@ -376,7 +375,7 @@ section {
           :key="item._id"
           :to="linkurl + item._id"
         >
-        <div class="item">
+          <div class="item">
             <div class="img_w">
               <img :src="imgurl + item.image" />
               <h5 class="saleprecent" v-if="item.activesale === 'true'">

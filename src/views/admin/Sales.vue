@@ -1,9 +1,9 @@
 <script setup>
-import ColectionList from "./components/ColectionList.vue";
 import Header from "./components/Header.vue";
 import AddCupon from "./components/AddCupon.vue";
 import AddSaleProd from "./components/AddSaleProduct.vue";
 import AddSaleColle from "./components/AddSaleCollection.vue";
+import SalesList from "./components/SalesList.vue";
 </script>
 
 <script>
@@ -36,7 +36,7 @@ export default {
     <AddSaleProd v-if="showSaleProd" />
     <AddSaleColle v-if="showSaleColle" />
 
-    <ColectionList />
+    <SalesList />
   </main>
 </template>
 

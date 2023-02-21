@@ -145,7 +145,7 @@ section {
 }
 .item h3 {
   font-weight: 300;
-  line-height: 0;
+  line-height: 20px;
   font-size: 12pt;
 }
 .item h4 {

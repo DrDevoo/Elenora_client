@@ -7,6 +7,7 @@ export default {
       products: [],
       p_name : null,
       p_precent : 0,
+      p_time : Date.now(),
     };
   },
   mounted() {
@@ -15,8 +16,32 @@ export default {
       .then((response) => (this.products = response.data.products));
   },
   methods: {
-    pick(name){
+    pick(name) {
       this.p_name = name
+    },
+    savesale() {
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/sales/addsale/" +
+            this.p_name +
+            "/" +
+            this.p_precent +
+            "/" +
+            this.p_time,
+          JSON.stringify(this.products),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
     }
   }
 };
@@ -36,10 +61,11 @@ export default {
       <div>
         <form action="">
           <h5>Meddig tartson?</h5>
-          <input type="radio" name="alltime" id="alltime" />
-          <label for="alltime">Készlet erejéig</label><br />
-          <input type="date" name="" id="" />
+          <input type="date" name="" id="" v-model="p_time" />
         </form>
+      </div>
+      <div>
+        <button @click=" savesale()">Mentés</button>
       </div>
     </div>
     <div>
