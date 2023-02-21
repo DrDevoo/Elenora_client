@@ -13,7 +13,9 @@ export default {
         prod_colors: [],
         prod_pears: [],
       },
-      file: "",
+      file1: "",
+      file2: "",
+      file3: "",
       collections: [],
       items: [],
       pearls_count: 0,
@@ -31,8 +33,12 @@ export default {
   },
   methods: {
     submitFile() {
-      let formData = new FormData();
-      formData.append("file", this.file);
+      let formData1 = new FormData();
+      let formData2 = new FormData();
+      let formData3 = new FormData();
+      formData1.append("file", this.file1);
+      formData2.append("file", this.file2);
+      formData3.append("file", this.file3);
       axios
         .post(
           import.meta.env.VITE_API_URL +
@@ -64,9 +70,45 @@ export default {
       axios
         .post(
           import.meta.env.VITE_API_URL +
-            "/products/addimg/" +
+            "/products/addimg1/" +
             this.form.prod_name,
-          formData,
+          formData1,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/products/addimg2/" +
+            this.form.prod_name,
+          formData2,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/products/addimg3/" +
+            this.form.prod_name,
+          formData3,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -86,8 +128,14 @@ export default {
       this.form.prod_collection = null;
       this.saved_pearls = [];
     },
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0];
+    handleFileUpload1() {
+      this.file1 = this.$refs.file1.files[0];
+    },
+    handleFileUpload2() {
+      this.file2 = this.$refs.file2.files[0];
+    },
+    handleFileUpload3() {
+      this.file3 = this.$refs.file3.files[0];
     },
     addPearl() {
       this.saved_pearls.push({
@@ -279,9 +327,21 @@ export default {
           <div class="file_w">
             <input
               type="file"
-              id="file"
-              ref="file"
-              @change="handleFileUpload($event)"
+              id="file1"
+              ref="file1"
+              @change="handleFileUpload1($event)"
+            />
+            <input
+              type="file"
+              id="file2"
+              ref="file2"
+              @change="handleFileUpload2($event)"
+            />
+            <input
+              type="file"
+              id="file3"
+              ref="file3"
+              @change="handleFileUpload3($event)"
             />
           </div>
         </div>
@@ -346,9 +406,10 @@ textarea {
 .file_w {
   background-color: rgba(255, 160, 122, 0.436);
   width: 90%;
-  height: 23%;
-  padding: 1rem;
+  height: 25%;
+  padding: 0.2rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 20px;
