@@ -63,6 +63,7 @@ export default {
         )
         .then(function (response) {
           console.log(response);
+          alert("Sikeres termék mentés!")
         })
         .catch(function () {
           console.log("FAILURE!!");

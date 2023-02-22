@@ -38,6 +38,7 @@ export default {
         )
         .then(function (response) {
           console.log(response);
+          alert("Sikeres akció mentés!")
         })
         .catch(function () {
           console.log("FAILURE!!");

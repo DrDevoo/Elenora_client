@@ -56,6 +56,7 @@ export default {
         )
         .then(function (response) {
           console.log(response);
+          alert("Sikeres termék módosítás!")
         })
         .catch(function () {
           console.log("FAILURE!!");
@@ -102,6 +103,7 @@ export default {
         )
         .then(function (response) {
           console.log(response);
+          alert("Sikeres kép módosítás!")
         })
         .catch(function () {
           console.log("FAILURE!!");
@@ -125,6 +127,7 @@ export default {
         )
         .then(function (response) {
           console.log(response);
+          alert("Sikeres kép módosítás!")
         })
         .catch(function () {
           console.log("FAILURE!!");
@@ -148,6 +151,7 @@ export default {
         )
         .then(function (response) {
           console.log(response);
+          alert("Sikeres kép módosítás!")
         })
         .catch(function () {
           console.log("FAILURE!!");
@@ -157,7 +161,6 @@ export default {
       if(confirm("Biztos torolod a termeket? Ez nem vonhato vissza!")){
         axios
           .get(import.meta.env.VITE_API_URL + "/products/delete/" + this.p_prod._id)
-          .then((response) => (this.collections = response.data));
       }
     },
   },

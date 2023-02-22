@@ -28,6 +28,7 @@ export default {
         )
         .then(function () {
           console.log("SUCCESS!!");
+          alert("Sikeres készlet mentés!")
         })
         .catch(function () {
           console.log("FAILURE!!");

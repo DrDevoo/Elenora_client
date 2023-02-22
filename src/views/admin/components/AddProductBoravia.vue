@@ -50,6 +50,7 @@ export default {
         )
         .then(function (response) {
           console.log(response);
+          alert("Sikeres Boravia termék mentés!")
         })
         .catch(function () {
           console.log("FAILURE!!");

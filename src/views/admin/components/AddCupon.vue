@@ -24,6 +24,7 @@ export default {
         )
         .then(function () {
           console.log("SUCCESS!!");
+          alert("Sikeres kupon mentés!")
         })
         .catch((error) => console.log(error));
     },

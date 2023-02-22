@@ -3,7 +3,6 @@ import axios from "axios";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { RouterLink } from "vue-router";
-
 </script>
 <script>
 export default {
@@ -139,8 +138,8 @@ section {
   border-radius: 0.5rem 0.5rem 0 0;
   object-fit: cover;
 }
-.item img:hover{
-  transform: scale(1.0);
+.item img:hover {
+  transform: scale(1);
   width: 100%;
 }
 .item h3 {
@@ -318,14 +317,14 @@ section {
   position: relative;
   text-align: center;
 }
-.prices_b{
+.prices_b {
   display: flex;
   gap: 1rem;
 }
-.oldprice{
+.oldprice {
   text-decoration: line-through;
 }
-.newprice{
+.newprice {
   color: tomato;
 }
 </style>
@@ -376,7 +375,7 @@ section {
           :key="item._id"
           :to="linkurl + item._id"
         >
-        <div class="item">
+          <div class="item">
             <div class="img_w">
               <img :src="imgurl + item.image" />
               <h5 class="saleprecent" v-if="item.activesale === 'true'">
@@ -387,7 +386,9 @@ section {
               <h3>{{ item.prodname }}</h3>
               <div class="prices_b">
                 <h4 v-if="item.activesale === 'false'">{{ item.price }} Ft</h4>
-                <h4 class="oldprice"  v-if="item.activesale === 'true'">{{ item.price }} Ft</h4>
+                <h4 class="oldprice" v-if="item.activesale === 'true'">
+                  {{ item.price }} Ft
+                </h4>
                 <h4 class="newprice" v-if="item.activesale === 'true'">
                   {{ item.price - (item.price / 100) * item.saleprecent }} Ft
                 </h4>

@@ -28,6 +28,7 @@ export default {
         )
         .then(function () {
           console.log("SUCCESS!!");
+          alert("Sikeres kollekció mentés!")
         })
         .catch((error) => console.log(error));
     },

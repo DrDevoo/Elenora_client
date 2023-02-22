@@ -12,6 +12,14 @@ export default {
       .get(import.meta.env.VITE_API_URL + "/sales/getsaled")
       .then((response) => (this.collections = response.data.products));
   },
+  methods: {
+    deletesale(id){
+      if(confirm("Biztos torolod a kedvezményt? Ez nem vonhato vissza!")){
+        axios
+          .get(import.meta.env.VITE_API_URL + "/sales/delete/" + id)
+      }
+    }
+  }
 };
 </script>
 
@@ -30,8 +38,8 @@ export default {
         <tr v-for="item in collections" :key="item._id">
           <td>{{ item.prodname }}</td>
           <td>{{ item.saleprecent }}</td>
-          <td>{{ item.saletime }}</td>
-          <td>•••</td>
+          <td>{{ item.saletime.split("T")[0] }}</td>
+          <td @click="deletesale(item._id)"><ion-icon name="trash-outline"></ion-icon></td>
         </tr>
       </tbody>
     </table>
