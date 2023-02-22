@@ -1,5 +1,6 @@
 <script setup>
 import Header from "./components/Header.vue";
+import axios from "axios";
 </script>
 
 <script>
@@ -7,7 +8,37 @@ export default {
   data() {
     return {
       showAdd: false,
+      siteStatus: null,
+      siteText: null,
     };
+  },
+  methods: {
+    saveStatus() {
+      if (confirm("Biztos átállítod az oldal státuszát?")) {
+        axios.get(
+          import.meta.env.VITE_API_URL +
+            "/settings/update/status/" +
+            this.siteStatus
+        );
+      }
+    },
+    saveText() {
+      if (confirm("Biztos átállítod az oldal szövegét?")) {
+        axios.get(
+          import.meta.env.VITE_API_URL +
+            "/settings/update/headertitle/" +
+            this.siteText
+        );
+      }
+    },
+  },
+  mounted() {
+    axios
+      .get(import.meta.env.VITE_API_URL + "/settings/get/header_title")
+      .then((response) => (this.siteText = response.data.value));
+    axios
+      .get(import.meta.env.VITE_API_URL + "/settings/get/sitestatus")
+      .then((response) => (this.siteStatus = response.data.value));
   },
 };
 </script>
@@ -16,77 +47,31 @@ export default {
   <Header />
   <h1 class="title">Oldal beállítások</h1>
   <main>
-  
+    <div class="s_b">
+      <h2>Oldal megjelenése</h2>
+      <select name="sitestatus" id="sitestatus" v-model="siteStatus">
+        <option value="online">Nyitott (alap)</option>
+        <option value="offline">Nem elérhető</option>
+        <option value="wait">Nyitás előtt</option>
+      </select>
+      <button @click="saveStatus">Mentés</button>
+    </div>
+    <div class="s_b">
+      <h2>Fejléc szöveg</h2>
+      <input type="text" v-model="siteText" />
+      <button @click="saveText">Mentés</button>
+    </div>
   </main>
 </template>
 
 <style scoped>
-.number_s_w {
-  top: -5rem;
-  display: flex;
-  gap: 1.6rem;
-  flex-wrap: wrap;
-  width: 100%;
-}
-.number_s_w .box {
-  display: flex;
-  width: 46%;
-  height: 150px;
+.s_b {
+  padding: 1rem;
   border-radius: 29px;
-  box-shadow: 5px 5px 24px #d6d6d6, -5px -5px 24px #ffffff;
-  padding: 0.5rem;
+  background: #ffffff;
+  box-shadow: 5px 5px 18px #bababa, -5px -5px 18px #ffffff;
+  margin-bottom: 1rem;
 }
-.b1 {
-  background: rgb(1, 120, 0);
-  background: linear-gradient(
-    120deg,
-    rgba(1, 120, 0, 1) 0%,
-    rgba(0, 255, 142, 1) 100%
-  );
-}
-.b2 {
-  background: rgb(156, 53, 0);
-  background: linear-gradient(
-    120deg,
-    rgba(156, 53, 0, 1) 0%,
-    rgba(255, 215, 0, 1) 100%
-  );
-}
-.b3 {
-  background: rgb(156, 0, 60);
-  background: linear-gradient(
-    120deg,
-    rgba(156, 0, 60, 1) 0%,
-    rgba(255, 0, 53, 1) 100%
-  );
-}
-.b4 {
-  background: rgb(14, 0, 255);
-  background: linear-gradient(
-    120deg,
-    rgba(14, 0, 255, 1) 0%,
-    rgba(0, 212, 255, 1) 100%
-  );
-}
-.number_s_w .box .data_b {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 70%;
-  color: white;
-}
-.number_s_w .box .icon_b {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-}
-.number_s_w .box .icon_b .icon {
-  font-size: 5rem;
-  text-align: center;
-  color: rgb(255, 255, 255);
-}
-
 .title {
   position: relative;
   top: -4rem;
@@ -101,6 +86,5 @@ main {
 }
 
 @media only screen and (max-width: 900px) {
-  
 }
 </style>
