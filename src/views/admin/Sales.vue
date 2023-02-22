@@ -27,7 +27,7 @@ export default {
       <div @click="showCupon = !showCupon"><h3>Új Kupon</h3></div>
       <div @click="showSaleProd = !showSaleProd"><h3>Új Akció</h3></div>
     </section>
-    <div class="sales-options" v-if="this.showSale">
+    <div class="sales-options" v-if="showSale">
       <div @click="showSaleProd = !showSaleProd"><h3>Termékre</h3></div>
       <div @click="showSaleColle = !showSaleColle"><h3>Kollekcióra</h3></div>
     </div>
