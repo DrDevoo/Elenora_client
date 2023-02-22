@@ -153,6 +153,13 @@ export default {
           console.log("FAILURE!!");
         });
     },
+    Deleteproduct(){
+      if(confirm("Biztos torolod a termeket? Ez nem vonhato vissza!")){
+        axios
+          .get(import.meta.env.VITE_API_URL + "/products/delete/" + this.p_prod._id)
+          .then((response) => (this.collections = response.data));
+      }
+    },
   },
 };
 </script>
@@ -328,7 +335,7 @@ export default {
     <div class="btn_w">
       <button class="btn gray" @click="moreopen = !moreopen">Mégse</button>
       <button class="btn yellow" @click="update()">Módósítás</button>
-      <button class="btn red">Törlés</button>
+      <button class="btn red" @click="Deleteproduct()">Törlés</button>
     </div>
   </section>
 
