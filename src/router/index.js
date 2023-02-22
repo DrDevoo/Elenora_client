@@ -146,6 +146,9 @@ const router = createRouter({
       component: () => import("../views/admin/Marketing.vue"),
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }
+  },
 });
 
 export default router;
