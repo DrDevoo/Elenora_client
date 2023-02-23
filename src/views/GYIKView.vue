@@ -1,7 +1,7 @@
 <script setup>
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink } from "vue-router";
 </script>
 <script>
 export default {
@@ -18,7 +18,7 @@ export default {
       showB9: false,
     };
   },
-};  
+};
 </script>
 
 <style>

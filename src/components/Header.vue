@@ -9,9 +9,11 @@ export default {
       showWish: false,
       header_title: "null",
       cart: [],
+      response: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
 
-      sitestatus: "online"
+      sitestatus: "online",
+      loading: false,
     };
   },
   mounted() {
@@ -20,10 +22,7 @@ export default {
       .then((response) => (this.header_title = response.data));
     axios
       .get(import.meta.env.VITE_API_URL + "/settings/get/sitestatus")
-      .then((response) => (
-        this.sitestatus = response.data.value
-        ));
-
+      .then((response) => (this.sitestatus = response.data.value));
   },
   created() {
     this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -45,7 +44,23 @@ export default {
       this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
       this.showCart = !this.showCart;
     },
-    checkout() {},
+    checkout() {
+      this.loading = true;
+      axios
+        .post(
+          import.meta.env.VITE_API_URL + "/orders/start/",
+          JSON.stringify(this.cart),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => (this.$router.push({ path: '/shop/checkout', query: { order: response.data._id } })))
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    },
   },
 };
 </script>
@@ -96,17 +111,17 @@ export default {
       <RouterLink to="/shop/couple"
         ><h3 class="link">Páros karkötők</h3></RouterLink
       >
-      <RouterLink to="/shop/sets"
-        ><h3 class="link">Szettek</h3></RouterLink
-      >
+      <RouterLink to="/shop/sets"><h3 class="link">Szettek</h3></RouterLink>
       <RouterLink class="flexlink" to="/shop/sales"
-        ><h3 class="link">Akciós karkötők</h3><h6>Új kedvezmények!</h6></RouterLink
+        ><h3 class="link">Akciós karkötők</h3>
+        <h6>Új kedvezmények!</h6></RouterLink
       >
       <RouterLink to="/shop"><h3 class="link">Összes karkötő</h3></RouterLink>
 
       <h3 class="linktitle">Kiegészítők</h3>
       <RouterLink class="flexlink" to="/shop/boravia"
-        ><h3 class="link">Fonott karkötők</h3> <h6>Készlet erejéig!</h6></RouterLink
+        ><h3 class="link">Fonott karkötők</h3>
+        <h6>Készlet erejéig!</h6></RouterLink
       >
       <RouterLink to="/shop/accessories"
         ><h3 class="link">Kulcstartók</h3></RouterLink
@@ -163,9 +178,10 @@ export default {
 
       <div class="bottom">
         <p class="total">Termékek ára: {{ total }} Ft</p>
-        <RouterLink to="/shop/checkout"
-          ><div class="nextbtn"><p>Fizetés</p></div></RouterLink
-        >
+        <div class="nextbtn" @click="checkout" v-if="!loading">
+          <p>Fizetés</p>
+        </div>
+        <div class="nextbtn" v-if="loading"><p>töltés</p></div>
       </div>
     </div>
   </section>
@@ -185,14 +201,14 @@ export default {
   </section>
 </template>
 
-<style scoped>
-.flexlink{
+<style>
+.flexlink {
   width: 330px;
   height: 30px;
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 }
-.flexlink h6{
+.flexlink h6 {
   letter-spacing: 1px;
   color: white;
   width: 170px;
@@ -247,8 +263,6 @@ input[type="number"] {
   align-items: center;
   gap: 1rem;
 }
-.cart_item_img {
-}
 .cart_item_img img {
   aspect-ratio: 1/1;
   width: 100px;
@@ -261,10 +275,10 @@ input[type="number"] {
   flex-direction: column;
   align-content: center;
 }
-.cart_item_desc .prodname{
+.cart_item_desc .prodname {
   line-height: 15px;
 }
-.cart_item_desc .size{
+.cart_item_desc .size {
   line-height: 0px;
 }
 .cart_item_del {
@@ -293,6 +307,7 @@ input[type="number"] {
   font-weight: bold;
 }
 .nextbtn {
+  cursor: pointer;
   background-color: rgb(17, 17, 17);
   width: 150px;
   border-radius: 5px;
@@ -300,7 +315,12 @@ input[type="number"] {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
 }
+.nextbtn:hover {
+  font-weight: 10;
+}
+
 .nextbtn p {
   color: white;
   font-weight: bolder;
@@ -488,7 +508,7 @@ header ion-icon {
   .menu_wrapper {
     width: 90%;
   }
-  .prodname{
+  .prodname {
     line-height: 20px;
   }
 }
