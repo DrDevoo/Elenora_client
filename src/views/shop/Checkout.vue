@@ -5,7 +5,19 @@ export default {
     return {
       showCart: false,
       cart: [],
+      user: {
+        u_email: "",
+        u_first: "",
+        u_name: "",
+        u_regio: "",
+        u_postnumber: "",
+        u_city: "",
+        u_addresse: "",
+        u_tel: "",
+      },
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
+      orderid: this.$route.query.order,
+      loading: false,
     };
   },
   created() {
@@ -19,7 +31,26 @@ export default {
       );
     },
   },
-  methods: {},
+  methods: {
+    next(){
+      this.loading = true;
+      console.log(this.user)
+      axios
+        .post(
+          import.meta.env.VITE_API_URL + "/orders/saveuser/" + this.orderid,
+          JSON.stringify(this.user),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => (this.$router.push({ path: '/shop/checkout/shipping', query: { order: this.orderid } })))
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    }
+  },
 };
 </script>
 <template>
@@ -97,7 +128,7 @@ export default {
       </div>
       <div>
         <h3>Kapcsolattartási adatok</h3>
-        <input type="text" placeholder="E-mail-cím" /> <br />
+        <input type="text" placeholder="E-mail-cím" v-model="user.u_email" /> <br />
 
         <div class="flex">
            <input class="checkbox" type="checkbox" name="news" id="news" />
@@ -106,16 +137,17 @@ export default {
        
 
         <h3>Szállítási cím</h3>
-        <input type="text" placeholder="Utónév" /> <br />
-        <input type="text" placeholder="Vezetéknév" /> <br />
-        <input type="text" placeholder="Ország/régió" /> <br />
-        <input type="text" placeholder="Irányítószám" /> <br />
-        <input type="text" placeholder="Település" /> <br />
-        <input type="text" placeholder="Épület, emelet, ajtó (nem kötelező)" />
+        <input type="text" placeholder="Utónév" v-model="user.u_name" /> <br />
+        <input type="text" placeholder="Vezetéknév" v-model="user.u_first" /> <br />
+        <input type="text" placeholder="Ország/régió" v-model="user.u_regio" /> <br />
+        <input type="text" placeholder="Irányítószám" v-model="user.u_postnumber" /> <br />
+        <input type="text" placeholder="Település" v-model="user.u_city" /> <br />
+        <input type="text" placeholder="Épület, emelet, ajtó (nem kötelező)" v-model="user.u_addresse" />
         <br />
-        <input type="text" placeholder="telefonszám" /> <br />
+        <input type="text" placeholder="telefonszám" v-model="user.u_tel" /> <br />
         <br />
-        <button>Szállítási módok</button>
+        <button @click="next" v-if="!loading">Szállítási módok</button>
+        <button @click="next" v-if="loading">Töltés</button>
       </div>
     </section>
     <br><br>
