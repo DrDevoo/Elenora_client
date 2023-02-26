@@ -100,7 +100,7 @@ export default {
         <p class="time" id="s">{{ displaySeconds }}</p>
       </div>
       <p>
-        A visszaszámlálás elindult! <br> Tartsatok velünk a megújulás útján a szocial média oldalainkon! 
+        A visszaszámlálás elindult! <br> Tartsatok velünk a megújulás útján a közösségi média oldalainkon! 
       </p>
     </main>
     <footer>
