@@ -1,3 +1,86 @@
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      displayDays: 0,
+      displayHours: 0,
+      displayMinutes: 0,
+      displaySeconds: 0,
+
+      hirlevel: false,
+      form: {
+        email: "",
+        name: "",
+      },
+      succes: false,
+    };
+  },
+  computed: {
+    seconds: () => 1000,
+    minutes: () => {
+      return this._seconds * 60;
+    },
+    hours: () => {
+      return this._minutes * 60;
+    },
+    days: () => {
+      return this._hours * 24;
+    },
+  },
+  methods: {
+    formatNum: (num) => (num < 10 ? "0" + num : num),
+
+    showRemaining() {
+      const timer = setInterval(() => {
+        const now = new Date();
+        //0 = Januar, 1 = Februar stb...
+        const end = new Date(2023, 2, 28, 12, 0, 0, 0);
+        const distance = end.getTime() - now.getTime();
+
+        if (distance < 0) {
+          clearInterval(timer);
+          return;
+        }
+
+        const days = Math.floor(distance / 86400000);
+        const hours = Math.floor((distance % 86400000) / 3600000);
+        const minutes = Math.floor((distance % 3600000) / 60000);
+        const seconds = Math.floor((distance % 60000) / 1000);
+        this.displayMinutes = minutes < 10 ? "0" + minutes : minutes;
+        this.displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+        this.displayHours = hours < 10 ? "0" + hours : hours;
+        this.displayDays = days < 10 ? "0" + days : days;
+      }, 1000);
+    },
+
+    subscribe() {
+      if (!this.form.name == "" && !this.form.email == "") {
+        axios
+          .post(
+            import.meta.env.VITE_API_URL + "/newsletter/subscribe",
+            JSON.stringify(this.form),
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((response) => (this.succes = true))
+          .catch((error) => {
+            console.error("There was an error!", error);
+          });
+      } else {
+        alert("Kérlek minden mezőt tölts ki!");
+      }
+    },
+  },
+  mounted() {
+    this.showRemaining();
+  },
+};
+</script>
+
 <template>
   <div class="body">
     <main>
@@ -8,31 +91,113 @@
         kollekciókkal, karkötőkkel és kiegészítőkkel.
       </h2>
       <div class="clock_b">
-        <p class="time" id="d">00</p>
+        <p class="time" id="d">{{ displayDays }}</p>
         <p class="gap" id="">:</p>
-        <p class="time" id="h">00</p>
+        <p class="time" id="h">{{ displayHours }}</p>
         <p class="gap" id="">:</p>
-        <p class="time" id="m">00</p>
+        <p class="time" id="m">{{ displayMinutes }}</p>
         <p class="gap" id="">:</p>
-        <p class="time" id="s">00</p>
+        <p class="time" id="s">{{ displaySeconds }}</p>
       </div>
       <p>
         Addig is iratkozz fel hírlevelünkre, hogy ne maradj le aktuális
         kedvezményeinkről, ajánlatainkról.
       </p>
-      <a href=""><p>Feliratkozom!</p></a>
+      <p class="hir" @click="hirlevel = !hirlevel">Feliratkozom!</p>
     </main>
     <footer>
       <p>Kövess minket itt is:</p>
-      <ion-icon name="logo-instagram"></ion-icon>
-      <ion-icon name="logo-facebook"></ion-icon>
+      <a href="https://instagram.com/elenora.ekszer" target="_blank"><ion-icon name="logo-instagram"></ion-icon></a>
+      <a href="https://www.facebook.com/elenora.ekszer" target="_blank"><ion-icon name="logo-facebook"></ion-icon></a>
     </footer>
     <img class="layout" src="../assets/images/karkot_t.png" />
     <img class="layout2" src="../assets/images/karkot_t.png" />
   </div>
+  <section class="hirlevel_w" v-if="hirlevel">
+    <div class="hirlevel_b">
+      <div v-if="!succes">
+        <ion-icon
+          @click="hirlevel = !hirlevel"
+          style="color: black; width: 100%; text-align: left; font-size: 20pt"
+          name="close-outline"
+        ></ion-icon>
+        <h2>
+          Iratkozz fel hírlevelünkre, hogy azonnal értesűlj az új ajánlatokról!
+        </h2>
+        <div class="inputs">
+          <input type="email" placeholder="Email" v-model="this.form.email" />
+          <input type="text" placeholder="Név" v-model="this.form.name" />
+          <button @click="subscribe()">Feliratkozás</button>
+        </div>
+      </div>
+      <div v-if="succes">
+        <ion-icon
+          @click="hirlevel = !hirlevel"
+          style="color: black; width: 100%; text-align: left; font-size: 20pt"
+          name="close-outline"
+        ></ion-icon>
+        <h2>Sikeresen feliratkoztál a hírlevelünkre!</h2>
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped>
+.hirlevel_w {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.444);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hirlevel_b {
+  background-color: rgba(255, 255, 255, 0.937);
+  width: 80%;
+  height: 60vh;
+  border-radius: 20px;
+  color: black;
+}
+.hirlevel_b h2 {
+  color: black;
+}
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+}
+.inputs input {
+  color: black;
+  width: 100%;
+  max-width: 500px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  border-radius: 50px;
+  background: #ffffff;
+  box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+}
+.inputs button {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: black;
+  width: 150px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  margin: auto;
+  border-radius: 50px;
+  border: none;
+  background: #ffffff;
+  box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
+}
+
 * {
   text-align: center;
   color: white;
@@ -102,14 +267,8 @@ h1 {
   font-size: 25pt;
 }
 
-a {
-  text-decoration: none;
-  line-height: 10px;
-  position: relative;
-  top: -1.3rem;
-}
-
-a p {
+.hir {
+  cursor: pointer;
   font-weight: bold;
   background-color: rgba(255, 255, 255, 0.157);
   height: fit-content;
