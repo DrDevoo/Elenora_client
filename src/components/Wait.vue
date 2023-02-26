@@ -100,10 +100,8 @@ export default {
         <p class="time" id="s">{{ displaySeconds }}</p>
       </div>
       <p>
-        Addig is iratkozz fel hírlevelünkre, hogy ne maradj le aktuális
-        kedvezményeinkről, ajánlatainkról.
+        A visszaszámlálás elindult! <br> Tartsatok velünk a megújulás útján a szocial média oldalainkon! 
       </p>
-      <p class="hir" @click="hirlevel = !hirlevel">Feliratkozom!</p>
     </main>
     <footer>
       <p>Kövess minket itt is:</p>
