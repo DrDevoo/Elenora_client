@@ -21,6 +21,6 @@ export default {
 
 <template>
   <RouterView v-if="status.value === 'online'" />
-  <WaitView v-else-if="status.value === 'wait'" />
-  <OfflineView v-else-if="status.value === 'offline'" />
+  <RouterView v-else-if="status.value === 'wait'" />
+  <RouterView v-else-if="status.value === 'offline'" />
 </template>
