@@ -18,6 +18,8 @@ export default {
       size: "M",
 
       key: 0,
+
+      p_img: null,
     };
   },
   mounted() {
@@ -53,6 +55,10 @@ export default {
         this.quantity -= 1;
       }
     },
+    select(img){
+      console.log(img)
+      this.p_img = img
+    },
   },
 };
 </script>
@@ -64,9 +70,38 @@ export default {
       <setion class="images-s">
         <div>
           <img
-            v-if="response.image"
-            class="pickedimg"
+            v-if="response.image && p_img == null "
             :src="imgurl + response.image"
+            class="pickedimg"
+            alt="Termék képe"
+          />
+          <img
+            v-if="!(p_img == null) "
+            :src="imgurl + p_img"
+            class="pickedimg"
+            alt="Termék képe"
+          />
+        </div>
+        <div class="thumblist">
+          <img
+            @click="select(response.image)"
+            v-if="response.image"
+            class="thumbimg"
+            :src="imgurl + response.image"
+            alt="Termék képe"
+          />
+          <img
+            @click="select(response.image2)"
+            v-if="response.image2 && !(response.image2 == '46bea41c0363d722467defc2f1ecc234')"
+            class="thumbimg"
+            :src="imgurl + response.image2"
+            alt="Termék képe"
+          />
+          <img
+            @click="select(response.image3)"
+            v-if="response.image3 && !(response.image3 == '46bea41c0363d722467defc2f1ecc234')"
+            class="thumbimg"
+            :src="imgurl + response.image3"
             alt="Termék képe"
           />
         </div>
@@ -178,6 +213,21 @@ body {
   padding: 0;
   display: block;
 }
+
+.thumbimg{
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+  border: 5px solid white;
+}
+.thumblist{
+  position: relative;
+  top: -5.4rem;
+  left: 2.7rem;
+  gap: 10px;
+  display: flex;
+}
 .pickedimg {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.412);
 }
@@ -233,7 +283,7 @@ input[type="number"] {
   width: 50%;
 }
 
-.images-s div img {
+.images-s div .pickedimg {
   max-height: 750px;
   width: 93%;
   position: relative;
@@ -323,7 +373,21 @@ input[type="number"] {
     height: fit-content;
   }
 
-  .images-s div img {
+  .thumbimg{
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  z-index: 10;
+  border: 5px solid white;
+}
+.thumblist{
+  position: relative;
+  top: -6.0rem;
+  left: 1.7rem;
+  gap: 10px;
+  display: flex;
+}
+  .images-s div .pickedimg {
     width: 93%;
     position: relative;
     left: 3%;
@@ -334,6 +398,8 @@ input[type="number"] {
   }
 
   .texts-s {
+    position: relative;
+    top: -6rem;
     width: 100%;
     height: 100%;
     padding: 0.5rem;
