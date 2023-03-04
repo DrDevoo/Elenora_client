@@ -7,6 +7,7 @@ export default {
       collections: [],
       p_name : null,
       p_precent : 0,
+      p_time : Date.now(),
     };
   },
   mounted() {
@@ -17,8 +18,33 @@ export default {
   methods: {
     pick(name){
       this.p_name = name
-    }
-  }
+    },
+    savesale() {
+      axios
+        .post(
+          import.meta.env.VITE_API_URL +
+            "/sales/addsalecollection/" +
+            this.p_name +
+            "/" +
+            this.p_precent +
+            "/" +
+            this.p_time,
+          JSON.stringify(this.products),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then(function (response) {
+          console.log(response);
+          alert("Sikeres akció mentés!")
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+    },
+  },
 };
 </script>
 
@@ -37,10 +63,11 @@ export default {
       <div>
         <form action="">
           <h5>Meddig tartson?</h5>
-          <input type="radio" name="alltime" id="alltime" />
-          <label for="alltime">Készlet erejéig</label><br />
-          <input type="date" name="" id="" />
+          <input type="date" name="" id="" v-model="p_time" />
         </form>
+      </div>
+      <div>
+        <button @click=" savesale()">Mentés</button>
       </div>
     </div>
     <div>
@@ -48,7 +75,6 @@ export default {
         <thead>
           <tr>
             <th>Neve</th>
-            <th>Típusa</th>
             <th>Karkötők</th>
             <th></th>
           </tr>
@@ -56,7 +82,6 @@ export default {
         <tbody>
           <tr v-for="item in collections" :key="item._id">
             <td>{{ item.col_name }}</td>
-            <td>{{ item.col_type }}</td>
             <td>{{ item.col_db }}</td>
             <td @click="pick(item.col_name)">választ</td>
           </tr>

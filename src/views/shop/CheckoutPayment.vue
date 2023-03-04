@@ -1,27 +1,25 @@
 <script>
 import axios from "axios";
+import { resolveComponent } from "vue";
 export default {
   data() {
     return {
       showCart: false,
       cart: [],
-      user: {
-        u_email: "",
-        u_first: "",
-        u_name: "",
-        u_regio: "Magyarország",
-        u_postnumber: "",
-        u_city: "",
-        u_addresse: "",
-        u_tel: "",
-      },
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       orderid: this.$route.query.order,
       loading: false,
+
+      order: [],
     };
   },
   created() {
     this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  },
+  mounted(){
+    axios
+      .get(import.meta.env.VITE_API_URL + "/orders/getbyid/"+this.orderid)
+      .then((response) => (this.order=response.data));
   },
   computed: {
     total() {
@@ -32,11 +30,12 @@ export default {
     },
   },
   methods: {
-    next(){
+    next() {
       this.loading = true;
+      console.log(this.user)
       axios
         .post(
-          import.meta.env.VITE_API_URL + "/orders/saveuser/" + this.orderid,
+          import.meta.env.VITE_API_URL + "/orders/saveshipping/" + this.orderid,
           JSON.stringify(this.user),
           {
             headers: {
@@ -44,7 +43,7 @@ export default {
             },
           }
         )
-        .then((response) => (this.$router.push({ path: '/shop/checkout/shipping', query: { order: this.orderid } })))
+        .then((response) => (this.$router.push({ path: '/shop/checkout/payment', query: { order: this.orderid } })))
         .catch((error) => {
           console.error("There was an error!", error);
         });
@@ -106,7 +105,7 @@ export default {
       </div>
       <div class="order_status">
         <div class="sec">
-          <div class="circle active"><p class="active">1</p></div>
+          <div class="circle"><p>1</p></div>
           <div class="title"><p>Adatok</p></div>
         </div>
         <div class="hr"></div>
@@ -116,7 +115,7 @@ export default {
         </div>
         <div class="hr"></div>
         <div class="sec">
-          <div class="circle"><p>3</p></div>
+          <div class="circle active"><p class="active">3</p></div>
           <div class="title"><p>Fizetés</p></div>
         </div>
         <div class="hr"></div>
@@ -125,27 +124,41 @@ export default {
           <div class="title"><p>Összegzés</p></div>
         </div>
       </div>
-      <div>
-        <h3>Kapcsolattartási adatok</h3>
-        <input type="text" placeholder="E-mail-cím" v-model="user.u_email" /> <br />
-
-        <div class="flex">
-           <input class="checkbox" type="checkbox" name="news" id="news" />
-        <label for="news">Szeretnék értesűlni az aktuális ajánlatokról</label>
+      <div class="osszesites_w">
+        <div class="oszesites_b">
+          <div class="left">
+            <p class="t">Kapcsolattartás</p>
+            <p class="c">{{ this.order.u_email }}</p>
+          </div>
+          <div class="right"> 
+            <p class="ch" @click="backto('customer')">Módosítás</p>
+          </div>
         </div>
-       
-
-        <h3>Szállítási cím</h3>
-        <input type="text" placeholder="Utónév" v-model="user.u_name" /> <br />
-        <input type="text" placeholder="Vezetéknév" v-model="user.u_first" /> <br />
-        <input type="text" placeholder="Ország/régió" v-model="user.u_regio" readonly="readonly" /> <br />
-        <input type="text" placeholder="Irányítószám" v-model="user.u_postnumber" /> <br />
-        <input type="text" placeholder="Település" v-model="user.u_city" /> <br />
-        <input type="text" placeholder="Cím" v-model="user.u_addresse" />
+        <div class="oszesites_b">
+          <div class="left">
+            <p class="t">Szállítási cím</p>
+            <p class="c">{{ this.order.u_postnumber }}  {{ this.order.u_city }}, {{ this.order.u_addresse }}, {{ this.order.u_legio }}</p>
+          </div>
+          <div class="right"> 
+            <p class="ch" @click="backto('customer')">Módosítás</p>
+          </div>
+        </div>
+        <div class="oszesites_b">
+          <div class="left">
+            <p class="t">Szállítási mód</p>
+            <p class="c" v-if="this.order.shipping == 'delivery-cash' ">Házhozszállítás - Utánvétes fizetés</p>
+            <p class="c" v-if="this.order.shipping == 'delivery-card' ">Házhozszállítás - Online fizetés</p>
+          </div>
+          <div class="right"> 
+            <p class="ch" @click="backto('shipping')">Módosítás</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>Szállítási mód</h3>
+        
         <br />
-        <input type="text" placeholder="Telefonszám" v-model="user.u_tel" /> <br />
-        <br />
-        <button @click="next" v-if="!loading">Szállítási módok</button>
+        <button @click="next" v-if="!loading">Rendelés Összegzése</button>
         <button @click="next" v-if="loading">Töltés</button>
       </div>
     </section>
@@ -157,6 +170,36 @@ export default {
 main {
   display: flex;
   flex-direction: column;
+}
+
+.osszesites_w{
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  border: 1px solid gray;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.oszesites_b{
+  width: 90%;
+  border-bottom: 1px solid gray;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.oszesites_b .left{
+  
+}
+.oszesites_b .right{
+  
+}
+.ch{
+  cursor: pointer;
+}
+.t{
+  color: gray;
 }
 .prices{
   padding-left: 1rem;

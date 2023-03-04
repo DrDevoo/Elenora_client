@@ -5,6 +5,7 @@ export default {
   data() {
     return {
       products: [],
+      json: [],
       p_name : null,
       p_precent : 0,
       p_time : Date.now(),
@@ -29,7 +30,7 @@ export default {
             this.p_precent +
             "/" +
             this.p_time,
-          JSON.stringify(this.products),
+          JSON.stringify(this.json),
           {
             headers: {
               "Content-Type": "application/json",
@@ -40,9 +41,7 @@ export default {
           console.log(response);
           alert("Sikeres akció mentés!")
         })
-        .catch(function () {
-          console.log("FAILURE!!");
-        });
+        .catch((error) => console.log(error));
     }
   }
 };
