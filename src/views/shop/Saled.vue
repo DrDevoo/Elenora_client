@@ -302,14 +302,15 @@ section {
 
 .saleprecent {
   position: absolute;
-  top: -15px;
-  right: 8px;
-  width: 35px;
-  height: 18px;
+  top: -24px;
+  right: 3px;
+  width: 45px;
+  height: 25px;
   text-align: center;
-  line-height: 18px;
+  line-height: 25px;
+  font-size: 12pt;
   color: white;
-  border-radius: 5px;
+  border-radius: 8px;
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
@@ -388,7 +389,7 @@ section {
                 <h4 v-if="item.activesale === 'false'">{{ item.price }} Ft</h4>
                 <h4 class="oldprice"  v-if="item.activesale === 'true'">{{ item.price }} Ft</h4>
                 <h4 class="newprice" v-if="item.activesale === 'true'">
-                  {{ item.price - (item.price / 100) * item.saleprecent }} Ft
+                  {{ Math.round(item.price - (item.price / 100) * item.saleprecent) }} Ft
                 </h4>
               </div>
             </div>

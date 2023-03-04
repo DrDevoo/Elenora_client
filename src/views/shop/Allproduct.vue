@@ -390,7 +390,7 @@ section {
                   {{ item.price }} Ft
                 </h4>
                 <h4 class="newprice" v-if="item.activesale === 'true'">
-                  {{ item.price - (item.price / 100) * item.saleprecent }} Ft
+                  {{ Math.round(item.price - (item.price / 100) * item.saleprecent) }} Ft
                 </h4>
               </div>
             </div>
