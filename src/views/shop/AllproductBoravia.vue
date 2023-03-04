@@ -3,7 +3,6 @@ import axios from "axios";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { RouterLink } from "vue-router";
-
 </script>
 <script>
 export default {
@@ -14,6 +13,8 @@ export default {
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       linkurl: "/shop/picked?id=",
       count: 0,
+      key: 0,
+      cart: [],
 
       p_product: {
         id: "",
@@ -29,14 +30,17 @@ export default {
       .then((response) => (this.response = response.data));
   },
   methods: {
-    addToCart(product) {
+    addToCart(productid,productname,prodimg,prodprice) {
       this.cart.push({
-        id: product._id,
-        name: product.prodname,
-        price: product.price,
+        id: productid,
+        name: productname,
+        img: prodimg,
+        size: "-",
+        price: prodprice,
         quantity: 1,
       });
       localStorage.setItem("cart", JSON.stringify(this.cart));
+      this.key += 1
     },
   },
 };
@@ -109,16 +113,9 @@ section {
   gap: 1rem;
   width: 100%;
 }
-.item-list a {
-  text-decoration: none;
-  color: black;
-  width: 18%;
-  height: fit-content;
-  box-sizing: border-box;
-}
 .item {
   padding: 5px;
-  width: 100%;
+  width: 18%;
   height: fit-content;
   border-radius: 0.5rem;
   border-radius: 10px;
@@ -139,8 +136,8 @@ section {
   border-radius: 0.5rem 0.5rem 0 0;
   object-fit: cover;
 }
-.item img:hover{
-  transform: scale(1.0);
+.item img:hover {
+  transform: scale(1);
   width: 100%;
 }
 .item h3 {
@@ -239,19 +236,13 @@ section {
     width: 100%;
   }
   .item {
-    width: 100%;
+    width: 46%;
   }
   section {
     width: 100%;
   }
   .item-list {
     justify-content: center;
-  }
-  .item-list a {
-    text-decoration: none;
-    color: black;
-    width: 46%;
-    box-sizing: border-box;
   }
   aside {
     padding: 1rem;
@@ -300,10 +291,20 @@ section {
 .prod-count {
   color: gray;
 }
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 10px;
+}
+.flex ion-icon {
+  font-size: 17pt;
+}
 </style>
 
 <template>
-  <Header />
+  <Header :key="key" />
   <main>
     <aside v-if="filter">
       <ion-icon
@@ -343,19 +344,24 @@ section {
         </div>
       </div>
       <div class="item-list">
-        <RouterLink
+        <div
+          class="item"
           v-for="item in response.products"
           :key="item._id"
           :to="linkurl + item._id"
         >
-          <div class="item">
-            <div class="img_w"><img :src="imgurl + item.image" /></div>
-            <div class="text">
-              <h3>{{ item.prodname }}</h3>
+          <div class="img_w"><img :src="imgurl + item.image" /></div>
+          <div class="text">
+            <h3>{{ item.prodname }}</h3>
+            <div class="flex">
               <h4>{{ item.price }} Ft</h4>
+              <ion-icon
+                name="cart-outline"
+                @click="addToCart(item._id,item.prodname,item.image,item.price)"
+              ></ion-icon>
             </div>
           </div>
-        </RouterLink>
+        </div>
       </div>
     </section>
   </main>
