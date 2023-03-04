@@ -4,6 +4,7 @@ import AddCupon from "./components/AddCupon.vue";
 import AddSaleProd from "./components/AddSaleProduct.vue";
 import AddSaleColle from "./components/AddSaleCollection.vue";
 import SalesList from "./components/SalesList.vue";
+import CuponsList from "./components/CuponsList.vue";
 </script>
 
 <script>
@@ -36,7 +37,11 @@ export default {
     <AddSaleProd v-if="showSaleProd" />
     <AddSaleColle v-if="showSaleColle" />
 
+    <h3 class="minititle">Akciók</h3>
     <SalesList />
+
+    <h3 class="minititle">Kuponok</h3>
+    <CuponsList />
   </main>
 </template>
 
@@ -65,6 +70,10 @@ section {
 }
 main {
   padding: 1rem;
+}
+.minititle{
+  position: relative;
+  top: -8rem;
 }
 .new-wrapper {
   position: relative;

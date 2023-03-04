@@ -16,7 +16,8 @@ export default {
     submitSave() {
       axios
         .post(
-          "http://localhost:3500/cupons/add/" +
+          import.meta.env.VITE_API_URL +
+          "/cupons/add/" +
             this.form.cupon_name +
             "/" +
             this.form.cupon_value,
