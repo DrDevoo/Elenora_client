@@ -12,7 +12,31 @@ export default {
       orderprice: 0,
       orderdate: 0,
       orderid: 0,
+
+      order: [],
+      cart: [],
+      orderdbid: this.$route.query.id,
     };
+  },
+  mounted() {
+    axios
+      .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderdbid)
+      .then((response) => (this.order = response.data));
+    axios
+      .post(
+        import.meta.env.VITE_API_URL + "/orders/finish/" + this.orderdbid,
+        JSON.stringify(this.orderdbid),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => this.$router.push({ path: "/" }))
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
+    localStorage.setItem("cart", JSON.stringify(this.cart));
   },
   methods: {
     pay() {
@@ -59,7 +83,7 @@ export default {
     <section class="s3">
       <div class="flex">
         <p>Rendelés azonosító:</p>
-        <p>{{ orderid }}</p>
+        <p>{{ order.orderid }}</p>
       </div>
       <div class="flex">
         <p>Rendelés:</p>
@@ -71,7 +95,7 @@ export default {
   </main>
 </template>
 
-<style>
+<style scoped>
 main {
   position: relative;
   top: 60px;

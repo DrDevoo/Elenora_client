@@ -181,7 +181,10 @@ export default {
 
       <div class="bottom">
         <p class="total">Termékek ára: {{ total }} Ft</p>
-        <div class="nextbtn" @click="checkout" v-if="!loading">
+        <div class="nextbtn" @click="checkout" v-if="!loading && !(cartcount == 0)">
+          <p>Fizetés</p>
+        </div>
+        <div class="nextbtn nextbtn_off" v-if="!loading && cartcount == 0">
           <p>Fizetés</p>
         </div>
         <div class="nextbtn" v-if="loading"><p>töltés</p></div>
@@ -343,6 +346,13 @@ input[type="number"] {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+.nextbtn_off{
+  background-color: rgba(37, 37, 37, 0.748);
+}
+.nextbtn_off p {
+  color: rgb(188, 188, 188);
+}
+
 .info {
   z-index: 10;
   background-color: rgba(255, 160, 122, 0.895);

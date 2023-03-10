@@ -23,7 +23,7 @@ export default {
     },
   },
   methods: {
-    next(){
+    next() {
       this.loading = true;
       axios
         .post(
@@ -35,15 +35,20 @@ export default {
             },
           }
         )
-        .then((response) => (this.$router.push({ path: '/shop/checkout/shipping', query: { order: this.orderid } })))
+        .then((response) =>
+          this.$router.push({
+            path: "/shop/checkout/shipping",
+            query: { order: this.orderid },
+          })
+        )
         .catch((error) => {
           console.error("There was an error!", error);
         });
     },
   },
-  mounted(){
+  mounted() {
     axios
-      .get(import.meta.env.VITE_API_URL + "/orders/getbyid/"+this.orderid)
+      .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderid)
       .then((response) => (this.user = response.data));
   },
 };
@@ -53,7 +58,10 @@ export default {
     <section class="datas_w">
       <div class="logo_w">
         <RouterLink to="/"
-          ><img class="logo" src="../../assets/images/logo/logo.svg" alt="ELENORA"
+          ><img
+            class="logo"
+            src="../../assets/images/logo/logo.svg"
+            alt="ELENORA"
         /></RouterLink>
       </div>
       <div class="cart_w">
@@ -75,7 +83,7 @@ export default {
             <div class="cart_item" v-for="(item, index) in cart" :key="index">
               <div class="cart_item_imgtext">
                 <div class="cart_item_img">
-                  <img :src="imgurl + item.img" />
+                  <img v-if="!(item.img == null)" :src="imgurl + item.img" />
                 </div>
                 <div class="cart_item_desc">
                   <p>{{ item.name }}</p>
@@ -84,18 +92,16 @@ export default {
                 </div>
               </div>
               <div class="cart_item_del">
-                  <h5>{{ item.price }} Ft</h5>
+                <h5>{{ item.price }} Ft</h5>
               </div>
             </div>
           </div>
           <div class="prices">
             <div>
-              <p>Termékek</p>
-              <b><p>{{ total }} Ft</p></b>
-            </div>
-            <div>
-              <p>Szállítás</p>
-              <b><p>--</p></b>
+              <p>Összeg</p>
+              <b
+                ><p>{{ total }} Ft</p></b
+              >
             </div>
           </div>
         </div>
@@ -118,29 +124,72 @@ export default {
       </div>
       <div>
         <h3>Kapcsolattartási adatok</h3>
-        <input type="text" placeholder="E-mail-cím" v-model="user.u_email" /> <br />
-
-        <div class="flex">
-           <input class="checkbox" type="checkbox" name="news" id="news" />
-        <label for="news">Szeretnék értesűlni az aktuális ajánlatokról</label>
-        </div>
-       
+        <input type="text" placeholder="E-mail-cím" v-model="user.u_email" />
+        <br />
 
         <h3>Szállítási cím</h3>
         <input type="text" placeholder="Utónév" v-model="user.u_name" /> <br />
-        <input type="text" placeholder="Vezetéknév" v-model="user.u_first" /> <br />
-        <input type="text" placeholder="Ország/régió" v-model="user.u_regio" readonly="readonly" /> <br />
-        <input type="text" placeholder="Irányítószám" v-model="user.u_postnumber" /> <br />
-        <input type="text" placeholder="Település" v-model="user.u_city" /> <br />
+        <input type="text" placeholder="Vezetéknév" v-model="user.u_first" />
+        <br />
+        <input
+          type="text"
+          placeholder="Ország/régió"
+          v-model="user.u_regio"
+          readonly="readonly"
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Irányítószám"
+          v-model="user.u_postnumber"
+        />
+        <br />
+        <input type="text" placeholder="Település" v-model="user.u_city" />
+        <br />
         <input type="text" placeholder="Cím" v-model="user.u_addresse" />
         <br />
-        <input type="text" placeholder="Telefonszám" v-model="user.u_tel" /> <br />
+        <input type="text" placeholder="Telefonszám" v-model="user.u_tel" />
+        <div class="flex">
+          <input class="checkbox" type="checkbox" name="news" id="news" />
+          <label for="news">Szeretnék értesűlni az aktuális ajánlatokról</label>
+        </div>
         <br />
-        <button @click="next" v-if="!loading">Szállítási módok</button>
+        <br />
+        <button
+          @click="next"
+          v-if="
+            !loading &&
+            !(
+              user.u_email == '' ||
+              user.u_name == '' ||
+              user.u_first == '' ||
+              user.u_postnumber == '' ||
+              user.u_regio == '' ||
+              user.u_addresse == '' ||
+              user.u_tel == ''
+            )
+          "
+        >
+          Szállítási módok
+        </button>
+        <button
+          class="off"
+          v-if="
+            (!loading && user.u_email == '') ||
+            user.u_name == '' ||
+            user.u_first == '' ||
+            user.u_postnumber == '' ||
+            user.u_regio == '' ||
+            user.u_addresse == '' ||
+            user.u_tel == ''
+          "
+        >
+          Szállítási módok
+        </button>
         <button @click="next" v-if="loading">Töltés</button>
       </div>
     </section>
-    <br><br>
+    <br /><br />
   </main>
 </template>
 
@@ -149,11 +198,11 @@ main {
   display: flex;
   flex-direction: column;
 }
-.prices{
+.prices {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-.prices div{
+.prices div {
   display: flex;
   justify-content: space-between;
 }
@@ -174,6 +223,7 @@ input {
   padding-left: 0.5rem;
 }
 button {
+  cursor: pointer;
   position: relative;
   left: 10%;
   width: 80%;
@@ -184,8 +234,13 @@ button {
   border: none;
   border-radius: 7px;
 }
+button.off {
+  background-color: rgba(37, 37, 37, 0.748);
+  color: rgb(188, 188, 188);
+}
 .flex {
   display: flex;
+  align-items: center;
 }
 main {
   display: flex;
@@ -286,7 +341,6 @@ footer {
   color: black;
 }
 
-
 .quantity {
   padding: 0.2rem;
   border-radius: 50px;
@@ -332,18 +386,18 @@ footer {
   line-height: 0px;
 }
 
-.cart_item_del{
+.cart_item_del {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.checkbox{
+.checkbox {
   width: fit-content;
 }
-label{
+label {
   position: relative;
-  top: 0;
-  left: 0;
+  top: -2px;
+  left: 30px;
 }
 </style>

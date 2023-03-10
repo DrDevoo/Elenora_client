@@ -1,6 +1,5 @@
 <script>
 import axios from "axios";
-import { resolveComponent } from "vue";
 export default {
   data() {
     return {
@@ -32,7 +31,6 @@ export default {
   methods: {
     next() {
       this.loading = true;
-      console.log(this.user);
       axios
         .post(
           import.meta.env.VITE_API_URL + "/orders/finish/" + this.orderid,
@@ -71,6 +69,14 @@ export default {
     },
     ordercash() {
       this.loading = true;
+      axios
+        .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderid)
+        .then((response) =>
+          this.$router.push({
+            path: "/shop/thanks",
+            query: { id: this.orderid },
+          })
+        );
     },
     orderpay() {
       this.loading = true;
@@ -78,10 +84,7 @@ export default {
         .post(
           import.meta.env.VITE_API_URL + "/orders/pay",
           JSON.stringify({
-            items: [
-              { id: 1, quantity: 3 },
-              { id: 2, quantity: 1 },
-            ],
+            items: this.cart,
             orderid: this.orderid,
           }),
           {
@@ -127,7 +130,7 @@ export default {
             <div class="cart_item" v-for="(item, index) in cart" :key="index">
               <div class="cart_item_imgtext">
                 <div class="cart_item_img">
-                  <img :src="imgurl + item.img" />
+                  <img v-if="!(item.img == null)" :src="imgurl + item.img" />
                 </div>
                 <div class="cart_item_desc">
                   <p>{{ item.name }}</p>
@@ -142,14 +145,10 @@ export default {
           </div>
           <div class="prices">
             <div>
-              <p>Termékek</p>
+              <p>Összeg</p>
               <b
                 ><p>{{ total }} Ft</p></b
               >
-            </div>
-            <div>
-              <p>Szállítás</p>
-              <b><p>--</p></b>
             </div>
           </div>
         </div>
@@ -264,10 +263,6 @@ main {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
-}
-.oszesites_b .left {
-}
-.oszesites_b .right {
 }
 .ch {
   cursor: pointer;

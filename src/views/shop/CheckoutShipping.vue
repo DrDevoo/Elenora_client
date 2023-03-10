@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import { resolveComponent } from "vue";
+
 export default {
   data() {
     return {
@@ -35,7 +35,34 @@ export default {
   methods: {
     next() {
       this.loading = true;
-      console.log(this.order);
+      if (this.order.shipping == "delivery-cash") {
+        this.order.cart.push({
+          id: 1,
+          name: "Szállítási díj",
+          price: 1990,
+          quantity: 1,
+          img: null
+        });
+        this.order.cart.push({
+          id: 2,
+          name: "Utánvét díj",
+          price: 890,
+          quantity: 1,
+          img: null
+        });
+
+        localStorage.setItem("cart", JSON.stringify(this.order.cart));
+      } else {
+        this.order.cart.push({
+          id: 1,
+          name: "Szállítási díj",
+          price: 1990,
+          quantity: 1,
+          img: null
+        });
+        localStorage.setItem("cart", JSON.stringify(this.order.cart));
+      }
+      console.log(this.order.cart)
       axios
         .post(
           import.meta.env.VITE_API_URL + "/orders/saveshipping/" + this.orderid,
@@ -55,6 +82,27 @@ export default {
         .catch((error) => {
           console.error("There was an error!", error);
         });
+    },
+    backto(path) {
+      console.log("clicked");
+      if (path == "shipping") {
+        this.$router.push({
+          path: "/shop/checkout/shipping",
+          query: { order: this.orderid },
+        });
+      } else if (path == "customer") {
+        this.$router.push({
+          path: "/shop/checkout",
+          query: { order: this.orderid },
+        });
+      } else if (path == "paying") {
+        this.$router.push({
+          path: "/shop/checkout/shipping",
+          query: { order: this.orderid },
+        });
+      } else {
+        console.log("err");
+      }
     },
   },
 };
@@ -89,7 +137,7 @@ export default {
             <div class="cart_item" v-for="(item, index) in cart" :key="index">
               <div class="cart_item_imgtext">
                 <div class="cart_item_img">
-                  <img :src="imgurl + item.img" />
+                  <img v-if="!(item.img == null)" :src="imgurl + item.img" />
                 </div>
                 <div class="cart_item_desc">
                   <p>{{ item.name }}</p>
@@ -104,14 +152,10 @@ export default {
           </div>
           <div class="prices">
             <div>
-              <p>Termékek</p>
+              <p>Összeg</p>
               <b
                 ><p>{{ total }} Ft</p></b
               >
-            </div>
-            <div>
-              <p>Szállítás</p>
-              <b><p>--</p></b>
             </div>
           </div>
         </div>
@@ -192,7 +236,12 @@ export default {
           </div>
         </div>
         <br />
-        <button @click="next" v-if="!loading">Összegzés</button>
+        <button @click="next" v-if="!loading && !(order.shipping == '')">
+          Összegzés
+        </button>
+        <button class="off" v-if="!loading && order.shipping == ''">
+          Összegzés
+        </button>
         <button @click="next" v-if="loading">Töltés</button>
       </div>
     </section>
@@ -205,16 +254,16 @@ main {
   display: flex;
   flex-direction: column;
 }
-.radio{
+.radio {
   background-color: red;
   width: 50px;
   height: 50px;
 }
-.flex_option{
+.flex_option {
   display: flex;
   align-items: center;
 }
-.options_box{
+.options_box {
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
@@ -284,6 +333,10 @@ button {
   font-size: 14pt;
   border: none;
   border-radius: 7px;
+}
+button.off {
+  background-color: rgba(37, 37, 37, 0.748);
+  color: rgb(188, 188, 188);
 }
 .flex {
   display: flex;
