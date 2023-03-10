@@ -5,16 +5,7 @@ export default {
     return {
       showCart: false,
       cart: [],
-      user: {
-        u_email: "",
-        u_first: "",
-        u_name: "",
-        u_regio: "Magyarország",
-        u_postnumber: "",
-        u_city: "",
-        u_addresse: "",
-        u_tel: "",
-      },
+      user: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       orderid: this.$route.query.order,
       loading: false,
@@ -49,6 +40,11 @@ export default {
           console.error("There was an error!", error);
         });
     },
+  },
+  mounted(){
+    axios
+      .get(import.meta.env.VITE_API_URL + "/orders/getbyid/"+this.orderid)
+      .then((response) => (this.user = response.data));
   },
 };
 </script>
@@ -112,16 +108,11 @@ export default {
         <div class="hr"></div>
         <div class="sec">
           <div class="circle"><p>2</p></div>
-          <div class="title"><p>Szállítás</p></div>
+          <div class="title"><p>Szállítás - Fizetés</p></div>
         </div>
         <div class="hr"></div>
         <div class="sec">
           <div class="circle"><p>3</p></div>
-          <div class="title"><p>Fizetés</p></div>
-        </div>
-        <div class="hr"></div>
-        <div class="sec">
-          <div class="circle"><p>4</p></div>
           <div class="title"><p>Összegzés</p></div>
         </div>
       </div>

@@ -35,11 +35,11 @@ export default {
   methods: {
     next() {
       this.loading = true;
-      console.log(this.form);
+      console.log(this.order);
       axios
         .post(
           import.meta.env.VITE_API_URL + "/orders/saveshipping/" + this.orderid,
-          JSON.stringify(this.form),
+          JSON.stringify(this.order),
           {
             headers: {
               "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export default {
         )
         .then((response) =>
           this.$router.push({
-            path: "/shop/checkout/payment",
+            path: "/shop/checkout/summary",
             query: { order: this.orderid },
           })
         )
@@ -124,16 +124,11 @@ export default {
         <div class="hr"></div>
         <div class="sec">
           <div class="circle active"><p class="active">2</p></div>
-          <div class="title"><p>Szállítás</p></div>
+          <div class="title"><p>Szállítás - Fizetés</p></div>
         </div>
         <div class="hr"></div>
         <div class="sec">
           <div class="circle"><p>3</p></div>
-          <div class="title"><p>Fizetés</p></div>
-        </div>
-        <div class="hr"></div>
-        <div class="sec">
-          <div class="circle"><p>4</p></div>
           <div class="title"><p>Összegzés</p></div>
         </div>
       </div>
@@ -161,42 +156,43 @@ export default {
         </div>
       </div>
       <div>
-        <h3>Szállítási mód</h3>
-        <div>
-          <div>
-            <div>
+        <h3>Szállítás és fizetés</h3>
+        <div class="options_box">
+          <div class="flex_option">
+            <div class="flex_option">
               <input
                 type="radio"
                 name="shipping"
                 id="id1"
                 value="delivery-card"
-                v-model="form.shipping"
+                v-model="order.shipping"
+                class="radio"
               />
-              <label for="id1">Házhozszállítás - Online fizetés</label> <br />
-            </div>
-            <div>
-              <h6>1390 Ft</h6>
-            </div>
-          </div>
-          <div>
-            <div>
-              <input
-                type="radio"
-                name="shipping"
-                id="id2"
-                value="delivery-cash"
-                v-model="form.shipping"
-              />
-              <label for="id2">Házhozszállítás - Utánvétes fizetés</label>
-              <br />
+              <label for="id1">Házhozszállítás - Online fizetés</label>
             </div>
             <div>
               <h6>1990 Ft</h6>
             </div>
           </div>
+          <div class="flex_option">
+            <div class="flex_option">
+              <input
+                type="radio"
+                name="shipping"
+                id="id2"
+                value="delivery-cash"
+                v-model="order.shipping"
+                class="radio"
+              />
+              <label for="id2">Házhozszállítás - Utánvétes fizetés</label>
+            </div>
+            <div>
+              <h6>2880 Ft</h6>
+            </div>
+          </div>
         </div>
         <br />
-        <button @click="next" v-if="!loading">Fizetési módok</button>
+        <button @click="next" v-if="!loading">Összegzés</button>
         <button @click="next" v-if="loading">Töltés</button>
       </div>
     </section>
@@ -209,7 +205,25 @@ main {
   display: flex;
   flex-direction: column;
 }
-
+.radio{
+  background-color: red;
+  width: 50px;
+  height: 50px;
+}
+.flex_option{
+  display: flex;
+  align-items: center;
+}
+.options_box{
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  border: 1px solid gray;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .osszesites_w {
   margin-left: auto;
   margin-right: auto;

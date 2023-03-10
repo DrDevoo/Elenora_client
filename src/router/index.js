@@ -64,6 +64,11 @@ const router = createRouter({
       component: () => import("../views/shop/checkoutPayment.vue"),
     },
     {
+      path: "/shop/checkout/summary",
+      name: "webshop_checkout_summary",
+      component: () => import("../views/shop/checkoutFinish.vue"),
+    },
+    {
       path: "/adatkezelesi-tajekoztato",
       name: "adatkezelesi_tajekoztato",
       component: () => import("../views/PPView.vue"),
@@ -77,6 +82,11 @@ const router = createRouter({
       path: "/kapcsolat",
       name: "kapcsolat",
       component: () => import("../views/ContactUsView.vue"),
+    },
+    {
+      path: "/shop/thanks",
+      name: "webshop_thanks",
+      component: () => import("../views/shop/ThankOrder.vue"),
     },
     {
       path: "/karkoto-meret",

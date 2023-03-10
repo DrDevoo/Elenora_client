@@ -14,6 +14,7 @@ export default {
 
       sitestatus: "online",
       loading: false,
+      cartcount: 0,
     };
   },
   mounted() {
@@ -26,6 +27,7 @@ export default {
   },
   created() {
     this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    this.cartcount = this.cart.length
   },
   computed: {
     total() {
@@ -91,6 +93,7 @@ export default {
         <a @click="showCart = !showCart"
           ><ion-icon name="bag-outline"></ion-icon
         ></a>
+        <div v-if="!(cartcount == 0)" class="cartcount">{{ cartcount }}</div>
       </div>
     </div>
   </header>
@@ -202,6 +205,19 @@ export default {
 </template>
 
 <style>
+.cartcount{
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  background-color: rgba(0, 0, 0, 0.645);
+  border-radius: 200px;
+  height: 15px;
+  width: 15px;
+  color: white;
+  text-align: center;
+  font-size: 9pt;
+  line-height: 15px;
+}
 .flexlink {
   width: 330px;
   height: 30px;

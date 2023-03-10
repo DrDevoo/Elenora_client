@@ -1,62 +1,12 @@
-<script>
-import axios from "axios";
-import { resolveComponent } from "vue";
-export default {
-  data() {
-    return {
-      showCart: false,
-      cart: [],
-      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
-      orderid: this.$route.query.order,
-      loading: false,
-
-      order: [],
-    };
-  },
-  created() {
-    this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  },
-  mounted(){
-    axios
-      .get(import.meta.env.VITE_API_URL + "/orders/getbyid/"+this.orderid)
-      .then((response) => (this.order=response.data));
-  },
-  computed: {
-    total() {
-      return this.cart.reduce(
-        (sum, item) => sum + item.price * item.quantity,
-        0
-      );
-    },
-  },
-  methods: {
-    next() {
-      this.loading = true;
-      console.log(this.user)
-      axios
-        .post(
-          import.meta.env.VITE_API_URL + "/orders/saveshipping/" + this.orderid,
-          JSON.stringify(this.user),
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((response) => (this.$router.push({ path: '/shop/checkout/payment', query: { order: this.orderid } })))
-        .catch((error) => {
-          console.error("There was an error!", error);
-        });
-    },
-  },
-};
-</script>
 <template>
   <main>
     <section class="datas_w">
       <div class="logo_w">
         <RouterLink to="/"
-          ><img class="logo" src="../../assets/images/logo/logo.svg" alt="ELENORA"
+          ><img
+            class="logo"
+            src="../../assets/images/logo/logo.svg"
+            alt="ELENORA"
         /></RouterLink>
       </div>
       <div class="cart_w">
@@ -87,14 +37,16 @@ export default {
                 </div>
               </div>
               <div class="cart_item_del">
-                  <h5>{{ item.price }} Ft</h5>
+                <h5>{{ item.price }} Ft</h5>
               </div>
             </div>
           </div>
           <div class="prices">
             <div>
               <p>Termékek</p>
-              <b><p>{{ total }} Ft</p></b>
+              <b
+                ><p>{{ total }} Ft</p></b
+              >
             </div>
             <div>
               <p>Szállítás</p>
@@ -130,39 +82,50 @@ export default {
             <p class="t">Kapcsolattartás</p>
             <p class="c">{{ this.order.u_email }}</p>
           </div>
-          <div class="right"> 
+          <div class="right">
             <p class="ch" @click="backto('customer')">Módosítás</p>
           </div>
         </div>
         <div class="oszesites_b">
           <div class="left">
             <p class="t">Szállítási cím</p>
-            <p class="c">{{ this.order.u_postnumber }}  {{ this.order.u_city }}, {{ this.order.u_addresse }}, {{ this.order.u_legio }}</p>
+            <p class="c">
+              {{ this.order.u_postnumber }} {{ this.order.u_city }},
+              {{ this.order.u_addresse }}, {{ this.order.u_legio }}
+            </p>
           </div>
-          <div class="right"> 
+          <div class="right">
             <p class="ch" @click="backto('customer')">Módosítás</p>
           </div>
         </div>
         <div class="oszesites_b">
           <div class="left">
             <p class="t">Szállítási mód</p>
-            <p class="c" v-if="this.order.shipping == 'delivery-cash' ">Házhozszállítás - Utánvétes fizetés</p>
-            <p class="c" v-if="this.order.shipping == 'delivery-card' ">Házhozszállítás - Online fizetés</p>
+            <p class="c" v-if="this.order.shipping == 'delivery-cash'">
+              Házhozszállítás - Utánvétes fizetés
+            </p>
+            <p class="c" v-if="this.order.shipping == 'delivery-card'">
+              Házhozszállítás - Online fizetés
+            </p>
           </div>
-          <div class="right"> 
+          <div class="right">
             <p class="ch" @click="backto('shipping')">Módosítás</p>
           </div>
         </div>
       </div>
       <div>
-        <h3>Szállítási mód</h3>
-        
+        <h3>Fizetési mód</h3>
+        <div>
+          a
+
+          c
+        </div>
         <br />
         <button @click="next" v-if="!loading">Rendelés Összegzése</button>
         <button @click="next" v-if="loading">Töltés</button>
       </div>
     </section>
-    <br><br>
+    <br /><br />
   </main>
 </template>
 
@@ -172,7 +135,7 @@ main {
   flex-direction: column;
 }
 
-.osszesites_w{
+.osszesites_w {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
@@ -182,30 +145,28 @@ main {
   flex-direction: column;
   align-items: center;
 }
-.oszesites_b{
+.oszesites_b {
   width: 90%;
   border-bottom: 1px solid gray;
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
 }
-.oszesites_b .left{
-  
+.oszesites_b .left {
 }
-.oszesites_b .right{
-  
+.oszesites_b .right {
 }
-.ch{
+.ch {
   cursor: pointer;
 }
-.t{
+.t {
   color: gray;
 }
-.prices{
+.prices {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-.prices div{
+.prices div {
   display: flex;
   justify-content: space-between;
 }
@@ -338,7 +299,6 @@ footer {
   color: black;
 }
 
-
 .quantity {
   padding: 0.2rem;
   border-radius: 50px;
@@ -384,18 +344,84 @@ footer {
   line-height: 0px;
 }
 
-.cart_item_del{
+.cart_item_del {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.checkbox{
+.checkbox {
   width: fit-content;
 }
-label{
+label {
   position: relative;
   top: 0;
   left: 0;
 }
 </style>
+
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      showCart: false,
+      cart: [],
+      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
+      orderid: this.$route.query.order,
+      loading: false,
+
+      order: [],
+    };
+  },
+  methods: {
+    next() {
+      this.loading = true;
+      console.log(this.user);
+      this.$router.push({
+        path: "/shop/checkout/summary",
+        query: { order: this.orderid },
+      });
+    },
+    backto(path) {
+      console.log("clicked");
+      if (path == "shipping") {
+        this.$router.push({
+          path: "/shop/checkout/shipping",
+          query: { order: this.orderid },
+        });
+      } else if (path == "customer") {
+        this.$router.push({
+          path: "/shop/checkout",
+          query: { order: this.orderid },
+        });
+      } else {
+        console.log("err");
+      }
+    },
+    backtoCustomer() {
+      this.$router.push({
+        path: "/shop/checkout",
+        query: { order: this.orderid },
+      });
+    },
+  },
+  created() {
+    this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  },
+  mounted() {
+    axios
+      .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderid)
+      .then((response) => (this.order = response.data));
+  },
+  computed: {
+    total() {
+      return this.cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+    },
+  },
+};
+</script>

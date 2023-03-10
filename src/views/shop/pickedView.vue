@@ -229,6 +229,7 @@ body {
   display: flex;
 }
 .pickedimg {
+  object-fit: cover;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.412);
 }
 /* Chrome, Safari, Edge, Opera */
