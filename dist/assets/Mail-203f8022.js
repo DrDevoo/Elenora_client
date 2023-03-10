@@ -1,0 +1,1 @@
+import{H as a}from"./Header-d6280d47.js";import{o as t,c as s,a as _,F as l,b as e}from"./index-730b9b5a.js";const n=e("h1",{class:"title"},"Hírlevél",-1),o=e("main",null,null,-1),r={data(){return{showAdd:!1}}},p=Object.assign(r,{__name:"Mail",setup(c){return(d,i)=>(t(),s(l,null,[_(a),n,o],64))}});export{p as default};

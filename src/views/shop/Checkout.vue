@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     next() {
+      console.log(this.user)
       this.loading = true;
       axios
         .post(
@@ -134,7 +135,7 @@ export default {
         <input
           type="text"
           placeholder="Ország/régió"
-          v-model="user.u_regio"
+          value="Magyarország"
           readonly="readonly"
         />
         <br />
