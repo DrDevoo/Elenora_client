@@ -6,8 +6,8 @@
     </div>
     <div class="right">
       <h4>Linkek</h4>
-      <RouterLink to="/webshop/"><p>Karkötők</p></RouterLink>
-      <RouterLink to="/webshop/"><p>Kiegészítők</p></RouterLink>
+      <RouterLink to="/shop"><p>Karkötők</p></RouterLink>
+      <RouterLink to="/shop/boravia"><p>Kiegészítők</p></RouterLink>
       <RouterLink to="/asvany-katalogus"><p>Ásvány katalógus</p></RouterLink>
       <RouterLink to="/rolunk"><p>Rólunk</p></RouterLink>
     </div>
@@ -21,7 +21,7 @@
     </div>
     <div class="right">
       <h4>Itt találsz minket</h4>
-      <p class="contact">info@elenora.hu</p>
+      <p class="contact">informacio@elenora.hu</p>
       <p class="contact">+36 20 562 2510</p>
     </div>
   </footer>

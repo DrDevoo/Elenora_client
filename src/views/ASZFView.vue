@@ -39,18 +39,17 @@ p{
       Impresszum: a Szolgáltató (Eladó,Vállalkozás) adatai: <br>
       
       <ul>
-        <li>Név: Kis Richárd</li>
+        <li>Név: Kis Richárd Ferenc</li>
         <li>Székhely: 1181 Budapest, Igaz utca 8, 2/3</li>
         <li>Levelezési cím: 1181 Budapest, Igaz utca 8, 2/3</li>
-        <li>Nyilvántartásba vevő hatóság: Budapest Főváros Kormányhivatala, XIX. Kerületi Hivatala</li>
-        <li>Nyílvántartási szám: 54867932</li>
-        <li>Adószám: 56233674-1-43</li>
-        <li>Közösségi adószám: HU56233674</li>
-        <li>Képviselő: Kis Richárd</li>
+        <li>Nyilvántartásba vevő hatóság: Budapest Főváros Kormányhivatala, XVIII. Kerületi Hivatala</li>
+        <li>Nyílvántartási szám: 58034938</li>
+        <li>Adószám: 59982968-1-43</li>
+        <li>Képviselő: Kis Richárd Ferenc</li>
         <li>Telefonszám: +36 20 562 2510</li>
-        <li>E-mail: info@elenora.hu</li>
+        <li>E-mail: informacio@elenora.hu</li>
         <li>Honlap: www.elenora.hu</li>
-        <li>Bankszámlaszám: HU56 1260 0016 1806 5902 4832 6741</li>
+        <li>Bankszámlaszám: 11720049-21456035</li>
         <li>Számlavezető bank: OTP Bank</li>
       </ul>
 

@@ -15,6 +15,7 @@ export default {
       sitestatus: "online",
       loading: false,
       cartcount: 0,
+      searchtext: null,
     };
   },
   mounted() {
@@ -63,6 +64,11 @@ export default {
           console.error("There was an error!", error);
         });
     },
+
+    search(){
+      text = this.searchtext
+      
+    }
   },
 };
 </script>
@@ -204,12 +210,30 @@ export default {
       ><ion-icon name="close-outline"></ion-icon
     ></a>
     <h1>Keresés</h1>
+    <div class="search_w">
+      <form>
+        <input class="searchinput" type="text" v-on:change="search()" v-model="searchtext" placeholder="Keresés">
+      </form>
+    </div>
   </section>
 </template>
 
 <style>
-section{
-  
+.search_w form{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.searchinput{
+  width: 90%;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  border-radius: 50px;
+  background: #ffffff;
+  box-shadow:  5px 5px 24px #dedede,
+             -5px -5px 24px #ffffff;
+  padding: 3px;
 }
 .cartcount{
   position: absolute;

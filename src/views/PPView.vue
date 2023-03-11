@@ -26,22 +26,21 @@ p{
     <h1>Adatkezelési tájékoztató</h1>
     <p>
       <h3>Adatkezelő</h3>
-      Név: Kis Richárd E.V. <br>
+      Név: Kis Richárd Ferenc E.V. <br>
 Cím: 1181 Budapest, Igaz utca 8 2/3  <br>
 Levelezési cím, panaszkezelés: 1181 Budapest, Igaz utca 8 2/3  <br>
-E-mail: info@elenora.hu  <br>
+E-mail: informacio@elenora.hu  <br>
 Telefonszám: +36 20 562 2510  <br>
 Weboldal: www.elenora.hu  <br>
-Nyilvántartásba vevő hatóság: Budapest Főváros Kormányhivatala, XIX. Kerületi Hivatala  <br>
-Nyílvántartási szám: 54867932  <br>
+Nyilvántartásba vevő hatóság: Budapest Főváros Kormányhivatala, XVIII. Kerületi Hivatala  <br>
+Nyílvántartási szám: 54867932 <br>
 Adószám: 56233674-1-43  <br>
-Közösségi adószám: HU56233674  <br>
 <br>
 <h3>TÁRHELYSZOLGÁLTATÓ</h3>  <br>
-Amazon Web Services EMEA SARL: Amazon Web Service által biztosított felhő alapú tárhely 
-Székhely: 38 AVENUE JOHN F. KENNEDY, L-1855 LUXEMBOURG 
-Nyilvántartási szám: R.C.S. LUXEMBOURG: B186284 
-Elérhetőség: https://aws.amazon.com/, primary@amazon.com <br>
+Rackhost Zrt. által biztosított felhő alapú tárhely  <br>
+Székhely: 6722 Szeged, Tisza Lajos körút 41. <br>
+Nyilvántartási szám: 06-10-000489 <br>
+Elérhetőség: https://www.rackhost.hu, info@rackhost.hu <br>
 <br>
 
 <h3>A WEBSHOP ÜZEMELTETÉSE SORÁN VÉGZETT ADATKEZELÉSEK LEÍRÁSA</h3> 

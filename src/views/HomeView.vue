@@ -1,8 +1,50 @@
 <script setup>
+import axios from "axios";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import Slider from "../components/Slider.vue";
 import { RouterLink } from "vue-router";
+</script>
+<script>
+export default {
+  data() {
+    return {
+      showMenu: false,
+      showCart: false,
+      showSearch: false,
+      showWish: false,
+      header_title: "null",
+      cart: [],
+      response: [],
+      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
+      linkurl: "/shop/picked?id=",
+
+      sitestatus: "online",
+      loading: false,
+      cartcount: 0,
+
+      prods: [],
+    };
+  },
+  mounted() {
+    axios
+      .get(import.meta.env.VITE_API_URL + "/products/getall")
+      .then((response) => (this.prods = response.data.products));
+  },
+  methods: {
+    pushto(location) {
+      if (location == "man") {
+        this.$router.push({ path: "/shop/men" });
+      } else if (location == "women") {
+        this.$router.push({ path: "/shop/women" });
+      } else if (location == "couple") {
+        this.$router.push({ path: "/shop/couple" });
+      } else if (location == "sales") {
+        this.$router.push({ path: "/shop/sales" });
+      }
+    },
+  },
+};
 </script>
 
 <style>
@@ -39,6 +81,7 @@ section {
   border-radius: 4px;
   position: relative;
   text-align: center;
+  cursor: pointer;
 }
 .kategoriak .boxes .box img {
   width: 100%;
@@ -57,6 +100,7 @@ section {
   letter-spacing: 2px;
   font-weight: 400;
   font-size: 25pt;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.81);
 }
 .kategoriak .boxes .box a {
   position: absolute;
@@ -67,34 +111,8 @@ section {
 .kategoriak .box img:hover {
   filter: blur(3px);
 }
-
-.item-list {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-.item {
-  width: 18%;
-}
-.item img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 6px;
-  transition: transform 0.2s;
-}
-.item img:hover {
-  transform: scale(1.1);
-}
-.item h2 {
-  line-height: 1px;
-  font-weight: 300;
-}
-.item p {
-  line-height: 1px;
-  font-weight: 200;
-}
-
 .kiemeltek {
+  height: fit-content;
   background-color: rgba(252, 128, 101, 0.879);
   box-shadow: 0px 0px 30px rgb(252, 129, 101);
 }
@@ -117,6 +135,36 @@ section {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+.item-list {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100%;
+}
+.item {
+  width: 20%;
+  text-decoration: none;
+  color: black;
+}
+.item img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  transition: transform 0.2s;
+}
+.item img:hover {
+  transform: scale(1.1);
+}
+.item h2 {
+  line-height: 20px;
+  font-weight: 300;
+}
+.item p {
+  line-height: 1px;
+  font-weight: 200;
+}
+
 
 .miketnyujtunk .list {
   display: flex;
@@ -204,20 +252,20 @@ section {
     <section class="kategoriak">
       <h1>Kollekciók</h1>
       <div class="boxes">
-        <div class="box">
-          <img src="../assets/images/webp/5.webp" alt="" />
+        <div @click="pushto('man')" class="box">
+          <img src="../assets/images/new/man.webp" alt="" />
           <h1>Férfi karkötők</h1>
         </div>
-        <div class="box">
-          <img src="../assets/images/webp/4.webp" alt="" />
+        <div @click="pushto('women')" class="box">
+          <img src="../assets/images/new/women.webp" alt="" />
           <h1>Női karkötők</h1>
         </div>
-        <div class="box">
-          <img src="../assets/images/webp/1.webp" alt="" />
+        <div @click="pushto('couple')" class="box">
+          <img src="../assets/images/new/couple.webp" alt="" />
           <h1>Páros karkötők</h1>
         </div>
-        <div class="box">
-          <img src="../assets/images/webp/6.webp" alt="" />
+        <div @click="pushto('sales')" class="box">
+          <img src="../assets/images/new/sales.webp" alt="" />
           <h1>Akciós karkötők</h1>
         </div>
       </div>
@@ -225,29 +273,21 @@ section {
     <section class="kiemeltek">
       <div class="kiemelt-header">
         <h3>Ezeket is nézd meg!</h3>
-        <a href=""><h5>Megnézem</h5></a>
+        <RouterLink to="/shop"><h5>Megnézem</h5></RouterLink>
       </div>
       <div class="item-list">
-        <div class="item">
-          <img src="../assets/images/webp/1.webp" />
-          <h2>kristalycsoda</h2>
-          <p>2222 FT</p>
-        </div>
-        <div class="item">
-          <img src="../assets/images/webp/1.webp" />
-          <h2>kristalycsoda</h2>
-          <p>2222 FT</p>
-        </div>
-        <div class="item">
-          <img src="../assets/images/webp/1.webp" />
-          <h2>kristalycsoda</h2>
-          <p>2222 FT</p>
-        </div>
-        <div class="item">
-          <img src="../assets/images/webp/1.webp" />
-          <h2>kristalycsoda</h2>
-          <p>2222 FT</p>
-        </div>
+        <RouterLink
+          v-for="(value, index) in prods"
+          class="item"
+          :key="value._id"
+          :to="linkurl + value._id"
+        >
+          <div v-if="index < 4" class="a">
+            <img :src="imgurl + value.image" />
+            <h2>{{ value.prodname }}</h2>
+            <p>{{ value.price }} Ft</p>
+          </div>
+        </RouterLink>
       </div>
     </section>
     <section class="miketnyujtunk">
@@ -268,11 +308,11 @@ section {
         <div class="item-ny">
           <div class="nyujtani-title">
             <ion-icon name="earth-outline"></ion-icon>
-            <h3>Ingyenes szállítás 10 000 Ft felett</h3>
+            <h3>Ingyenes szállítás 15 000 Ft felett</h3>
           </div>
           <div>
             <p>
-              A 10 000 Ft feletti rendelésekre ingyenes szállítást vállalunk. A
+              A 15 000 Ft feletti rendelésekre ingyenes szállítást vállalunk. A
               készleten lévő karkötőket 1-3 munkanap alatt szállítjuk.
             </p>
           </div>
@@ -280,7 +320,7 @@ section {
         <div class="item-ny">
           <div class="nyujtani-title">
             <ion-icon name="refresh-outline"></ion-icon>
-            <h3>30 napos visszafizetési garancia</h3>
+            <h3>15 napos visszafizetési garancia</h3>
           </div>
           <div>
             <p>
@@ -296,19 +336,12 @@ section {
           </div>
           <div>
             <p>
-              A bankkártyás fizetés a Barion rendszerén keresztül történik, így
+              A bankkártyás fizetés a Stripe rendszerén keresztül történik, így
               mi nem kezelünk bankkártya adatokat.
             </p>
           </div>
         </div>
       </div>
-    </section>
-    <section class="instagram">
-      <div class="instagram-header">
-        <h3>Instagram</h3>
-        <a href=""><h5>@elenora</h5></a>
-      </div>
-      <div class="instagram-list"></div>
     </section>
   </main>
   <Footer />
