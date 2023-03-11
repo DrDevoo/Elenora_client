@@ -208,6 +208,9 @@ export default {
 </template>
 
 <style>
+section{
+  
+}
 .cartcount{
   position: absolute;
   right: 3px;
@@ -412,6 +415,7 @@ header ion-icon {
   position: relative;
 }
 .menu_wrapper {
+  z-index: 20;
   position: fixed;
   height: 100vh;
   width: 55%;
@@ -419,7 +423,6 @@ header ion-icon {
   top: 0;
   left: 0;
   box-shadow: 0px 0px 10px rgba(84, 83, 83, 0.549);
-  z-index: 10;
 
   animation-name: animMenu;
   animation-duration: 0.5s;
@@ -463,6 +466,7 @@ header ion-icon {
 }
 
 .cart_wrapper {
+  z-index: 20;
   position: fixed;
   height: 100%;
   width: 55%;
@@ -470,7 +474,6 @@ header ion-icon {
   top: 0;
   right: 0;
   box-shadow: 0px 0px 10px rgba(84, 83, 83, 0.549);
-  z-index: 10;
 
   animation-name: anim;
   animation-duration: 0.5s;
