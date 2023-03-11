@@ -69,14 +69,7 @@ export default {
     },
     ordercash() {
       this.loading = true;
-      axios
-        .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderid)
-        .then((response) =>
-          this.$router.push({
-            path: "/shop/thanks",
-            query: { id: this.orderid },
-          })
-        );
+      this.$router.push({ path: '/shop/thanks', query: { id: this.order._id }})
     },
     orderpay() {
       this.loading = true;

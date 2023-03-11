@@ -12,7 +12,7 @@ export default {
       orderprice: 0,
       orderdate: 0,
       orderid: 0,
-
+      add: 0,
       order: [],
       cart: [],
       orderdbid: this.$route.query.id,
@@ -32,34 +32,10 @@ export default {
           },
         }
       )
-      .then((response) => this.$router.push({ path: "/" }))
       .catch((error) => {
         console.error("There was an error!", error);
       });
     localStorage.setItem("cart", JSON.stringify(this.cart));
-  },
-  methods: {
-    pay() {
-      axios
-        .post(
-          import.meta.env.VITE_API_URL + "/orders/pay",
-          JSON.stringify({
-            items: [
-              { id: 1, quantity: 3 },
-              { id: 2, quantity: 1 },
-            ],
-          }),
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res.data.url);
-          window.open(res.data.url, "_self");
-        });
-    },
   },
 };
 </script>
@@ -70,8 +46,28 @@ export default {
     <section class="s1">
       <h1 class="title">Köszönjük!</h1>
       <div class="flex">
-        <p class="count">{{ ordercount }} termék</p>
-        <p class="price">{{ orderprice }} Ft</p>
+        <p v-if="order.cart" class="count">
+          {{ order.cart.reduce((sum, cartitem) => sum + cartitem.quantity, 0) }}
+          termék
+        </p>
+        <p v-if="order.cart && order.shipping == 'delivery-cash'" class="price">
+          {{
+            order.cart.reduce(
+              (sum, cartitem) => sum + cartitem.price * cartitem.quantity,
+              2880
+            )
+          }}
+          Ft
+        </p>
+        <p v-if="order.cart && order.shipping == 'delivery-card'" class="price">
+          {{
+            order.cart.reduce(
+              (sum, cartitem) => sum + cartitem.price * cartitem.quantity,
+              1990
+            )
+          }}
+          Ft
+        </p>
       </div>
     </section>
     <section class="s2">
@@ -86,11 +82,14 @@ export default {
         <p>{{ order.orderid }}</p>
       </div>
       <div class="flex">
-        <p>Rendelés:</p>
-        <p>{{ orderdate }}</p>
+        <p>Rendelés dátuma:</p>
+        <p v-if="order.createdtime">{{ order.createdtime.split("T")[0] }}</p>
       </div>
       <br />
-      <p></p>
+      <p>
+        Küldtünk neeked egy visszaigazoló emailt erre a címre:
+        <b>{{ order.u_email }}</b>
+      </p>
     </section>
   </main>
 </template>
@@ -119,6 +118,7 @@ section {
 .s3 {
   align-items: flex-start;
   padding-left: 1rem;
+  height: 40px;
 }
 .flex {
   display: flex;
