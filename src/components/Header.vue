@@ -392,7 +392,7 @@ header {
   position: sticky;
   top: 0;
   padding: 0.5rem;
-  z-index: 10;
+  z-index: 20;
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   height: 35px;
