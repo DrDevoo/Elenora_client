@@ -1,5 +1,8 @@
-<script>
+<script setup>
+import Loader from "../../components/Loader.vue";
 import axios from "axios";
+</script>
+<script>
 export default {
   data() {
     return {
@@ -187,7 +190,7 @@ export default {
         >
           Szállítási módok
         </button>
-        <button @click="next" v-if="loading">Töltés</button>
+        <button v-if="loading"><Loader /></button>
       </div>
     </section>
     <br /><br />

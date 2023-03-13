@@ -16,9 +16,12 @@ export default {
       order: [],
       cart: [],
       orderdbid: this.$route.query.id,
+      key:0,
     };
   },
   mounted() {
+    localStorage.setItem("cart", JSON.stringify(this.cart));
+    this.key += 1
     axios
       .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderdbid)
       .then((response) => (this.order = response.data));
@@ -35,13 +38,13 @@ export default {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-    localStorage.setItem("cart", JSON.stringify(this.cart));
+
   },
 };
 </script>
 
 <template>
-  <Header />
+  <Header :key="key" />
   <main>
     <section class="s1">
       <h1 class="title">Köszönjük!</h1>

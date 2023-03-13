@@ -1,5 +1,9 @@
-<script>
+<script setup>
 import axios from "axios";
+import Loader from "./Loader.vue";
+import { RouterLink } from "vue-router";
+</script>
+<script>
 export default {
   data() {
     return {
@@ -193,7 +197,7 @@ export default {
         <div class="nextbtn nextbtn_off" v-if="!loading && cartcount == 0">
           <p>Fizetés</p>
         </div>
-        <div class="nextbtn" v-if="loading"><p>töltés</p></div>
+        <div class="nextbtn" v-if="loading"><Loader /></div>
       </div>
     </div>
   </section>

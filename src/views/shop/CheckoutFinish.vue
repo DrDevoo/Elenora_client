@@ -1,5 +1,8 @@
-<script>
+<script setup>
+import Loader from "../../components/Loader.vue";
 import axios from "axios";
+</script>
+<script>
 export default {
   data() {
     return {
@@ -10,6 +13,7 @@ export default {
       loading: false,
 
       order: [],
+      cuponcode: null,
     };
   },
   created() {
@@ -213,21 +217,24 @@ export default {
           </div>
         </div>
       </div>
+
+      
+        
       <div>
         <br />
-        <button
+        <button class="btntovabb"
           @click="ordercash()"
           v-if="!loading && this.order.shipping == 'delivery-cash'"
         >
           Megrendelés
         </button>
-        <button
+        <button class="btntovabb"
           @click="orderpay()"
           v-if="!loading && this.order.shipping == 'delivery-card'"
         >
           Fizetés és megrendelés
         </button>
-        <button v-if="loading">Töltés</button>
+        <button class="btntovabb" v-if="loading"><Loader /></button>
       </div>
     </section>
     <br /><br />
@@ -277,17 +284,8 @@ h3 {
   left: 5%;
   font-weight: 300;
 }
-input {
-  position: relative;
-  left: 5%;
-  width: 90%;
-  height: 40px;
-  margin-bottom: 10px;
-  border-radius: 7px;
-  border: 1px solid rgb(189, 189, 189);
-  padding-left: 0.5rem;
-}
-button {
+
+.btntovabb{
   position: relative;
   left: 10%;
   width: 80%;

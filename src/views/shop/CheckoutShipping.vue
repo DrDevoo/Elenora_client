@@ -1,6 +1,8 @@
-<script>
+<script setup>
+import Loader from "../../components/Loader.vue";
 import axios from "axios";
-
+</script>
+<script>
 export default {
   data() {
     return {
@@ -11,9 +13,11 @@ export default {
       loading: false,
 
       order: [],
-      form: {
-        shipping: null,
-      },
+
+      loadingcoupon: false,
+      cuponcode: "",
+      activecupon: false,
+      cuponerror: false
     };
   },
   created() {
@@ -36,33 +40,67 @@ export default {
     next() {
       this.loading = true;
       if (this.order.shipping == "delivery-cash") {
-        this.order.cart.push({
-          id: 1,
-          name: "Szállítási díj",
-          price: 1990,
-          quantity: 1,
-          img: null
-        });
-        this.order.cart.push({
-          id: 2,
-          name: "Utánvét díj",
-          price: 890,
-          quantity: 1,
-          img: null
-        });
-
+        const cartamount = this.cart.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        if (cartamount > 14999) {
+          this.order.cart.push({
+            id: 1,
+            name: "Szállítási díj",
+            price: 0,
+            quantity: 1,
+            img: null,
+          });
+          this.order.cart.push({
+            id: 2,
+            name: "Utánvét díj",
+            price: 890,
+            quantity: 1,
+            img: null,
+          });
+        } else {
+          this.order.cart.push({
+            id: 1,
+            name: "Szállítási díj",
+            price: 1990,
+            quantity: 1,
+            img: null,
+          });
+          this.order.cart.push({
+            id: 2,
+            name: "Utánvét díj",
+            price: 890,
+            quantity: 1,
+            img: null,
+          });
+        }
         localStorage.setItem("cart", JSON.stringify(this.order.cart));
       } else {
-        this.order.cart.push({
-          id: 1,
-          name: "Szállítási díj",
-          price: 1990,
-          quantity: 1,
-          img: null
-        });
+        const cartamount = this.cart.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        if (cartamount > 14999) {
+          this.order.cart.push({
+            id: 1,
+            name: "Szállítási díj",
+            price: 0,
+            quantity: 1,
+            img: null,
+          });
+        } else {
+          this.order.cart.push({
+            id: 1,
+            name: "Szállítási díj",
+            price: 1990,
+            quantity: 1,
+            img: null,
+          });
+        }
         localStorage.setItem("cart", JSON.stringify(this.order.cart));
       }
-      console.log(this.order.cart)
+      console.log(this.order);
       axios
         .post(
           import.meta.env.VITE_API_URL + "/orders/saveshipping/" + this.orderid,
@@ -102,6 +140,20 @@ export default {
         });
       } else {
         console.log("err");
+      }
+    },
+    check() {
+      this.loadingcoupon = true
+      axios
+        .get(import.meta.env.VITE_API_URL + "/cupons/check/" + this.cuponcode)
+        .then((response) => (cuponsresponse = response.data));
+
+      if (cuponsresponse == "Érvénytelen kupon!") {
+        this.loadingcoupon = false
+        this.cuponerror = true
+      } else {
+        this.activecupon = true;
+        this.loadingcoupon = false
       }
     },
   },
@@ -200,7 +252,80 @@ export default {
         </div>
       </div>
       <div>
+        <h3>Ajándékkártya vagy kupon kódja</h3>
+        <div class="cupon_b">
+          <div>
+            <input
+            type="text"
+            v-model="cuponcode"
+            placeholder="Válts be kuponod"
+          />
+          <button v-if="!loadingcoupon" @click="check()">Beváltom</button>
+          <button v-if="loadingcoupon"><Loader /></button>
+          </div>
+          
+          <p v-if="cuponerror">Érvénytelen kód!</p>
+        </div>
+        <h3>Számlázási cím</h3>
+        <div class="szamla_b">
+          <input
+            type="radio"
+            name="szamla"
+            value="same"
+            id="same"
+            v-model="order.szamlazasimod"
+          />
+          <label for="same">Egyezik a szállítási címmel</label>
+          <br />
+          <br />
+          <input
+            type="radio"
+            name="szamla"
+            value="other"
+            id="other"
+            v-model="order.szamlazasimod"
+          />
+          <label for="other">Másik számlázási címet adok meg</label>
+
+          <div class="otherszamlazasi" v-if="order.szamlazasimod == 'other'">
+            <input type="text" v-model="order.szamlazasOrszag" />
+            <div class="inputflex">
+              <input
+                type="text"
+                v-model="order.szamlazasVezeteknev"
+                placeholder="Vezetéknév"
+              />
+              <input
+                type="text"
+                v-model="order.szamlazasUtonev"
+                placeholder="Utónév"
+              />
+            </div>
+            <div class="inputflex">
+              <input
+                type="text"
+                v-model="order.szamlazasIranyitoszam"
+                placeholder="Irányítószám"
+              />
+              <input
+                type="text"
+                v-model="order.szamlazasTelepules"
+                placeholder="Település"
+              />
+            </div>
+            <input type="text" v-model="order.szamlazasCim" placeholder="Cím" />
+            <input
+              type="tel"
+              v-model="order.szamlazasTel"
+              placeholder="Telefonszám"
+            />
+          </div>
+        </div>
+
         <h3>Szállítás és fizetés</h3>
+        <h5 class="mini">
+          Ha a rendelés összege meghaladja a 15.000 Ft-ot a szállítás ingyenes!
+        </h5>
         <div class="options_box">
           <div class="flex_option">
             <div class="flex_option">
@@ -236,13 +361,17 @@ export default {
           </div>
         </div>
         <br />
-        <button @click="next" v-if="!loading && !(order.shipping == '')">
+        <button
+          class="btntovabb"
+          @click="next"
+          v-if="!loading && !(order.shipping == '')"
+        >
           Összegzés
         </button>
-        <button class="off" v-if="!loading && order.shipping == ''">
+        <button class="btntovabb off" v-if="!loading && order.shipping == ''">
           Összegzés
         </button>
-        <button @click="next" v-if="loading">Töltés</button>
+        <button class="btntovabb" v-if="loading"><Loader /></button>
       </div>
     </section>
     <br /><br />
@@ -254,10 +383,72 @@ main {
   display: flex;
   flex-direction: column;
 }
-.radio {
-  background-color: red;
-  width: 50px;
-  height: 50px;
+
+.otherszamlazasi {
+}
+.otherszamlazasi input {
+  width: 99%;
+  border: none;
+  height: 25px;
+  color: black;
+  border-radius: 5px;
+  padding: 3px;
+  box-shadow: 0px 0px 3px rgba(49, 49, 49, 0.663);
+  margin: 4px;
+}
+.inputflex {
+  display: flex;
+  justify-content: center;
+}
+.inputflex input {
+  width: 50%;
+}
+
+.szamla_b {
+  width: 60%;
+  padding: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid gray;
+  border-radius: 15px;
+}
+
+.cupon_b {
+  padding: 0.4rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  border: 1px solid gray;
+  border-radius: 5px;
+
+  gap: 0.5rem;
+}
+.cupon_b p{
+  line-height: 0px;
+  color: red;
+  font-weight: 100;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.cupon_b div{
+    display: flex;
+}
+.cupon_b button {
+  height: 30px;
+  border: 0;
+  background-color: lightsalmon;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+.cupon_b input {
+  width: 300px;
+  height: 30px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.167);
+  border: none;
 }
 .flex_option {
   display: flex;
@@ -313,17 +504,13 @@ h3 {
   left: 5%;
   font-weight: 300;
 }
-input {
+h5 {
   position: relative;
   left: 5%;
-  width: 90%;
-  height: 40px;
-  margin-bottom: 10px;
-  border-radius: 7px;
-  border: 1px solid rgb(189, 189, 189);
-  padding-left: 0.5rem;
+  top: -20px;
+  font-weight: 300;
 }
-button {
+.btntovabb {
   position: relative;
   left: 10%;
   width: 80%;
