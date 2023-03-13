@@ -109,7 +109,7 @@ export default {
         /></RouterLink>
       </div>
       <div class="cart_w">
-        <div class="header" @click="this.showCart = !this.showCart">
+        <div class="header" @click="showCart = !showCart">
           <div class="text">
             <ion-icon class="cart_icon" name="cart-outline"></ion-icon>
             <p>Tekintsd meg a kosarad tartalmát</p>
@@ -122,7 +122,7 @@ export default {
           </div>
         </div>
 
-        <div class="cart" v-if="this.showCart">
+        <div class="cart" v-if="showCart">
           <div class="list">
             <div class="cart_item" v-for="(item, index) in cart" :key="index">
               <div class="cart_item_imgtext">
