@@ -170,7 +170,7 @@ export default {
         <div class="oszesites_b">
           <div class="left">
             <p class="t">Kapcsolattartás</p>
-            <p class="c">{{ this.order.u_email }}</p>
+            <p class="c">{{ order.u_email }}</p>
           </div>
           <div class="right">
             <p class="ch" @click="backto('customer')">Módosítás</p>
@@ -180,8 +180,8 @@ export default {
           <div class="left">
             <p class="t">Szállítási cím</p>
             <p class="c">
-              {{ this.order.u_postnumber }} {{ this.order.u_city }},
-              {{ this.order.u_addresse }}, {{ this.order.u_legio }}
+              {{ order.u_postnumber }} {{ order.u_city }},
+              {{ order.u_addresse }}, {{ order.u_legio }}
             </p>
           </div>
           <div class="right">
@@ -191,10 +191,10 @@ export default {
         <div class="oszesites_b">
           <div class="left">
             <p class="t">Szállítási mód</p>
-            <p class="c" v-if="this.order.shipping == 'delivery-cash'">
+            <p class="c" v-if="order.shipping == 'delivery-cash'">
               Házhozszállítás
             </p>
-            <p class="c" v-if="this.order.shipping == 'delivery-card'">
+            <p class="c" v-if="order.shipping == 'delivery-card'">
               Házhozszállítás
             </p>
           </div>
@@ -205,10 +205,10 @@ export default {
         <div class="oszesites_b">
           <div class="left">
             <p class="t">Fizetési mód</p>
-            <p class="c" v-if="this.order.shipping == 'delivery-cash'">
+            <p class="c" v-if="order.shipping == 'delivery-cash'">
               Utánvétes fizetés
             </p>
-            <p class="c" v-if="this.order.shipping == 'delivery-card'">
+            <p class="c" v-if="order.shipping == 'delivery-card'">
               Online fizetés
             </p>
           </div>
