@@ -100,7 +100,6 @@ export default {
         }
         localStorage.setItem("cart", JSON.stringify(this.order.cart));
       }
-      console.log(this.order);
       axios
         .post(
           import.meta.env.VITE_API_URL + "/orders/saveshipping/" + this.orderid,
@@ -232,7 +231,7 @@ export default {
         <div class="oszesites_b">
           <div class="left">
             <p class="t">Kapcsolattartás</p>
-            <p class="c">{{ this.order.u_email }}</p>
+            <p class="c">{{ order.u_email }}</p>
           </div>
           <div class="right">
             <p class="ch" @click="backto('customer')">Módosítás</p>
@@ -242,8 +241,8 @@ export default {
           <div class="left">
             <p class="t">Szállítási cím</p>
             <p class="c">
-              {{ this.order.u_postnumber }} {{ this.order.u_city }},
-              {{ this.order.u_addresse }}, {{ this.order.u_legio }}
+              {{ order.u_postnumber }} {{ order.u_city }},
+              {{ order.u_addresse }}, {{ order.u_legio }}
             </p>
           </div>
           <div class="right">
@@ -384,8 +383,7 @@ main {
   flex-direction: column;
 }
 
-.otherszamlazasi {
-}
+
 .otherszamlazasi input {
   width: 99%;
   border: none;
