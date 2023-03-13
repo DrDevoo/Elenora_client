@@ -1,9 +1,9 @@
 <script setup>
-import axios from "axios";
 import Loader from "./Loader.vue";
 import { RouterLink } from "vue-router";
 </script>
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -11,7 +11,7 @@ export default {
       showCart: false,
       showSearch: false,
       showWish: false,
-      header_title: "",
+      header_title: null,
       cart: [],
       response: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
@@ -25,7 +25,7 @@ export default {
   mounted() {
     axios
       .get(import.meta.env.VITE_API_URL + "/settings/get/header_title")
-      .then((response) => (this.header_title = response.data));
+      .then((response) => (this.header_title = response.data.value));
     axios
       .get(import.meta.env.VITE_API_URL + "/settings/get/sitestatus")
       .then((response) => (this.sitestatus = response.data.value));
@@ -74,7 +74,7 @@ export default {
 
 <template>
   <div class="info">
-    <div v-if="this.header_title.value">{{ this.header_title.value }}</div>
+    <div v-if="this.header_title">{{ this.header_title }}</div>
   </div>
   <header>
     <div class="header_wrapper">
