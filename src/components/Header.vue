@@ -22,9 +22,11 @@ export default {
     };
   },
   mounted() {
+    /*
     axios
       .get(import.meta.env.VITE_API_URL + "/settings/get/header_title")
       .then((response) => (this.header_title = response.data.value));
+      */
   },
   created() {
     this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -70,7 +72,7 @@ export default {
 
 <template>
   <div class="info">
-    <div v-if="this.header_title">{{ this.header_title }}</div>
+    <div>...</div>
   </div>
   <header>
     <div class="header_wrapper">
