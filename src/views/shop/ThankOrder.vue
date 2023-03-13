@@ -26,19 +26,7 @@ export default {
       .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderdbid)
       .then((response) => (this.order = response.data));
     axios
-      .post(
-        import.meta.env.VITE_API_URL + "/orders/finish/" + this.orderdbid,
-        JSON.stringify(this.orderdbid),
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
-
+      .get(import.meta.env.VITE_API_URL + "/orders/finish/" + this.orderdbid)
   },
 };
 </script>
