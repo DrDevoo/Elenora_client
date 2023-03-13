@@ -11,7 +11,7 @@ export default {
       showCart: false,
       showSearch: false,
       showWish: false,
-      header_title: "null",
+      header_title: "",
       cart: [],
       response: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
@@ -68,18 +68,13 @@ export default {
           console.error("There was an error!", error);
         });
     },
-
-    search(){
-      text = this.searchtext
-      
-    }
   },
 };
 </script>
 
 <template>
   <div class="info">
-    <div>{{ this.header_title.value }}</div>
+    <div v-if="this.header_title.value">{{ this.header_title.value }}</div>
   </div>
   <header>
     <div class="header_wrapper">
