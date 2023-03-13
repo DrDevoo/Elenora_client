@@ -224,13 +224,13 @@ export default {
         <br />
         <button class="btntovabb"
           @click="ordercash()"
-          v-if="!loading && this.order.shipping == 'delivery-cash'"
+          v-if="!loading && order.shipping == 'delivery-cash'"
         >
           Megrendelés
         </button>
         <button class="btntovabb"
           @click="orderpay()"
-          v-if="!loading && this.order.shipping == 'delivery-card'"
+          v-if="!loading && order.shipping == 'delivery-card'"
         >
           Fizetés és megrendelés
         </button>
