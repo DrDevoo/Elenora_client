@@ -11,12 +11,11 @@ export default {
       showCart: false,
       showSearch: false,
       showWish: false,
-      header_title: null,
+      header_title: "",
       cart: [],
       response: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
 
-      sitestatus: "online",
       loading: false,
       cartcount: 0,
       searchtext: null,
@@ -26,9 +25,6 @@ export default {
     axios
       .get(import.meta.env.VITE_API_URL + "/settings/get/header_title")
       .then((response) => (this.header_title = response.data.value));
-    axios
-      .get(import.meta.env.VITE_API_URL + "/settings/get/sitestatus")
-      .then((response) => (this.sitestatus = response.data.value));
   },
   created() {
     this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
