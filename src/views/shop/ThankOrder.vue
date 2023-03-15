@@ -16,17 +16,18 @@ export default {
       order: [],
       cart: [],
       orderdbid: this.$route.query.id,
-      key:0,
+      key: 0,
     };
   },
   mounted() {
     localStorage.setItem("cart", JSON.stringify(this.cart));
-    this.key += 1
+    this.key += 1;
     axios
       .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderdbid)
       .then((response) => (this.order = response.data));
-    axios
-      .get(import.meta.env.VITE_API_URL + "/orders/finish/" + this.orderdbid)
+    axios.get(
+      import.meta.env.VITE_API_URL + "/orders/finish/" + this.orderdbid
+    );
   },
 };
 </script>

@@ -132,8 +132,8 @@ export default {
         <br />
 
         <h3>Szállítási cím</h3>
-        <input type="text" placeholder="Utónév" v-model="user.u_name" /> <br />
         <input type="text" placeholder="Vezetéknév" v-model="user.u_first" />
+        <input type="text" placeholder="Utónév" v-model="user.u_name" /> <br />
         <br />
         <input
           type="text"
@@ -155,7 +155,7 @@ export default {
         <input type="text" placeholder="Telefonszám" v-model="user.u_tel" />
         <div class="flex">
           <input class="checkbox" type="checkbox" name="news" id="news" />
-          <label for="news">Szeretnék értesűlni az aktuális ajánlatokról</label>
+          <label for="news">Szeretnék értesülni az aktuális ajánlatokról</label>
         </div>
         <br />
         <br />

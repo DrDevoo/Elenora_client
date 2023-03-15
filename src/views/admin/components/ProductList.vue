@@ -14,7 +14,9 @@ export default {
         prod_colors: [],
         prod_pears: [],
       },
-      file: "",
+      file1: "",
+      file2: "",
+      file3: "",
       collections: [],
       items: [],
       p_prod: [],
@@ -86,15 +88,15 @@ export default {
       this.pearl_xxl = 0;
     },
     handleFileUpload1() {
-      this.file = this.$refs.file1.files[0];
-      let formData = new FormData();
-      formData.append("file", this.file);
+      this.file1 = this.$refs.file1.files[0];
+      let formData1 = new FormData();
+      formData1.append("file", this.file1);
       axios
         .post(
           import.meta.env.VITE_API_URL +
             "/products/addimg1/" +
             this.p_prod.prodname,
-          formData,
+          formData1,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -110,15 +112,15 @@ export default {
         });
     },
     handleFileUpload2() {
-      this.file = this.$refs.file2.files[0];
-      let formData = new FormData();
-      formData.append("file", this.file);
+      this.file2 = this.$refs.file2.files[0];
+      let formData2 = new FormData();
+      formData2.append("file", this.file2);
       axios
         .post(
           import.meta.env.VITE_API_URL +
             "/products/addimg2/" +
             this.p_prod.prodname,
-          formData,
+          formData2,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -134,15 +136,15 @@ export default {
         });
     },
     handleFileUpload3() {
-      this.file = this.$refs.file3.files[0];
-      let formData = new FormData();
-      formData.append("file", this.file);
+      this.file3 = this.$refs.file3.files[0];
+      let formData3 = new FormData();
+      formData3.append("file", this.file3);
       axios
         .post(
           import.meta.env.VITE_API_URL +
             "/products/addimg3/" +
             this.p_prod.prodname,
-          formData,
+          formData3,
           {
             headers: {
               "Content-Type": "multipart/form-data",

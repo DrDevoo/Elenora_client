@@ -12,6 +12,7 @@ export default {
       showB2: false,
       showB3: false,
       response: [],
+      inventory: [],
       cart: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       quantity: 1,
@@ -31,6 +32,9 @@ export default {
           this.$route.query.id
       )
       .then((response) => (this.response = response.data));
+    axios
+      .get(import.meta.env.VITE_API_URL + "/inventory/getall")
+      .then((response) => (this.inventory = response.data));
   },
   methods: {
     addToCart(product, quantity, size) {
@@ -43,7 +47,7 @@ export default {
         quantity: quantity,
       });
       localStorage.setItem("cart", JSON.stringify(this.cart));
-      this.key += 1
+      this.key += 1;
     },
     addq() {
       if (this.quantity < 15) {
@@ -55,9 +59,9 @@ export default {
         this.quantity -= 1;
       }
     },
-    select(img){
-      console.log(img)
-      this.p_img = img
+    select(img) {
+      console.log(img);
+      this.p_img = img;
     },
   },
 };
@@ -70,13 +74,13 @@ export default {
       <setion class="images-s">
         <div>
           <img
-            v-if="response.image && p_img == null "
+            v-if="response.image && p_img == null"
             :src="imgurl + response.image"
             class="pickedimg"
             alt="Termék képe"
           />
           <img
-            v-if="!(p_img == null) "
+            v-if="!(p_img == null)"
             :src="imgurl + p_img"
             class="pickedimg"
             alt="Termék képe"
@@ -92,14 +96,20 @@ export default {
           />
           <img
             @click="select(response.image2)"
-            v-if="response.image2 && !(response.image2 == '46bea41c0363d722467defc2f1ecc234')"
+            v-if="
+              response.image2 &&
+              !(response.image2 == '46bea41c0363d722467defc2f1ecc234')
+            "
             class="thumbimg"
             :src="imgurl + response.image2"
             alt="Termék képe"
           />
           <img
             @click="select(response.image3)"
-            v-if="response.image3 && !(response.image3 == '46bea41c0363d722467defc2f1ecc234')"
+            v-if="
+              response.image3 &&
+              !(response.image3 == '46bea41c0363d722467defc2f1ecc234')
+            "
             class="thumbimg"
             :src="imgurl + response.image3"
             alt="Termék képe"
@@ -160,6 +170,9 @@ export default {
             <p v-if="response.description">
               {{ response.description }}
             </p>
+            <br>
+           
+
           </div>
         </div>
         <div class="desc-b">
@@ -214,14 +227,14 @@ body {
   display: block;
 }
 
-.thumbimg{
+.thumbimg {
   border-radius: 10px;
   width: 100px;
   height: 100px;
   z-index: 1;
   border: 5px solid white;
 }
-.thumblist{
+.thumblist {
   position: relative;
   top: -5.4rem;
   left: 2.7rem;
@@ -374,20 +387,20 @@ input[type="number"] {
     height: fit-content;
   }
 
-  .thumbimg{
-  border-radius: 10px;
-  width: 100px;
-  height: 100px;
-  z-index: 10;
-  border: 5px solid white;
-}
-.thumblist{
-  position: relative;
-  top: -6.0rem;
-  left: 1.7rem;
-  gap: 10px;
-  display: flex;
-}
+  .thumbimg {
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    z-index: 10;
+    border: 5px solid white;
+  }
+  .thumblist {
+    position: relative;
+    top: -6rem;
+    left: 1.7rem;
+    gap: 10px;
+    display: flex;
+  }
   .images-s div .pickedimg {
     width: 93%;
     position: relative;
