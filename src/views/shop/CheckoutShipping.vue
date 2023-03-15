@@ -16,8 +16,7 @@ export default {
 
       loadingcoupon: false,
       cuponcode: "",
-      activecupon: false,
-      cuponerror: false
+      cuponsresponse: [],
     };
   },
   created() {
@@ -142,18 +141,11 @@ export default {
       }
     },
     check() {
-      this.loadingcoupon = true
+      this.loadingcoupon = true;
       axios
         .get(import.meta.env.VITE_API_URL + "/cupons/check/" + this.cuponcode)
-        .then((response) => (cuponsresponse = response.data));
-
-      if (cuponsresponse == "Érvénytelen kupon!") {
-        this.loadingcoupon = false
-        this.cuponerror = true
-      } else {
-        this.activecupon = true;
-        this.loadingcoupon = false
-      }
+        .then((response) => (this.cuponsresponse = response.data));
+      this.loadingcoupon = false;
     },
   },
 };
@@ -252,17 +244,18 @@ export default {
       </div>
       <div>
         <h3>Ajándékkártya vagy kupon kódja</h3>
+        <p>{{ cuponsresponse }}</p>
         <div class="cupon_b">
           <div>
             <input
-            type="text"
-            v-model="cuponcode"
-            placeholder="Válts be kuponod"
-          />
-          <button v-if="!loadingcoupon" @click="check()">Beváltom</button>
-          <button v-if="loadingcoupon"><Loader /></button>
+              type="text"
+              v-model="cuponcode"
+              placeholder="Válts be kuponod"
+            />
+            <button v-if="!loadingcoupon" @click="check()">Beváltom</button>
+            <button v-if="loadingcoupon"><Loader /></button>
           </div>
-          
+
           <p v-if="cuponerror">Érvénytelen kód!</p>
         </div>
         <h3>Számlázási cím</h3>
@@ -383,7 +376,6 @@ main {
   flex-direction: column;
 }
 
-
 .otherszamlazasi input {
   width: 99%;
   border: none;
@@ -421,15 +413,15 @@ main {
 
   gap: 0.5rem;
 }
-.cupon_b p{
+.cupon_b p {
   line-height: 0px;
   color: red;
   font-weight: 100;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.cupon_b div{
-    display: flex;
+.cupon_b div {
+  display: flex;
 }
 .cupon_b button {
   height: 30px;

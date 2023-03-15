@@ -59,11 +59,6 @@ const router = createRouter({
       component: () => import("../views/shop/checkoutShipping.vue"),
     },
     {
-      path: "/shop/checkout/payment",
-      name: "webshop_checkout_payment",
-      component: () => import("../views/shop/checkoutPayment.vue"),
-    },
-    {
       path: "/shop/checkout/summary",
       name: "webshop_checkout_summary",
       component: () => import("../views/shop/checkoutFinish.vue"),

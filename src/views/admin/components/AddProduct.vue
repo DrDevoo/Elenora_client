@@ -432,7 +432,7 @@ textarea {
   padding: 5px;
 }
 .submit_wrapper input {
-  background-color: lightsalmon;
+  background-color: #ffa07a;
   border: none;
   padding: 5px;
   border-radius: 40px;
