@@ -7,40 +7,54 @@ export default {
   data() {
     return {
       showCart: false,
-      cart: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       orderid: this.$route.query.order,
       loading: false,
 
       order: [],
 
+      epty: [],
+
       loadingcoupon: false,
       cuponcode: "",
       cuponsresponse: [],
+      cuponactive: false,
     };
   },
-  created() {
-    this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  },
-  mounted() {
-    axios
+  async mounted() {
+    await axios
       .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderid)
       .then((response) => (this.order = response.data));
-  },
-  computed: {
-    total() {
-      return this.cart.reduce(
-        (sum, item) => sum + item.price * item.quantity,
-        0
-      );
-    },
+
+    if (!(this.order.usedcupon == "")) {
+      await axios
+        .get(
+          import.meta.env.VITE_API_URL + "/cupons/check/" + this.order.usedcupon
+        )
+        .then((response) => (this.cuponsresponse = response.data));
+      this.cuponcode = this.order.usedcupon;
+      this.cuponactive = true;
+      this.cart.forEach((item, index) => {
+        if (!(item.name == "Szállítási díj")) {
+          console.log(item);
+          this.cart[index].sale = this.cuponsresponse.cupon_value;
+          console.log("fut");
+        } else {
+          console.log("elutasitva");
+        }
+      });
+    }
   },
   methods: {
     next() {
       this.loading = true;
+      console.log(this.cart);
       if (this.order.shipping == "delivery-cash") {
-        const cartamount = this.cart.reduce(
-          (sum, item) => sum + item.price * item.quantity,
+        const cartamount = this.order.cart.reduce(
+          (sum, item) =>
+            sum +
+            Math.round(item.price - (item.price / 100) * item.sale) *
+              item.quantity,
           0
         );
         if (cartamount > 14999) {
@@ -49,6 +63,7 @@ export default {
             name: "Szállítási díj",
             price: 0,
             quantity: 1,
+            sale: 0,
             img: null,
           });
           this.order.cart.push({
@@ -56,6 +71,7 @@ export default {
             name: "Utánvét díj",
             price: 890,
             quantity: 1,
+            sale: 0,
             img: null,
           });
         } else {
@@ -64,6 +80,7 @@ export default {
             name: "Szállítási díj",
             price: 1990,
             quantity: 1,
+            sale: 0,
             img: null,
           });
           this.order.cart.push({
@@ -71,13 +88,25 @@ export default {
             name: "Utánvét díj",
             price: 890,
             quantity: 1,
+            sale: 0,
             img: null,
           });
         }
-        localStorage.setItem("cart", JSON.stringify(this.order.cart));
+        axios.post(
+          import.meta.env.VITE_API_URL + "/orders/updatecart/" + this.orderid,
+          JSON.stringify(this.order.cart),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
       } else {
-        const cartamount = this.cart.reduce(
-          (sum, item) => sum + item.price * item.quantity,
+        const cartamount = this.order.cart.reduce(
+          (sum, item) =>
+            sum +
+            Math.round(item.price - (item.price / 100) * item.sale) *
+              item.quantity,
           0
         );
         if (cartamount > 14999) {
@@ -86,6 +115,7 @@ export default {
             name: "Szállítási díj",
             price: 0,
             quantity: 1,
+            sale: 0,
             img: null,
           });
         } else {
@@ -94,10 +124,19 @@ export default {
             name: "Szállítási díj",
             price: 1990,
             quantity: 1,
+            sale: 0,
             img: null,
           });
         }
-        localStorage.setItem("cart", JSON.stringify(this.order.cart));
+        axios.post(
+          import.meta.env.VITE_API_URL + "/orders/updatecart/" + this.orderid,
+          JSON.stringify(this.order.cart),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
       }
       axios
         .post(
@@ -140,11 +179,42 @@ export default {
         console.log("err");
       }
     },
-    check() {
+    async check() {
       this.loadingcoupon = true;
-      axios
+      await axios
         .get(import.meta.env.VITE_API_URL + "/cupons/check/" + this.cuponcode)
         .then((response) => (this.cuponsresponse = response.data));
+
+      if (this.cuponsresponse._id) {
+        console.log("Kupon aktivalasa");
+        this.order.cart.forEach((item, index) => {
+          if (!(item.name == "Szállítási díj")) {
+            console.log(item);
+            this.order.cart[index].sale = this.cuponsresponse.cupon_value;
+          } else {
+            console.log("elutasitva");
+          }
+        });
+        axios.post(
+          import.meta.env.VITE_API_URL + "/orders/updatecart/" + this.orderid,
+          JSON.stringify(this.order.cart),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        await axios.get(
+          import.meta.env.VITE_API_URL +
+            "/orders/savecupon/" +
+            this.orderid +
+            "/" +
+            this.cuponsresponse.cupon_name
+        );
+        this.cuponactive = true;
+      } else {
+        console.log("Hibas kupon!");
+      }
       this.loadingcoupon = false;
     },
   },
@@ -170,14 +240,29 @@ export default {
           </div>
           <div class="price">
             <b
-              ><p>{{ total }} Ft</p></b
+              ><p v-if="order.cart">
+                {{
+                  order.cart.reduce(
+                    (sum, item) =>
+                      sum +
+                      Math.round(item.price - (item.price / 100) * item.sale) *
+                        item.quantity,
+                    0
+                  )
+                }}
+                Ft
+              </p></b
             >
           </div>
         </div>
 
         <div class="cart" v-if="showCart">
           <div class="list">
-            <div class="cart_item" v-for="(item, index) in cart" :key="index">
+            <div
+              class="cart_item"
+              v-for="(item, index) in order.cart"
+              :key="index"
+            >
               <div class="cart_item_imgtext">
                 <div class="cart_item_img">
                   <img v-if="!(item.img == null)" :src="imgurl + item.img" />
@@ -189,7 +274,10 @@ export default {
                 </div>
               </div>
               <div class="cart_item_del">
-                <h5>{{ item.price }} Ft</h5>
+                <h5>
+                  {{ Math.round(item.price - (item.price / 100) * item.sale) }}
+                  Ft
+                </h5>
               </div>
             </div>
           </div>
@@ -244,19 +332,34 @@ export default {
       </div>
       <div>
         <h3>Ajándékkártya vagy kupon kódja</h3>
-        <p>{{ cuponsresponse }}</p>
         <div class="cupon_b">
           <div>
             <input
+              v-if="!cuponactive"
               type="text"
               v-model="cuponcode"
               placeholder="Válts be kuponod"
             />
-            <button v-if="!loadingcoupon" @click="check()">Beváltom</button>
+            <input
+              v-if="cuponactive"
+              type="text"
+              v-model="cuponcode"
+              placeholder="Válts be kuponod"
+              disabled
+            />
+            <button v-if="!loadingcoupon && !cuponactive" @click="check()">
+              Beváltom
+            </button>
             <button v-if="loadingcoupon"><Loader /></button>
+            <button style="background-color: green" v-if="cuponactive">
+              &#10003;
+            </button>
           </div>
 
-          <p v-if="cuponerror">Érvénytelen kód!</p>
+          <p v-if="cuponsresponse == 'Érvénytelen kupon!'">Érvénytelen kód!</p>
+          <p style="color: green" v-if="cuponsresponse._id">
+            {{ cuponsresponse.cupon_value }}%-os kupon beváltva!
+          </p>
         </div>
         <h3>Számlázási cím</h3>
         <div class="szamla_b">

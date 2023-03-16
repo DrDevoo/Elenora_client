@@ -45,6 +45,7 @@ export default {
         size: size,
         price: product.price,
         quantity: quantity,
+        sale: 0,
       });
       localStorage.setItem("cart", JSON.stringify(this.cart));
       this.key += 1;

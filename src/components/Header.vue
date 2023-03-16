@@ -29,8 +29,13 @@ export default {
       */
   },
   created() {
+    try{
     this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
     this.cartcount = this.cart.length
+    }catch(err){
+console.log(err)
+    }
+
   },
   computed: {
     total() {
@@ -84,15 +89,12 @@ export default {
           <ion-icon name="search-outline"></ion-icon>
         </a>
       </div>
-      <div>
+      <div style="right: 16px;position: relative;">
         <RouterLink to="/"
           ><img class="logo" src="../assets/images/logo/logo.svg" alt="ELENORA"
         /></RouterLink>
       </div>
       <div>
-        <a @click="showWish = !showWish"
-          ><ion-icon name="heart-outline"></ion-icon
-        ></a>
         <a @click="showCart = !showCart"
           ><ion-icon name="bag-outline"></ion-icon
         ></a>

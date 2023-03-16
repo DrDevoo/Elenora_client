@@ -7,7 +7,7 @@ export default {
   data() {
     return {
       showCart: false,
-      cart: [],
+
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       orderid: this.$route.query.order,
       loading: false,
@@ -16,21 +16,10 @@ export default {
       cuponcode: null,
     };
   },
-  created() {
-    this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  },
   mounted() {
     axios
       .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderid)
       .then((response) => (this.order = response.data));
-  },
-  computed: {
-    total() {
-      return this.cart.reduce(
-        (sum, item) => sum + item.price * item.quantity,
-        0
-      );
-    },
   },
   methods: {
     next() {
@@ -81,7 +70,7 @@ export default {
         .post(
           import.meta.env.VITE_API_URL + "/orders/pay",
           JSON.stringify({
-            items: this.cart,
+            items: this.order.cart,
             orderid: this.orderid,
           }),
           {
@@ -117,14 +106,25 @@ export default {
           </div>
           <div class="price">
             <b
-              ><p>{{ total }} Ft</p></b
+              ><p v-if="order.cart">
+                {{
+                  order.cart.reduce(
+                    (sum, item) =>
+                      sum +
+                      Math.round(item.price - (item.price / 100) * item.sale) *
+                        item.quantity,
+                    0
+                  )
+                }}
+                Ft
+              </p></b
             >
           </div>
         </div>
 
         <div class="cart" v-if="showCart">
           <div class="list">
-            <div class="cart_item" v-for="(item, index) in cart" :key="index">
+            <div class="cart_item" v-for="(item, index) in order.cart" :key="index">
               <div class="cart_item_imgtext">
                 <div class="cart_item_img">
                   <img v-if="!(item.img == null)" :src="imgurl + item.img" />
@@ -136,7 +136,7 @@ export default {
                 </div>
               </div>
               <div class="cart_item_del">
-                <h5>{{ item.price }} Ft</h5>
+                <h5>{{ Math.round(item.price - (item.price / 100) * item.sale) }} Ft</h5>
               </div>
             </div>
           </div>
