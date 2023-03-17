@@ -53,6 +53,7 @@ export default {
           )
           .then(function (response) {
             console.log(response);
+            alert("1. kep kesz");
           })
           .catch(function () {
             console.log("FAILURE!!");
@@ -69,6 +70,7 @@ export default {
           )
           .then(function (response) {
             console.log(response);
+            alert("2. kep kesz");
           })
           .catch(function () {
             console.log("FAILURE!!");
@@ -85,11 +87,12 @@ export default {
           )
           .then(function (response) {
             console.log(response);
+            alert("3. kep kesz");
           })
           .catch(function () {
             console.log("FAILURE!!");
-          });
-        alert("Sikeres termék mentés!");
+          });          
+
       }
       axios
         .post(
@@ -114,6 +117,7 @@ export default {
           }
         )
         .then(function (response) {
+
           uploadimgs(response.data._id, formData1, formData2, formData3);
         })
         .catch(function () {
