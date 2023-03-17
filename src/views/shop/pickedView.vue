@@ -121,9 +121,6 @@ export default {
         <div class="texts-b">
           <h1 v-if="response.prodname">{{ response.prodname }}</h1>
           <h3 v-if="response.price">{{ response.price }} Ft</h3>
-          <p v-if="response.description">
-            {{ response.description.split(".")[0] }}
-          </p>
         </div>
         <div class="input-b">
           <div class="selects-b">
@@ -157,25 +154,6 @@ export default {
     </section>
     <section class="bottom-s">
       <section class="description-s">
-        <div class="desc-b">
-          <div @click="showB1 = !showB1" class="title-b">
-            <h4>Leírás</h4>
-            <ion-icon v-if="!showB1" name="chevron-up-outline"></ion-icon>
-            <ion-icon
-              v-if="showB1"
-              class="downarrow"
-              name="chevron-down-outline"
-            ></ion-icon>
-          </div>
-          <div v-if="showB1" class="text-b">
-            <p v-if="response.description">
-              {{ response.description }}
-            </p>
-            <br>
-           
-
-          </div>
-        </div>
         <div class="desc-b">
           <div @click="showB2 = !showB2" class="title-b">
             <h4>Ásványok</h4>
@@ -288,8 +266,8 @@ input[type="number"] {
 }
 
 .top-s {
-  height: 100vh;
-  width: 100%;
+  display: block;
+  overflow: auto;
   position: relative;
   display: flex;
 }
@@ -309,12 +287,11 @@ input[type="number"] {
 }
 
 .texts-s {
+  position: relative;
   width: 50%;
-  height: 87%;
-  max-height: 750px;
   padding: 0.5rem;
-  padding-top: 1rem;
   padding-left: 2.5rem;
+  padding-bottom:  5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -386,6 +363,7 @@ input[type="number"] {
   .images-s {
     width: 100%;
     height: fit-content;
+
   }
 
   .thumbimg {
@@ -462,7 +440,7 @@ input[type="number"] {
 }
 .description-s {
   position: relative;
-  top: 2rem;
+  top: -6rem;
 }
 .desc-b {
   position: relative;
