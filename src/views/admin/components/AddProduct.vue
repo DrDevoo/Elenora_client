@@ -39,6 +39,58 @@ export default {
       formData1.append("file", this.file1);
       formData2.append("file", this.file2);
       formData3.append("file", this.file3);
+      async function uploadimgs(prodid, f1, f2, f3) {
+        console.log("id: " + prodid);
+        axios
+          .post(
+            import.meta.env.VITE_API_URL + "/products/addimg1/" + prodid,
+            f1,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function () {
+            console.log("FAILURE!!");
+          });
+        axios
+          .post(
+            import.meta.env.VITE_API_URL + "/products/addimg2/" + prodid,
+            f2,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function () {
+            console.log("FAILURE!!");
+          });
+        axios
+          .post(
+            import.meta.env.VITE_API_URL + "/products/addimg3/" + prodid,
+            f3,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          )
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function () {
+            console.log("FAILURE!!");
+          });
+        alert("Sikeres termék mentés!");
+      }
       axios
         .post(
           import.meta.env.VITE_API_URL +
@@ -62,66 +114,12 @@ export default {
           }
         )
         .then(function (response) {
-          console.log(response);
-          alert("Sikeres termék mentés!")
+          uploadimgs(response.data._id, formData1, formData2, formData3);
         })
         .catch(function () {
           console.log("FAILURE!!");
         });
-      axios
-        .post(
-          import.meta.env.VITE_API_URL +
-            "/products/addimg1/" +
-            this.form.prod_name,
-          formData1,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function () {
-          console.log("FAILURE!!");
-        });
-      axios
-        .post(
-          import.meta.env.VITE_API_URL +
-            "/products/addimg2/" +
-            this.form.prod_name,
-          formData2,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function () {
-          console.log("FAILURE!!");
-        });
-      axios
-        .post(
-          import.meta.env.VITE_API_URL +
-            "/products/addimg3/" +
-            this.form.prod_name,
-          formData3,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        )
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function () {
-          console.log("FAILURE!!");
-        });
+
       this.form.prod_categ = null;
       this.form.prod_name = null;
       this.form.prod_price = null;
