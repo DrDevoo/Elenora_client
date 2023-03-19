@@ -35,7 +35,7 @@ export default {
       const timer = setInterval(() => {
         const now = new Date();
         //0 = Januar, 1 = Februar stb...
-        const end = new Date(2023, 2, 28, 12, 0, 0, 0);
+        const end = new Date(2023, 2, 31, 17, 0, 0, 0);
         const distance = end.getTime() - now.getTime();
 
         if (distance < 0) {

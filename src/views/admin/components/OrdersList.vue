@@ -22,6 +22,28 @@ export default {
         .then((response) => (this.p_order = response.data));
       this.details = true;
     },
+    p_delete(id) {
+      if (confirm("Biztosan törlöd a rendelést?")) {
+        axios.get(import.meta.env.VITE_API_URL + "/orders/update/del/" + id);
+      }
+    },
+    p_maked(id) {
+      if (confirm("Biztos teljesen összevan készítve a rendelés?")) {
+        axios.get(import.meta.env.VITE_API_URL + "/orders/update/maked/" + id);
+      }
+    },
+    p_shipping(id) {
+      if (confirm("Biztosan feladtad a GLS-nek a csomagot?")) {
+        axios.get(
+          import.meta.env.VITE_API_URL + "/orders/update/shipping/" + id
+        );
+      }
+    },
+    p_finish(id) {
+      if (confirm("Biztosan teljesűlt a kézbesítés?")) {
+        axios.get(import.meta.env.VITE_API_URL + "/orders/update/finish/" + id);
+      }
+    },
   },
 };
 </script>
@@ -31,7 +53,7 @@ export default {
     <table cellspacing="0" cellpadding="0">
       <thead>
         <tr>
-          <th>Dátum/rendeles szam</th>
+          <th>Dátum / Rendelés szám</th>
           <th>Állapot</th>
           <th>Megrendelő</th>
           <th>Termék(ek)</th>
@@ -46,20 +68,30 @@ export default {
             {{ item.createdtime.split("T")[0] }} <br />
             {{ item.orderid }}
           </td>
-          <td></td>
+          <td>
+            <p class="stat red" v-if="item.status == 'pending'">
+              Rendelés alatt
+            </p>
+            <p class="stat orange" v-if="item.status == 'ordered'">
+              Megrendelve
+            </p>
+            <p class="stat blue" v-if="item.status == 'maked'">Összekészítve</p>
+            <p class="stat lila" v-if="item.status == 'shipping'">Szállítás</p>
+            <p class="stat green" v-if="item.status == 'done'">Teljesítve</p>
+          </td>
           <td>
             {{ item.u_firstname + " " + item.u_name }} <br />
             {{ item.u_email }}
           </td>
-          <td>
-            <h6 class="itemname" v-for="(cartitem, index) in item.cart">
-              {{ cartitem.name }}
-            </h6>
-          </td>
+          <td v-if="item.shipping == 'delivery-card'">Fizetve</td>
+          <td v-if="item.shipping == 'delivery-cash'">Utánvét</td>
           <td>
             {{
               item.cart.reduce(
-                (sum, cartitem) => sum + cartitem.price * cartitem.quantity,
+                (sum, item) =>
+                  sum +
+                  Math.round(item.price - (item.price / 100) * item.sale) *
+                    item.quantity,
                 0
               )
             }}
@@ -81,44 +113,44 @@ export default {
         name="close-outline"
       ></ion-icon>
       <h3 style="text-align: center">
-        Rendekés összesítő - <i>{{ this.p_order.orderid }}</i>
+        Rendekés összesítő - <i>{{ p_order.orderid }}</i>
       </h3>
       <div class="customer_b">
         <div class="box">
           <h5>Megrendelő adatai:</h5>
           <div class="flex">
             <b><p>Teljes név:</p></b>
-            <p>{{ this.p_order.u_firstname }} {{ this.p_order.u_name }}</p>
+            <p>{{ p_order.u_firstname }} {{ p_order.u_name }}</p>
           </div>
           <div class="flex">
             <b><p>E-mail:</p></b>
-            <p>{{ this.p_order.u_email }}</p>
+            <p>{{ p_order.u_email }}</p>
           </div>
           <div class="flex">
             <b><p>Tel.:</p></b>
-            <p>{{ this.p_order.u_tel }}</p>
+            <p>{{ p_order.u_tel }}</p>
           </div>
         </div>
         <div class="box">
           <h5>Szállítás, számlázás:</h5>
           <div class="flex">
             <b><p>helység:</p></b>
-            <p>{{ this.p_order.u_postnumber }}, {{ this.p_order.u_city }}</p>
+            <p>{{ p_order.u_postnumber }}, {{ p_order.u_city }}</p>
           </div>
           <div class="flex">
             <b><p>Utca:</p></b>
-            <p>{{ this.p_order.u_addresse }}</p>
+            <p>{{ p_order.u_addresse }}</p>
           </div>
         </div>
         <div class="box">
           <h5>Rendelés adatai:</h5>
-          <div class="flex" v-if="this.p_order.createdtime">
+          <div class="flex" v-if="p_order.createdtime">
             <b><p>Idő:</p></b>
-            <p>{{ this.p_order.createdtime.split("T")[0] }}</p>
+            <p>{{ p_order.createdtime.split("T")[0] }}</p>
           </div>
           <div class="flex">
             <b><p>Státusz:</p></b>
-            <p></p>
+            <p>{{ p_order.status }}</p>
           </div>
         </div>
       </div>
@@ -129,8 +161,11 @@ export default {
           v-for="(item, index) in this.p_order.cart"
           :key="index"
         >
-          <img class="prodimg" :src="imgurl + item.img" />
-          <div></div>
+          <img
+            v-if="!(item.img == null)"
+            class="prodimg"
+            :src="imgurl + item.img"
+          />
           <div>
             <div class="flex">
               <b><p>Neve:</p></b>
@@ -142,20 +177,99 @@ export default {
             </div>
             <div class="flex">
               <b><p>Méret:</p></b>
-              <p>{{ item.size }}</p>
-            </div>
-            <div class="flex">
-              <b><p>Ára:</p></b>
-              <p>{{ item.price }} Ft</p>
+              <p v-if="item.size">{{ item.size }}</p>
             </div>
           </div>
         </div>
+      </div>
+      <div class="order-btns">
+        <button
+          v-if="!(p_order.status == 'done')"
+          @click="p_delete(p_order._id)"
+          class="red"
+        >
+          Törlés
+        </button>
+        <button
+          v-if="p_order.status == 'ordered'"
+          @click="p_maked(p_order._id)"
+          class="blue"
+        >
+          Összekészítve
+        </button>
+        <button
+          v-if="p_order.status == 'maked'"
+          @click="p_shipping(p_order._id)"
+          class="orange"
+        >
+          Feladva
+        </button>
+        <button
+          v-if="p_order.status == 'shipping'"
+          @click="p_finish(p_order._id)"
+          class="green"
+        >
+          Teljesítve
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
+.stat {
+  margin: auto;
+  border-radius: 20px;
+  width: 70%;
+  padding: 3px;
+  color: white;
+}
+.stat.red {
+  background-color: tomato;
+}
+.stat.orange {
+  background-color: orange;
+}
+.stat.blue {
+  background-color: lightblue;
+}
+.stat.lila {
+  background-color: purple;
+}
+.stat.green {
+  background-color: rgb(16, 234, 96);
+}
+
+.order-btns {
+  margin: auto;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.order-btns button {
+  cursor: pointer;
+  height: 25px;
+  border: none;
+  width: 140px;
+  border-radius: 10px;
+  font-size: 11pt;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: white;
+}
+.order-btns button.red {
+  background-color: tomato;
+}
+.order-btns button.blue {
+  background-color: lightskyblue;
+}
+.order-btns button.orange {
+  background-color: orange;
+}
+.order-btns button.green {
+  background-color: rgb(24, 247, 106);
+}
 .cartprod {
   display: flex;
   margin-bottom: 1rem;
@@ -236,20 +350,20 @@ td {
 
 @media only screen and (max-width: 900px) {
   .details_box .d_container {
-  overflow-y: auto;
-  box-shadow: 0px 0px 10px black;
-  width: 95%;
-  height: 83vh;
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 1rem;
-}
-.customer_b {
-  display: block;
-  justify-content: space-between;
-  border: 1px solid gray;
-  border-radius: 10px;
-  gap: 1rem;
-}
+    overflow-y: auto;
+    box-shadow: 0px 0px 10px black;
+    width: 95%;
+    height: 83vh;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+  .customer_b {
+    display: block;
+    justify-content: space-between;
+    border: 1px solid gray;
+    border-radius: 10px;
+    gap: 1rem;
+  }
 }
 </style>

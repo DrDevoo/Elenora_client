@@ -26,7 +26,7 @@ export default {
       .get(import.meta.env.VITE_API_URL + "/orders/getbyid/" + this.orderdbid)
       .then((response) => (this.order = response.data));
     axios.get(
-      import.meta.env.VITE_API_URL + "/orders/finish/" + this.orderdbid
+      import.meta.env.VITE_API_URL + "/orders/update/ordered/" + this.orderdbid
     );
   },
 };
