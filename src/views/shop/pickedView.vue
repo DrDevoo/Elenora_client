@@ -12,7 +12,7 @@ export default {
       showB2: false,
       showB3: false,
       response: [],
-      inventory: [],
+      access: [],
       cart: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       quantity: 1,
@@ -31,10 +31,14 @@ export default {
           "/products/getbyid/" +
           this.$route.query.id
       )
-      .then((response) => (this.response = response.data));
+      .then((response) => (this.response = response.data.product));
     axios
-      .get(import.meta.env.VITE_API_URL + "/inventory/getall")
-      .then((response) => (this.inventory = response.data));
+      .get(
+        import.meta.env.VITE_API_URL +
+          "/products/getbyid/" +
+          this.$route.query.id
+      )
+      .then((response) => (this.access = response.data));
   },
   methods: {
     addToCart(product, quantity, size) {
@@ -127,12 +131,12 @@ export default {
             <div class="size-b box">
               <p>Méret</p>
               <select v-model="size" class="size_b">
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-                <option value="XXL">XXL</option>
+                <option v-if="access.xs == true" value="XS">XS</option>
+                <option v-if="access.s == true" value="S">S</option>
+                <option v-if="access.m == true" value="M">M</option>
+                <option v-if="access.l == true" value="L">L</option>
+                <option v-if="access.xl == true" value="XL">XL</option>
+                <option v-if="access.xxl == true" value="XXL">XXL</option>
               </select>
             </div>
             <div class="mennyiseg-b box">
@@ -145,8 +149,11 @@ export default {
             </div>
           </div>
           <div class="add-b">
-            <button @click="addToCart(response, quantity, size)">
+            <button v-if="access.xs == true" @click="addToCart(response, quantity, size)">
               Kosárba teszem<ion-icon name="cart-outline"></ion-icon>
+            </button>
+            <button v-if="access.xs == false">
+              A termék nem elérhető!<ion-icon name="cart-outline"></ion-icon>
             </button>
           </div>
         </div>

@@ -8,7 +8,7 @@ export default {
         prod_name: "",
         prod_collection: "",
         prod_price: 0,
-        prod_description: "",
+        prod_description: " ",
         prod_categ: "",
         prod_colors: [],
         prod_pears: [],
@@ -193,14 +193,6 @@ export default {
             placeholder="Termék ára"
             v-model="form.prod_price"
           />
-          <br />
-          <label for="">Leírása</label>
-          <textarea
-            v-model="form.prod_description"
-            placeholder="Termék leírása"
-            cols="30"
-            rows="4"
-          ></textarea>
           <br />
           <label for="kollekcio">Kollekció</label>
           <select

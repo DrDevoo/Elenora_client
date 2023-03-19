@@ -1,1 +1,0 @@
-import{o as t,c as _,a as e,F as n,b as a,_ as o,j as s}from"./index-ddd2b462.js";const c=a("main",null,[a("h1",null,"Rólunk")],-1),m={__name:"AboutView",setup(l){return(r,u)=>(t(),_(n,null,[e(o),c,e(s)],64))}};export{m as default};
