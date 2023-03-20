@@ -92,12 +92,12 @@ export default {
       <div class="slide">
         <img src="../assets/images/webp/2.webp" />
         <h2>Változatosság</h2>
-        <p>Válassz olyan karkötőt amiben megmutatkozik a sok színűséged</p>
+        <p>Válassz olyan karkötőt amiben megmutatkozik a sokszínűséged</p>
       </div>
       <div class="slide">
         <img src="../assets/images/webp/3.webp" />
         <h2>Elegáns</h2>
-        <p>Hord egy ünnepélyes eseményhez, egészítse ki az öltözéked</p>
+        <p>Hordd egy ünnepélyes eseményhez, egészítse ki az öltözéked</p>
       </div>
       <div class="slide">
         <img src="../assets/images/webp/4.webp" />
@@ -114,7 +114,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
 .slides {
   position: relative;
   height: 500px;

@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 h1 {
   text-align: center;
   font-weight: 300;
@@ -32,7 +32,7 @@ main {
   align-items: center;
 }
 p {
-  width: 95%;
+  width: fit-content;
   text-align: justify;
 }
 
@@ -83,6 +83,13 @@ p {
     transform: rotate(0deg);
   }
 }
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: lightsalmon;
+  z-index: 10;
+}
 </style>
 
 <template>
@@ -101,7 +108,7 @@ p {
           ></ion-icon>
         </div>
         <div v-if="showB1" class="text-b">
-          <p>A 13 óráig beérkezett rendeléseket hétköznapokon még aznap, a 13 óra utáni rendeléseket pedig a következő napon postázzuk. A szállítási idő általában 1-3 munkanap. Ha most leadod a rendelésed, akkor lehet, hogy már kedden, de valószínűleg legkésőbb pénteken megérkezik a csomagod.</p>
+          <p>A 13 óráig beérkezett rendeléseket hétköznapokon még aznap, a 13 óra utáni rendeléseket pedig a következő napon addjuk át a GLS futár részére. A szállítási idő általában 1-3 munkanap.</p>
         </div>
       </div>
 
@@ -147,8 +154,7 @@ p {
         </div>
         <div v-if="showB4" class="text-b">
           <p>A következő fizetési módok közül lehet választani:
-Kártyás fizetés (Barion)
-Banki átutalás
+Kártyás fizetés (Stripe)
 Utánvét, fizetés a futárnál (+ 890 Ft)</p>
         </div>
       </div>
@@ -164,7 +170,7 @@ Utánvét, fizetés a futárnál (+ 890 Ft)</p>
           ></ion-icon>
         </div>
         <div v-if="showB5" class="text-b">
-          <p>A szállítás ára függ a szállítás módjától. A GLS csomagpont választása esetében a szállítás 990 Ft, a GLS futárszolgálat ára pedig 1 290 Ft. A 10 000 Ft feletti rendelések esetében a szállítás ingyenes!</p>
+          <p>A szállítás ára függ a szállítás módjától. A GLS csomagpont választása esetében a szállítás 990 Ft, a GLS futárszolgálat ára pedig 1 290 Ft. A 15 000 Ft feletti rendelések esetében a szállítás ingyenes!</p>
         </div>
       </div>
 
@@ -179,7 +185,7 @@ Utánvét, fizetés a futárnál (+ 890 Ft)</p>
           ></ion-icon>
         </div>
         <div v-if="showB6" class="text-b">
-          <p>A terméket az átvétel napjától számított 30 napig vissza küldheted, amennyiben nem tetszik, meggondoltad magad. Termék hiba esetén a 30 napos garanciális időn belül küld vissza a terméket részünkre. Javítjuk a terméket, majd kiszállítjuk számodra. Ebben az esetben díj mentes a javítás és a szállítás. Amennyiben nem adtál meg jó méretet, küld vissza a terméket nekünk. Javítjuk a mérethibát, majd a szállítási költséget kifizetve vissza küldjük a terméket.</p>
+          <p>A terméket az átvétel napjától számított 15 napig vissza küldheted, amennyiben nem tetszik, meggondoltad magad. Termék hiba esetén a 15 napos garanciális időn belül küld vissza a terméket részünkre. Javítjuk a terméket, majd kiszállítjuk számodra. Ebben az esetben a javítás díj mentes, viszont a felmerülő szállítási költségeket a vásárlónak kell megtérítenie. Amennyiben nem adtál meg jó méretet, küld vissza a terméket nekünk. Javítjuk a mérethibát, majd a szállítási költséget kifizetve vissza küldjük a javitott terméket Neked.</p>
         </div>
       </div>
 
@@ -194,7 +200,7 @@ Utánvét, fizetés a futárnál (+ 890 Ft)</p>
           ></ion-icon>
         </div>
         <div v-if="showB7" class="text-b">
-          <p>Garanciális időn belül küld vissza a terméket a címünkre (Budapest, 1193 Szigligeti utca 1, 9/26), ezt követően a vásárlás teljes költségét vissza utaljuk részedre. Ebben az esetben vedd fel velünk a kapcsolatot.</p>
+          <p>Garanciális időn belül küldd vissza a terméket a címünkre (Budapest, 1181 Igaz utca 8, 2/3), ezt követően a vásárlás teljes költségét visszautaljuk részedre. Ebben az esetben vedd fel velünk a kapcsolatot.</p>
         </div>
       </div>
 
@@ -209,9 +215,10 @@ Utánvét, fizetés a futárnál (+ 890 Ft)</p>
           ></ion-icon>
         </div>
         <div v-if="showB8" class="text-b">
-          <p>A méret segédletet az alábbi oldalon találod: </p>
+          <p>A méret segédletet az alábbi oldalon találod: <RouterLink to="/karkoto-meret"><b>itt</b></RouterLink> vagy az oldal alján lévő "méret segédlet" gombra kattintva.</p>
         </div>
       </div>
+
       <div class="gyik-b">
         <div @click="showB9 = !showB9" class="title-b">
           <h4>Mi van, ha nem lesz jó a méret?</h4>
@@ -223,11 +230,12 @@ Utánvét, fizetés a futárnál (+ 890 Ft)</p>
           ></ion-icon>
         </div>
         <div v-if="showB9" class="text-b">
-          <p>Ne aggódj, ha túl szűk, vagy túl nagy lett a karkötő, mert ingyen kicseréljük neked, akár többször is ha szükséges! Egyébként ritkán szokott gond lenni a mérettel, mert a karkötő könnyen nyúlik, ezért 1-2 centi eltéréssel is kényelmes lehet. Mérethiba csere esetén csak küldd vissza nekünk a karkötőt, csomagolás nélkül egy borítékba és mi visszapostázzuk neked a megfelelő méretben.</p>
+          <p>Ne aggódj, ha a méret nem megfelelő, mert kicseréljük Neked. Egyébként ritkán szokott gond lenni a mérettel, mert a karkötő könnyen nyúlik, ezért 1-2 centi eltéréssel is kényelmes hordani. Mérethiba csere esetén csak küldd vissza nekünk a karkötőt, becsomagolva és mi visszaküldjük neked a megfelelő méretben. <br> (A felmerülő szállítási költségeket a vásárlónak kell megtérítenie!)</p>
         </div>
       </div>
     </section>
-    <p>Ha további kérdésed van, írj egy emailt az info@elenora.hu email címünkre és szívesen válaszolunk!</p>
+    <br><br>
+    <p style="width: 90%;">Ha további kérdésed van, írj egy emailt az <a href="mailto: informacio@elenora.hu">informacio@elenora.hu</a>  e-mail címünkre és mihamarabb válaszolunk!</p>
   </main>
   <Footer />
 </template>

@@ -213,6 +213,8 @@ export default {
           <option value="male">Férfi</option>
           <option value="unisex">Férfi és Női</option>
           <option value="couple">Páros</option>
+          <option value="set">Szett</option>
+          <option value="aproko">Aprókő</option>
         </select>
 
         <div class="pearls_t_w">

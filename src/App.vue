@@ -24,3 +24,14 @@ export default {
   <RouterView v-else-if="status.value === 'wait'" />
   <OfflineView v-else-if="status.value === 'offline'" />
 </template>
+
+<style>
+*{
+  font-family: "Heebo", sans-serif;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+</style>

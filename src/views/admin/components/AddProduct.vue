@@ -219,6 +219,7 @@ export default {
             <option value="unisex">Férfi és Női</option>
             <option value="couple">Páros</option>
             <option value="set">Szett</option>
+            <option value="aproko">Aprókő</option>
           </select>
           <br />
           <label for="colors">Színei</label>

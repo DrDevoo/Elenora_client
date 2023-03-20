@@ -39,6 +39,11 @@ const router = createRouter({
       component: () => import("../views/shop/Sets.vue"),
     },
     {
+      path: "/shop/aproko",
+      name: "webshop_aproko",
+      component: () => import("../views/shop/Aproko.vue"),
+    },
+    {
       path: "/shop/sales",
       name: "webshop_sales",
       component: () => import("../views/shop/Saled.vue"),

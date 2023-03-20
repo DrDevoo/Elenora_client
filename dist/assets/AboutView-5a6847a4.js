@@ -1,0 +1,1 @@
+import{k as t,o as s,c as _,a,F as c,_ as n,j as p,p as r,n as u,b as o}from"./index-1f23cf88.js";const l=e=>(r("data-v-b4cf29e6"),e=e(),u(),e),d=l(()=>o("main",null,[o("h1",null,"Rólunk")],-1)),i={__name:"AboutView",setup(e){return(f,m)=>(s(),_(c,null,[a(n),d,a(p)],64))}},h=t(i,[["__scopeId","data-v-b4cf29e6"]]);export{h as default};

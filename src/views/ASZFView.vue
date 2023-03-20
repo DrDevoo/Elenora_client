@@ -4,7 +4,7 @@ import Footer from "../components/Footer.vue";
 import { RouterLink, RouterView } from "vue-router";
 </script>
 
-<style>
+<style scoped>
 h1{
  text-align: center;
  font-weight: 300;

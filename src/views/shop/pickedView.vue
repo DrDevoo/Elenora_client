@@ -126,6 +126,18 @@ export default {
           <h1 v-if="response.prodname">{{ response.prodname }}</h1>
           <h3 v-if="response.price">{{ response.price }} Ft</h3>
         </div>
+        <div>
+          <div class="plus_w">
+            <div>
+              <input type="checkbox" name="doboz" id="doboz" />
+              <label for="doboz">Dísz dobozban legyen a termék (+590 Ft)</label>
+            </div>
+            <div>
+              <input type="checkbox" name="ko" id="ko" />
+              <label for="ko">Kérek mellé ásvány követ (+790 Ft)</label>
+            </div>
+          </div>
+        </div>
         <div class="input-b">
           <div class="selects-b">
             <div class="size-b box">
@@ -149,7 +161,10 @@ export default {
             </div>
           </div>
           <div class="add-b">
-            <button v-if="access.xs == true" @click="addToCart(response, quantity, size)">
+            <button
+              v-if="access.xs == true"
+              @click="addToCart(response, quantity, size)"
+            >
               Kosárba teszem<ion-icon name="cart-outline"></ion-icon>
             </button>
             <button v-if="access.xs == false">
@@ -211,6 +226,20 @@ body {
   margin: 0;
   padding: 0;
   display: block;
+}
+
+.plus_w{
+  width: fit-content;
+  border: 1px solid rgba(0, 0, 0, 0.539);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.plus_w div{
+  display: flex;
+  align-items: center;
 }
 
 .thumbimg {
@@ -298,7 +327,7 @@ input[type="number"] {
   width: 50%;
   padding: 0.5rem;
   padding-left: 2.5rem;
-  padding-bottom:  5rem;
+  padding-bottom: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -370,7 +399,6 @@ input[type="number"] {
   .images-s {
     width: 100%;
     height: fit-content;
-
   }
 
   .thumbimg {

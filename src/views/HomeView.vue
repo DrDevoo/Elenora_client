@@ -47,21 +47,7 @@ export default {
 };
 </script>
 
-<style>
-* {
-  font-family: "Heebo", sans-serif;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-}
-
-section {
-  margin-bottom: 5rem;
-}
-
+<style scoped>
 .kategoriak {
   display: flex;
   flex-direction: column;

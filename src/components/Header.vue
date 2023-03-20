@@ -120,6 +120,7 @@ console.log(err)
         ><h3 class="link">Páros karkötők</h3></RouterLink
       >
       <RouterLink to="/shop/sets"><h3 class="link">Szettek</h3></RouterLink>
+      <RouterLink to="/shop/aproko"><h3 class="link">Apró kő karkötők</h3></RouterLink>
       <RouterLink class="flexlink" to="/shop/sales"
         ><h3 class="link">Akciós karkötők</h3>
         <h6>Új kedvezmények!</h6></RouterLink

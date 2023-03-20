@@ -4,7 +4,7 @@ import Footer from "../components/Footer.vue";
 import { RouterLink } from "vue-router";
 </script>
 
-<style>
+<style scoped>
 h1 {
   text-align: center;
   font-weight: 300;
@@ -73,7 +73,7 @@ input::placeholder,textarea::placeholder {
       <p>
         Rendelésekkel, termékekkel, visszaküldéssel kapcsolatos kérdéseid
         e-mailben tudjuk fogadni az alábbi elérhetőségen:
-        <a href="mail:info@elenora.hu">info@elenora.hu</a>
+        <a href="mail:info@elenora.hu">informacio@elenora.hu</a>
       </p>
       <p>
         Mielőtt írsz nekünk, kérlek olvasd el a
