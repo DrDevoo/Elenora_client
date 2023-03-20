@@ -9,7 +9,7 @@ export default {
         prod_name: "",
         prod_collection: "",
         prod_price: 0,
-        prod_description: "",
+        prod_description: " ",
         prod_categ: "",
         prod_colors: [],
         prod_pears: [],
@@ -40,10 +40,11 @@ export default {
   },
   methods: {
     more(id) { 
-      (this.moreopen = true);
+      console.log(id)
+      this.moreopen = true;
       axios
         .get(import.meta.env.VITE_API_URL + "/products/getbyid/" + id)
-        .then((response) => (this.p_prod = response.data));
+        .then((response) => (this.p_prod = response.data.product));
     },
     update() {
       axios
@@ -95,7 +96,7 @@ export default {
         .post(
           import.meta.env.VITE_API_URL +
             "/products/addimg1/" +
-            this.p_prod.prodname,
+            this.p_prod._id,
           formData1,
           {
             headers: {
@@ -119,7 +120,7 @@ export default {
         .post(
           import.meta.env.VITE_API_URL +
             "/products/addimg2/" +
-            this.p_prod.prodname,
+            this.p_prod._id,
           formData2,
           {
             headers: {
@@ -143,7 +144,7 @@ export default {
         .post(
           import.meta.env.VITE_API_URL +
             "/products/addimg3/" +
-            this.p_prod.prodname,
+            this.p_prod._id,
           formData3,
           {
             headers: {
@@ -204,14 +205,6 @@ export default {
           placeholder="Termék ára"
           v-model="this.p_prod.price"
         />
-        <br />
-        <label for="">Leírása</label>
-        <textarea
-          v-model="this.p_prod.description"
-          placeholder="Termék leírása"
-          cols="30"
-          rows="4"
-        ></textarea>
         <br />
         <label for="Neme">Kategória</label>
         <select name="Neme" id="Neme" v-model="this.p_prod.categ">

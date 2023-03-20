@@ -159,6 +159,12 @@ const router = createRouter({
       name: "admin_marketing",
       component: () => import("../views/admin/Marketing.vue"),
     },
+
+    {
+      path: "/:pathMatch(.*)*",
+      name: "404",
+      component: HomeView,
+    }
   ],
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 }
