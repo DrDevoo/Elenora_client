@@ -23,6 +23,7 @@ export default {
   <RouterView v-if="status.value === 'online'" />
   <RouterView v-else-if="status.value === 'wait'" />
   <OfflineView v-else-if="status.value === 'offline'" />
+  //TODO: FELTOLTES ELOTT STRIPE KEY CSERE ES SZAMLAZO KEY CSERE ELESRE!!!!!!!!!!!!!!!!
 </template>
 
 <style>

@@ -2,6 +2,7 @@
 import AddProduct from "./components/AddProduct.vue";
 import ProductList from "./components/ProductList.vue";
 import AddProductBoravia from "./components/AddProductBoravia.vue";
+import AddProductStone from "./components/AddProductStone.vue";
 import Header from "./components/Header.vue";
 </script>
 
@@ -11,6 +12,7 @@ export default {
     return {
       showAdd: false,
       showAddB: false,
+      showAddK: false,
     };
   },
 };
@@ -23,10 +25,12 @@ export default {
     <section class="new-wrapper">
       <div @click="showAdd = !showAdd"><h3>Új termék</h3></div>
       <div @click="showAddB = !showAddB"><h3>Új Boravia</h3></div>
+      <div @click="showAddK = !showAddK"><h3>Új kavics</h3></div>
     </section>
 
     <AddProduct v-if="showAdd" />
     <AddProductBoravia v-if="showAddB" />
+    <AddProductStone v-if="showAddK" />
     <ProductList />
   </main>
 </template>
