@@ -11,7 +11,9 @@ export default {
       showB1: true,
       showB2: false,
       showB3: false,
+      showPStone: false,
       response: [],
+      stones: [],
       access: [],
       cart: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
@@ -39,6 +41,9 @@ export default {
           this.$route.query.id
       )
       .then((response) => (this.access = response.data));
+    axios
+      .get(import.meta.env.VITE_API_URL + "/products/getall/stone")
+      .then((response) => (this.stones = response.data));
   },
   methods: {
     addToCart(product, quantity, size) {
@@ -133,8 +138,15 @@ export default {
               <label for="doboz">Dísz dobozban legyen a termék (+590 Ft)</label>
             </div>
             <div>
-              <input type="checkbox" name="ko" id="ko" />
-              <label for="ko">Kérek mellé ásvány követ (+790 Ft)</label>
+              <input type="checkbox" name="ko" id="ko" v-model="showPStone" />
+              <label for="ko">Kérek mellé ásvány követ</label>
+            </div>
+            <div class="stonelist" v-if="showPStone">
+              <div class="stone" v-for="stone in stones">
+                <img class="s_img" :src="imgurl + stone.image" />
+                <p class="s_name">{{ stone.prodname }}</p>
+                <p class="s_price">{{ stone.price }} Ft</p>
+              </div>
             </div>
           </div>
         </div>
@@ -228,7 +240,28 @@ body {
   display: block;
 }
 
-.plus_w{
+.stonelist{
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+}
+.stone{
+  display: flex;
+  flex-direction: column;
+}
+.s_img{
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.s_name{
+  line-height: 0;
+}
+.s_price{
+  line-height: 0;
+}
+.plus_w {
   width: fit-content;
   border: 1px solid rgba(0, 0, 0, 0.539);
   border-radius: 20px;
@@ -237,7 +270,7 @@ body {
   flex-direction: column;
   gap: 1rem;
 }
-.plus_w div{
+.plus_w div {
   display: flex;
   align-items: center;
 }
@@ -252,7 +285,7 @@ body {
 .thumblist {
   position: relative;
   top: -5.4rem;
-  left: 2.7rem;
+  left: 3.7rem;
   gap: 10px;
   display: flex;
 }
@@ -475,7 +508,7 @@ input[type="number"] {
 }
 .description-s {
   position: relative;
-  top: -6rem;
+  top: 0rem;
 }
 .desc-b {
   position: relative;
