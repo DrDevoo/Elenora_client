@@ -92,7 +92,7 @@ a{
         <li><a href="https://www.allaboutcookies.org/" target="_blank">All ABout Cookies</a></li>
         <li><a href="https://www.facebook.com/policies/cookies/" target="_blank">Facebook Cookies</a></li>
       </ul>
-      Ha kérdésed van a sütikkel kapcsolatban, írj egy emailt az info@elenora.hu email címünkre és szívesen válaszolunk!
+      Ha kérdésed van a sütikkel kapcsolatban, írj egy emailt az informacio@elenora.hu email címünkre és mihamarabb válaszolunk!
     </p>
   </main>
   <Footer />

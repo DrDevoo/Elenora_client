@@ -17,12 +17,17 @@ main{
 p{
   width: 95%;
 }
+iframe{
+  width: 100%;
+  height: 100vh;
+}
 </style>
 
 <template>
   <Header />
   <main>
     <h1>Általános Szerződési Feltételek</h1>
+    <iframe src="./aszf.pdf" frameborder="0" ></iframe>
 
     <h1>Elállási nyilatkozatminta</h1>
     <h6>

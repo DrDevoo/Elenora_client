@@ -12,6 +12,7 @@ export default {
       showB2: false,
       showB3: false,
       showPStone: false,
+      forbox: false,
       response: [],
       stones: [],
       access: [],
@@ -47,15 +48,28 @@ export default {
   },
   methods: {
     addToCart(product, quantity, size) {
-      this.cart.push({
-        id: product._id,
-        name: product.prodname,
-        img: product.image,
-        size: size,
-        price: product.price,
-        quantity: quantity,
-        sale: 0,
-      });
+      if (this.forbox) {
+        this.cart.push({
+          id: product._id,
+          name: product.prodname + " (díszdobozos)",
+          img: product.image,
+          size: size,
+          price: product.price + 590,
+          quantity: quantity,
+          sale: 0,
+        });
+      } else {
+        this.cart.push({
+          id: product._id,
+          name: product.prodname,
+          img: product.image,
+          size: size,
+          price: product.price,
+          quantity: quantity,
+          sale: 0,
+        });
+      }
+
       localStorage.setItem("cart", JSON.stringify(this.cart));
       this.key += 1;
     },
@@ -134,7 +148,7 @@ export default {
         <div>
           <div class="plus_w">
             <div>
-              <input type="checkbox" name="doboz" id="doboz" />
+              <input type="checkbox" name="doboz" id="doboz" v-model="forbox" />
               <label for="doboz">Dísz dobozban legyen a termék (+590 Ft)</label>
             </div>
             <div>
@@ -240,25 +254,25 @@ body {
   display: block;
 }
 
-.stonelist{
-display: flex;
-flex-wrap: wrap;
-gap: 10px;
+.stonelist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
-.stone{
+.stone {
   display: flex;
   flex-direction: column;
 }
-.s_img{
+.s_img {
   width: 60px;
   height: 60px;
   object-fit: cover;
   border-radius: 5px;
 }
-.s_name{
+.s_name {
   line-height: 0;
 }
-.s_price{
+.s_price {
   line-height: 0;
 }
 .plus_w {
