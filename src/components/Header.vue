@@ -178,7 +178,7 @@ console.log(err)
               @click="removeItem(index)"
             ></ion-icon>
           </div>
-          <br /><br /><br />
+          <br />
           <div>
             <h5>{{ item.price }} Ft</h5>
           </div>
@@ -219,6 +219,10 @@ console.log(err)
 </template>
 
 <style>
+.cart_content{
+  height: 70%;
+  overflow-y: scroll;
+}
 .search_w form{
   width: 100%;
   display: flex;
@@ -511,7 +515,7 @@ header ion-icon {
 }
 .cart_close {
   font-size: 2rem;
-  position: absolute;
+  position: relative;
 }
 .cart_wrapper a {
   text-decoration: none;

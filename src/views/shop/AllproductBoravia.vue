@@ -35,12 +35,49 @@ export default {
         id: productid,
         name: productname,
         img: prodimg,
-        size: "-",
+        size: null,
         price: prodprice,
         quantity: 1,
+        sale: 0,
+        visitno: true,
       });
       localStorage.setItem("cart", JSON.stringify(this.cart));
       this.key += 1
+
+      let cartprices = this.cart.reduce(
+                    (sum, item) =>
+                      sum +
+                      Math.round(item.price - (item.price / 100) * item.sale) *
+                        item.quantity,
+                    0
+                  )
+      console.log(cartprices)
+
+      if(cartprices > 10000){
+              let found = this.cart.find(elem => elem.name == "Ajandek zsakba macska karkoto")
+      console.log(found)
+      if(found){
+        console.log("van ajandek")
+      }else{
+        console.log("Nincs ajndek")
+    this.cart.push({
+            id: 9,
+            name: "Ajandek zsakba macska karkoto",
+            price: 0,
+            quantity: 1,
+            sale: 0,
+            img: null,
+            visitno: true
+          });
+          localStorage.setItem("cart", JSON.stringify(this.cart));
+      this.key += 1;
+      }
+        console.log("JAR az ajandek kakroto")
+        
+      }else{
+
+        console.log(" NEM JAR az ajandek karkoto")
+      }
     },
   },
 };
