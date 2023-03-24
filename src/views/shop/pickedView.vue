@@ -15,14 +15,16 @@ export default {
       forbox: false,
       response: [],
       stones: [],
+      p_stone_name: "",
+      p_stone_price: "",
+      p_stone_img: "",
+      p_stone_id: "",
       access: [],
       cart: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       quantity: 1,
       size: "M",
-
       key: 0,
-
       p_img: null,
     };
   },
@@ -58,6 +60,18 @@ export default {
           quantity: quantity,
           sale: 0,
         });
+        if(this.showPStone){
+                  this.cart.push({
+          id: this.p_stone_id,
+          name: this.p_stone_name + " ("+ this.response.prodname +"-hoz)",
+          img: this.p_stone_img,
+          size: null,
+          price: this.p_stone_price,
+          quantity: this.quantity,
+          sale: 0,
+      })
+        }
+
       } else {
         this.cart.push({
           id: product._id,
@@ -68,10 +82,47 @@ export default {
           quantity: quantity,
           sale: 0,
         });
+        if(this.showPStone){
+        this.cart.push({
+          id: this.p_stone_id,
+          name: this.p_stone_name + " ("+ this.response.prodname +" mellé)",
+          img: this.p_stone_img,
+          size: null,
+          price: this.p_stone_price,
+          quantity: this.quantity,
+          sale: 0,
+      })
+        }
+
       }
 
       localStorage.setItem("cart", JSON.stringify(this.cart));
       this.key += 1;
+
+      let cartprices = this.cart.reduce(
+                    (sum, item) =>
+                      sum +
+                      Math.round(item.price - (item.price / 100) * item.sale) *
+                        item.quantity,
+                    0
+                  )
+      console.log(cartprices)
+      if(cartprices > 10000){
+        console.log("JAR az ajandek kakroto")
+        this.cart.push({
+            id: 9,
+            name: "Ajandek zsakba macska karkoto",
+            price: 0,
+            quantity: 1,
+            sale: 0,
+            img: null,
+          });
+          localStorage.setItem("cart", JSON.stringify(this.cart));
+      this.key += 1;
+      }else{
+
+        console.log(" NEM JAR az ajandek kakroto")
+      }
     },
     addq() {
       if (this.quantity < 15) {
@@ -87,8 +138,14 @@ export default {
       console.log(img);
       this.p_img = img;
     },
-  },
-};
+    selectStone(name,img,price,id){
+      this.p_stone_name = name
+      this.p_stone_img = img
+      this.p_stone_price = price
+      this.p_stone_id = id
+    },
+}
+}
 </script>
 
 <template>
@@ -153,13 +210,11 @@ export default {
             </div>
             <div>
               <input type="checkbox" name="ko" id="ko" v-model="showPStone" />
-              <label for="ko">Kérek mellé ásvány követ</label>
+              <label for="ko">Kérek mellé ásvány követ ({{ p_stone_name }} +{{ p_stone_price }} Ft)</label>
             </div>
             <div class="stonelist" v-if="showPStone">
               <div class="stone" v-for="stone in stones">
-                <img class="s_img" :src="imgurl + stone.image" />
-                <p class="s_name">{{ stone.prodname }}</p>
-                <p class="s_price">{{ stone.price }} Ft</p>
+                <img class="s_img" :src="imgurl + stone.image" @click="selectStone(stone.prodname,stone.image,stone.price,stone._id)" />
               </div>
             </div>
           </div>

@@ -154,7 +154,7 @@ console.log(err)
       <div class="cart_item" v-for="(item, index) in cart" :key="index">
         <div class="cart_item_imgtext">
           <div class="cart_item_img">
-            <img :src="imgurl + item.img" />
+            <img v-if="item.img" :src="imgurl + item.img" />
           </div>
           <div class="cart_item_desc">
             <p class="prodname">{{ item.name }}</p>
