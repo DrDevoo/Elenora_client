@@ -116,6 +116,7 @@ export default {
             quantity: 1,
             sale: 0,
             img: null,
+            visitno: true
           });
           localStorage.setItem("cart", JSON.stringify(this.cart));
       this.key += 1;

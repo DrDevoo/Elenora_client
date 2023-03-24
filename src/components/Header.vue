@@ -158,8 +158,8 @@ console.log(err)
           </div>
           <div class="cart_item_desc">
             <p class="prodname">{{ item.name }}</p>
-            <p class="size">Méret: {{ item.size }}</p>
-            <div class="quantity_b">
+            <p v-if="item.size" class="size">Méret: {{ item.size }}</p>
+            <div class="quantity_b" v-if="!(item.visitno)">
               <ion-icon class="i" name="add-outline" @click="addq()"></ion-icon>
               <input type="number" min="1" max="15" v-model="item.quantity" />
               <ion-icon
