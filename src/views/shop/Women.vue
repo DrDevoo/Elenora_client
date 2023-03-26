@@ -24,7 +24,7 @@ export default {
 
 
 
-<style>
+<style scoped>
 * {
   font-family: "Heebo", sans-serif;
   box-sizing: border-box;

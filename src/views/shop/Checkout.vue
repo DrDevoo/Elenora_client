@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       showCart: false,
+      sub: false,
       cart: [],
       user: [],
       imgurl: import.meta.env.VITE_API_URL + "/getimage/",
@@ -27,8 +28,28 @@ export default {
   },
   methods: {
     next() {
-      console.log(this.user)
+      console.log(this.user);
       this.loading = true;
+      if (this.sub) {
+        axios
+          .post(
+            import.meta.env.VITE_API_URL + "/newsletter/subscribe",
+            JSON.stringify({
+              email: this.user.u_email,
+              name1: this.user.u_firstname,
+              name2: this.user.u_name,
+            }),
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((response) => (this.succes = true))
+          .catch((error) => {
+            console.error("There was an error!", error);
+          });
+      }
       axios
         .post(
           import.meta.env.VITE_API_URL + "/orders/saveuser/" + this.orderid,
@@ -154,7 +175,13 @@ export default {
         <br />
         <input type="text" placeholder="Telefonszám" v-model="user.u_tel" />
         <div class="flex">
-          <input class="checkbox" type="checkbox" name="news" id="news" />
+          <input
+            class="checkbox"
+            type="checkbox"
+            name="news"
+            id="news"
+            v-model="sub"
+          />
           <label for="news">Szeretnék értesülni az aktuális ajánlatokról</label>
         </div>
         <br />

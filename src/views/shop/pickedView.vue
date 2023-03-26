@@ -51,86 +51,108 @@ export default {
   methods: {
     addToCart(product, quantity, size) {
       if (this.forbox) {
-        this.cart.push({
-          id: product._id,
-          name: product.prodname + " (díszdobozos)",
-          img: product.image,
-          size: size,
-          price: product.price + 590,
-          quantity: quantity,
-          sale: 0,
-        });
-        if(this.showPStone){
-                  this.cart.push({
-          id: this.p_stone_id,
-          name: this.p_stone_name + " ("+ this.response.prodname +"-hoz)",
-          img: this.p_stone_img,
-          size: null,
-          price: this.p_stone_price,
-          quantity: this.quantity,
-          sale: 0,
-      })
-        }
-
+        var vane = this.cart.find(
+          (elem) => elem.name == product.prodname + " (díszdobozos)"
+        );
       } else {
-        this.cart.push({
-          id: product._id,
-          name: product.prodname,
-          img: product.image,
-          size: size,
-          price: product.price,
-          quantity: quantity,
-          sale: 0,
-        });
-        if(this.showPStone){
-        this.cart.push({
-          id: this.p_stone_id,
-          name: this.p_stone_name + " ("+ this.response.prodname +" mellé)",
-          img: this.p_stone_img,
-          size: null,
-          price: this.p_stone_price,
-          quantity: this.quantity,
-          sale: 0,
-      })
-        }
+        var vane = this.cart.find((elem) => elem.name == product.prodname);
+      }
 
+      if (vane) {
+        if (this.forbox) {
+          var objid = this.cart.findIndex(
+            (obj) => obj.name == product.prodname + " (díszdobozos)"
+          );
+          console.log("Van mar ilyen a kosarba: " + objid);
+          this.cart[objid].quantity += quantity;
+        } else {
+          var objid = this.cart.findIndex(
+            (obj) => obj.name == product.prodname
+          );
+          console.log("Van mar ilyen a kosarba: " + objid);
+          this.cart[objid].quantity += quantity;
+        }
+      } else {
+        console.log("Nincs ilyen a kosarba");
+        if (this.forbox) {
+          this.cart.push({
+            id: product._id,
+            name: product.prodname + " (díszdobozos)",
+            img: product.image,
+            size: size,
+            price: product.price + 590,
+            quantity: quantity,
+            sale: 0,
+          });
+          if (this.showPStone) {
+            this.cart.push({
+              id: this.p_stone_id,
+              name: this.p_stone_name + " (" + this.response.prodname + "-hoz)",
+              img: this.p_stone_img,
+              size: null,
+              price: this.p_stone_price,
+              quantity: this.quantity,
+              sale: 0,
+            });
+          }
+        } else {
+          this.cart.push({
+            id: product._id,
+            name: product.prodname,
+            img: product.image,
+            size: size,
+            price: product.price,
+            quantity: quantity,
+            sale: 0,
+          });
+          if (this.showPStone) {
+            this.cart.push({
+              id: this.p_stone_id,
+              name:
+                this.p_stone_name + " (" + this.response.prodname + " mellé)",
+              img: this.p_stone_img,
+              size: null,
+              price: this.p_stone_price,
+              quantity: this.quantity,
+              sale: 0,
+            });
+          }
+        }
       }
 
       localStorage.setItem("cart", JSON.stringify(this.cart));
       this.key += 1;
 
       let cartprices = this.cart.reduce(
-                    (sum, item) =>
-                      sum +
-                      Math.round(item.price - (item.price / 100) * item.sale) *
-                        item.quantity,
-                    0
-                  )
-      console.log(cartprices)
-      if(cartprices > 10000){
-        let found = this.cart.find(elem => elem.name == "Ajandek zsakba macska karkoto")
-      console.log(found)
-      if(found){
-        console.log("van ajandek")
-      }else{
-        console.log("Nincs ajndek")
-    this.cart.push({
+        (sum, item) =>
+          sum +
+          Math.round(item.price - (item.price / 100) * item.sale) *
+            item.quantity,
+        0
+      );
+      console.log(cartprices);
+      if (cartprices > 10000) {
+        let found = this.cart.find(
+          (elem) => elem.name == "Ajándék zsákbamacska karkötő"
+        );
+        console.log(found);
+        if (found) {
+          console.log("van ajandek");
+        } else {
+          console.log("Nincs ajndek");
+          this.cart.push({
             id: 9,
-            name: "Ajandek zsakba macska karkoto",
+            name: "Ajándék zsákbamacska karkötő",
             price: 0,
             quantity: 1,
             sale: 0,
             img: null,
-            visitno: true
+            visitno: true,
           });
           localStorage.setItem("cart", JSON.stringify(this.cart));
-      this.key += 1;
-      }
-        console.log("JAR az ajandek kakroto")
-        
-      }else{
-
-        console.log(" NEM JAR az ajandek karkoto")
+          this.key += 1;
+        }
+        console.log("JAR az ajandek kakroto");
       }
     },
     addq() {
@@ -147,14 +169,14 @@ export default {
       console.log(img);
       this.p_img = img;
     },
-    selectStone(name,img,price,id){
-      this.p_stone_name = name
-      this.p_stone_img = img
-      this.p_stone_price = price
-      this.p_stone_id = id
+    selectStone(name, img, price, id) {
+      this.p_stone_name = name;
+      this.p_stone_img = img;
+      this.p_stone_price = price;
+      this.p_stone_id = id;
     },
-}
-}
+  },
+};
 </script>
 
 <template>
@@ -219,11 +241,27 @@ export default {
             </div>
             <div>
               <input type="checkbox" name="ko" id="ko" v-model="showPStone" />
-              <label for="ko">Kérek mellé ásvány követ ({{ p_stone_name }} +{{ p_stone_price }} Ft)</label>
+              <label for="ko"
+                >Kérek mellé ásvány követ ({{ p_stone_name }} +{{
+                  p_stone_price
+                }}
+                Ft)</label
+              >
             </div>
             <div class="stonelist" v-if="showPStone">
               <div class="stone" v-for="stone in stones">
-                <img class="s_img" :src="imgurl + stone.image" @click="selectStone(stone.prodname,stone.image,stone.price,stone._id)" />
+                <img
+                  class="s_img"
+                  :src="imgurl + stone.image"
+                  @click="
+                    selectStone(
+                      stone.prodname,
+                      stone.image,
+                      stone.price,
+                      stone._id
+                    )
+                  "
+                />
               </div>
             </div>
           </div>

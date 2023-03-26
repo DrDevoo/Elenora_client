@@ -29,13 +29,12 @@ export default {
       */
   },
   created() {
-    try{
-    this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    this.cartcount = this.cart.length
-    }catch(err){
-console.log(err)
+    try {
+      this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      this.cartcount = this.cart.length;
+    } catch (err) {
+      console.log(err);
     }
-
   },
   computed: {
     total() {
@@ -46,8 +45,30 @@ console.log(err)
     },
   },
   methods: {
+    checksuprise() {
+      let totalprice = this.cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+      if (totalprice < 10000) {
+        var objid = this.cart.findIndex(
+          (obj) => obj.name == "Ajandek zsakba macska karkoto"
+        );
+        this.cart.splice(objid, 1);
+      }
+    },
     removeItem(index) {
       this.cart.splice(index, 1);
+      let totalprice = this.cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+      if (totalprice < 10000) {
+        var objsid = this.cart.findIndex(
+          (obj) => obj.name == "Ajándék zsákbamacska karkötő"
+        );
+        this.cart.splice(objsid, 1);
+      }
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
     openCart() {
@@ -66,10 +87,59 @@ console.log(err)
             },
           }
         )
-        .then((response) => (this.$router.push({ path: '/shop/checkout', query: { order: response.data._id } })))
+        .then((response) =>
+          this.$router.push({
+            path: "/shop/checkout",
+            query: { order: response.data._id },
+          })
+        )
         .catch((error) => {
           console.error("There was an error!", error);
         });
+    },
+    addq(name) {
+      var objid = this.cart.findIndex((obj) => obj.name == name);
+      this.cart[objid].quantity += 1;
+      let totalprice = this.cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+
+      if (totalprice > 9999) {
+        let found = this.cart.find(
+          (elem) => elem.name == "Ajándék zsákbamacska karkötő"
+        );
+        if (!found) {
+          this.cart.push({
+            id: 9,
+            name: "Ajándék zsákbamacska karkötő",
+            price: 0,
+            quantity: 1,
+            sale: 0,
+            img: null,
+            visitno: true,
+          });
+        }
+      }
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+    },
+    minq(name) {
+      var objid = this.cart.findIndex((obj) => obj.name == name);
+      this.cart[objid].quantity -= 1;
+      if (this.cart[objid].quantity == 0) {
+        this.cart.splice(objid, 1);
+      }
+      let totalprice = this.cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+      if (totalprice < 10000) {
+        var objsid = this.cart.findIndex(
+          (obj) => obj.name == "Ajándék zsákbamacska karkötő"
+        );
+        this.cart.splice(objsid, 1);
+      }
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
   },
 };
@@ -89,7 +159,7 @@ console.log(err)
           <ion-icon name="search-outline"></ion-icon>
         </a>
       </div>
-      <div style="right: 16px;position: relative;">
+      <div style="right: 16px; position: relative">
         <RouterLink to="/"
           ><img class="logo" src="../assets/images/logo/logo.svg" alt="ELENORA"
         /></RouterLink>
@@ -120,7 +190,9 @@ console.log(err)
         ><h3 class="link">Páros karkötők</h3></RouterLink
       >
       <RouterLink to="/shop/sets"><h3 class="link">Szettek</h3></RouterLink>
-      <RouterLink to="/shop/aproko"><h3 class="link">Apró kő karkötők</h3></RouterLink>
+      <RouterLink to="/shop/aproko"
+        ><h3 class="link">Apró kő karkötők</h3></RouterLink
+      >
       <RouterLink class="flexlink" to="/shop/sales"
         ><h3 class="link">Akciós karkötők</h3>
         <h6>Új kedvezmények!</h6></RouterLink
@@ -159,13 +231,17 @@ console.log(err)
           <div class="cart_item_desc">
             <p class="prodname">{{ item.name }}</p>
             <p v-if="item.size" class="size">Méret: {{ item.size }}</p>
-            <div class="quantity_b" v-if="!(item.visitno)">
-              <ion-icon class="i" name="add-outline" @click="addq()"></ion-icon>
+            <div class="quantity_b" v-if="!item.visitno">
+              <ion-icon
+                class="i"
+                name="add-outline"
+                @click="addq(item.name)"
+              ></ion-icon>
               <input type="number" min="1" max="15" v-model="item.quantity" />
               <ion-icon
                 class="i"
                 name="remove-outline"
-                @click="minq()"
+                @click="minq(item.name)"
               ></ion-icon>
             </div>
           </div>
@@ -180,14 +256,24 @@ console.log(err)
           </div>
           <br />
           <div>
-            <h5>{{ Math.round(item.price - (item.price / 100) * item.sale) }} Ft</h5>
+            <h5>
+              {{
+                Math.round(item.price - (item.price / 100) * item.sale) *
+                item.quantity
+              }}
+              Ft
+            </h5>
           </div>
         </div>
       </div>
 
       <div class="bottom">
         <p class="total">Termékek ára: {{ total }} Ft</p>
-        <div class="nextbtn" @click="checkout" v-if="!loading && !(cartcount == 0)">
+        <div
+          class="nextbtn"
+          @click="checkout"
+          v-if="!loading && !(cartcount == 0)"
+        >
           <p>Fizetés</p>
         </div>
         <div class="nextbtn nextbtn_off" v-if="!loading && cartcount == 0">
@@ -212,34 +298,39 @@ console.log(err)
     <h1>Keresés</h1>
     <div class="search_w">
       <form>
-        <input class="searchinput" type="text" v-on:change="search()" v-model="searchtext" placeholder="Keresés">
+        <input
+          class="searchinput"
+          type="text"
+          v-on:change="search()"
+          v-model="searchtext"
+          placeholder="Keresés"
+        />
       </form>
     </div>
   </section>
 </template>
 
 <style>
-.cart_content{
+.cart_content {
   height: 70%;
   overflow-y: scroll;
 }
-.search_w form{
+.search_w form {
   width: 100%;
   display: flex;
   justify-content: center;
 }
-.searchinput{
+.searchinput {
   width: 90%;
   height: 30px;
   border-radius: 5px;
   border: none;
   border-radius: 50px;
   background: #ffffff;
-  box-shadow:  5px 5px 24px #dedede,
-             -5px -5px 24px #ffffff;
+  box-shadow: 5px 5px 24px #dedede, -5px -5px 24px #ffffff;
   padding: 3px;
 }
-.cartcount{
+.cartcount {
   position: absolute;
   right: 3px;
   top: 3px;
@@ -377,7 +468,7 @@ input[type="number"] {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.nextbtn_off{
+.nextbtn_off {
   background-color: rgba(37, 37, 37, 0.748);
 }
 .nextbtn_off p {

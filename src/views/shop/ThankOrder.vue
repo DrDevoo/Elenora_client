@@ -90,6 +90,8 @@ export default {
 main {
   position: relative;
   top: 60px;
+  display: flex;
+  flex-direction: column;
 }
 section {
   display: flex;

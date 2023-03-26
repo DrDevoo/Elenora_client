@@ -41,7 +41,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 * {
   font-family: "Heebo", sans-serif;
   box-sizing: border-box;

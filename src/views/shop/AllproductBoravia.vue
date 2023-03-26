@@ -30,7 +30,7 @@ export default {
       .then((response) => (this.response = response.data));
   },
   methods: {
-    addToCart(productid,productname,prodimg,prodprice) {
+    addToCart(productid, productname, prodimg, prodprice) {
       this.cart.push({
         id: productid,
         name: productname,
@@ -42,48 +42,46 @@ export default {
         visitno: true,
       });
       localStorage.setItem("cart", JSON.stringify(this.cart));
-      this.key += 1
+      this.key += 1;
 
       let cartprices = this.cart.reduce(
-                    (sum, item) =>
-                      sum +
-                      Math.round(item.price - (item.price / 100) * item.sale) *
-                        item.quantity,
-                    0
-                  )
-      console.log(cartprices)
+        (sum, item) =>
+          sum +
+          Math.round(item.price - (item.price / 100) * item.sale) *
+            item.quantity,
+        0
+      );
+      console.log(cartprices);
 
-      if(cartprices > 10000){
-              let found = this.cart.find(elem => elem.name == "Ajandek zsakba macska karkoto")
-      console.log(found)
-      if(found){
-        console.log("van ajandek")
-      }else{
-        console.log("Nincs ajndek")
-    this.cart.push({
+      if (cartprices > 10000) {
+        let found = this.cart.find(
+          (elem) => elem.name == "Ajándék zsákbamacska karkötő"
+        );
+        console.log(found);
+        if (found) {
+          console.log("van ajandek");
+        } else {
+          console.log("Nincs ajndek");
+          this.cart.push({
             id: 9,
-            name: "Ajandek zsakba macska karkoto",
+            name: "Ajándék zsákbamacska karkötő",
             price: 0,
             quantity: 1,
             sale: 0,
             img: null,
-            visitno: true
+            visitno: true,
           });
           localStorage.setItem("cart", JSON.stringify(this.cart));
-      this.key += 1;
-      }
-        console.log("JAR az ajandek kakroto")
-        
-      }else{
-
-        console.log(" NEM JAR az ajandek karkoto")
+          this.key += 1;
+        }
+        console.log("JAR az ajandek kakroto");
       }
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 * {
   font-family: "Heebo", sans-serif;
   box-sizing: border-box;
@@ -394,7 +392,9 @@ section {
               <h4>{{ item.price }} Ft</h4>
               <ion-icon
                 name="cart-outline"
-                @click="addToCart(item._id,item.prodname,item.image,item.price)"
+                @click="
+                  addToCart(item._id, item.prodname, item.image, item.price)
+                "
               ></ion-icon>
             </div>
           </div>

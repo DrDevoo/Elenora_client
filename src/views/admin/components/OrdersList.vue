@@ -56,7 +56,7 @@ export default {
           <th>Dátum / Rendelés szám</th>
           <th>Állapot</th>
           <th>Megrendelő</th>
-          <th>Termék(ek)</th>
+          <th>Fizetés</th>
           <th>Összeg</th>
           <th></th>
           <th></th>
