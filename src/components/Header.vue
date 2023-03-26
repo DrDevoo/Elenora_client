@@ -180,7 +180,7 @@ console.log(err)
           </div>
           <br />
           <div>
-            <h5>{{ item.price }} Ft</h5>
+            <h5>{{ Math.round(item.price - (item.price / 100) * item.sale) }} Ft</h5>
           </div>
         </div>
       </div>
