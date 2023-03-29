@@ -87,7 +87,8 @@ export default {
           if (this.showPStone) {
             this.cart.push({
               id: this.p_stone_id,
-              name: this.p_stone_name + " (" + this.response.prodname + " mellé)",
+              name:
+                this.p_stone_name + " (" + this.response.prodname + " mellé)",
               img: this.p_stone_img,
               size: null,
               price: this.p_stone_price,
@@ -242,22 +243,29 @@ export default {
               <label for="doboz">Dísz dobozban legyen a termék (+590 Ft)</label>
             </div>
             <div v-if="access.box == false">
-              <input type="checkbox" name="doboz" id="doboz" v-model="forbox" disabled />
-              <label style="color: gray;" for="doboz">Dísz dobozban legyen a termék (+590 Ft)</label>
+              <input
+                type="checkbox"
+                name="doboz"
+                id="doboz"
+                v-model="forbox"
+                disabled
+              />
+              <label style="color: gray" for="doboz"
+                >Dísz dobozban legyen a termék (+590 Ft)</label
+              >
             </div>
             <div>
               <input type="checkbox" name="ko" id="ko" v-model="showPStone" />
-              <label for="ko"
-                >Kérek mellé ásvány követ ({{ p_stone_name }} +{{
-                  p_stone_price
-                }}
-                Ft)</label
+              <label for="ko">Kérek mellé ásvány követ  </label>
+              <label v-if="p_stone_id && showPStone" for="ko">
+                ∙ ({{ p_stone_name }} +{{ p_stone_price }} Ft)</label
               >
             </div>
             <div class="stonelist" v-if="showPStone">
               <div class="stone" v-for="stone in stones">
                 <img
                   class="s_img"
+                  :class="{selected: stone.prodname == p_stone_name}"
                   :src="imgurl + stone.image"
                   @click="
                     selectStone(
@@ -348,6 +356,10 @@ export default {
 </template>
 
 <style scoped>
+.selected {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.554);
+  border: 3px solid white;
+}
 * {
   font-family: "Heebo", sans-serif;
   box-sizing: border-box;

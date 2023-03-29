@@ -21,13 +21,6 @@ export default {
       searchtext: null,
     };
   },
-  mounted() {
-    /*
-    axios
-      .get(import.meta.env.VITE_API_URL + "/settings/get/header_title")
-      .then((response) => (this.header_title = response.data.value));
-      */
-  },
   created() {
     try {
       this.cart = JSON.parse(localStorage.getItem("cart") || "[]");
@@ -57,17 +50,21 @@ export default {
         this.cart.splice(objid, 1);
       }
     },
-    removeItem(index) {
-      this.cart.splice(index, 1);
+    removeItem(name) {
+      var objid = this.cart.findIndex((obj) => obj.name == name);
+      this.cart.splice(objid, 1);
+
       let totalprice = this.cart.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0
       );
       if (totalprice < 10000) {
-        var objsid = this.cart.findIndex(
+        var dobjsid = this.cart.findIndex(
           (obj) => obj.name == "Ajándék zsákbamacska karkötő"
         );
-        this.cart.splice(objsid, 1);
+        if (dobjsid) {
+          this.cart.splice(dobjsid, 1);
+        }
       }
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
@@ -248,7 +245,7 @@ export default {
             <ion-icon
               class="cart_close"
               name="close-outline"
-              @click="removeItem(index)"
+              @click="removeItem(item.name)"
             ></ion-icon>
           </div>
           <br />

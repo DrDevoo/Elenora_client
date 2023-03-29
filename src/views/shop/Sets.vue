@@ -108,6 +108,7 @@ section {
   flex-wrap: wrap;
   gap: 1rem;
   width: 100%;
+  justify-content: center;
 }
 .item-list a {
   text-decoration: none;
