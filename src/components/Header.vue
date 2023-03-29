@@ -146,9 +146,6 @@ export default {
 </script>
 
 <template>
-  <div class="info">
-    <div>...</div>
-  </div>
   <header>
     <div class="header_wrapper">
       <div>

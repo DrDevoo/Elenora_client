@@ -87,12 +87,13 @@ export default {
           if (this.showPStone) {
             this.cart.push({
               id: this.p_stone_id,
-              name: this.p_stone_name + " (" + this.response.prodname + "-hoz)",
+              name: this.p_stone_name + " (" + this.response.prodname + " mellé)",
               img: this.p_stone_img,
               size: null,
               price: this.p_stone_price,
               quantity: this.quantity,
               sale: 0,
+              visitno: true,
             });
           }
         } else {
@@ -115,6 +116,7 @@ export default {
               price: this.p_stone_price,
               quantity: this.quantity,
               sale: 0,
+              visitno: true,
             });
           }
         }
@@ -235,9 +237,13 @@ export default {
         </div>
         <div>
           <div class="plus_w">
-            <div>
+            <div v-if="access.box == true">
               <input type="checkbox" name="doboz" id="doboz" v-model="forbox" />
               <label for="doboz">Dísz dobozban legyen a termék (+590 Ft)</label>
+            </div>
+            <div v-if="access.box == false">
+              <input type="checkbox" name="doboz" id="doboz" v-model="forbox" disabled />
+              <label style="color: gray;" for="doboz">Dísz dobozban legyen a termék (+590 Ft)</label>
             </div>
             <div>
               <input type="checkbox" name="ko" id="ko" v-model="showPStone" />

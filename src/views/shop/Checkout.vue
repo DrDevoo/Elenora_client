@@ -112,8 +112,8 @@ export default {
                 </div>
                 <div class="cart_item_desc">
                   <p>{{ item.name }}</p>
-                  <p>Méret: {{ item.size }}</p>
-                  <p class="quantity">{{ item.quantity }}</p>
+                  <p v-if="!item.visitno">Méret: {{ item.size }}</p>
+                  <p v-if="!item.visitno" class="quantity">{{ item.quantity }}</p>
                 </div>
               </div>
               <div class="cart_item_del">

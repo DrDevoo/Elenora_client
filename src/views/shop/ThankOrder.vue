@@ -38,8 +38,12 @@ export default {
     <section class="s1">
       <h1 class="title">Köszönjük!</h1>
       <div class="flex">
-        <p v-if="order.cart" class="count">
-          {{ order.cart.reduce((sum, cartitem) => sum + cartitem.quantity, 0) }}
+        <p v-if="order.cart && order.shipping == 'delivery-cash'" class="count">
+          {{ (order.cart.reduce((sum, cartitem) => sum + cartitem.quantity, 0))-2 }}
+          termék
+        </p>
+        <p v-if="order.cart && order.shipping == 'delivery-card'" class="count">
+          {{ (order.cart.reduce((sum, cartitem) => sum + cartitem.quantity, 0))-1 }}
           termék
         </p>
         <p v-if="order.cart && order.shipping == 'delivery-cash'" class="price">
@@ -79,7 +83,7 @@ export default {
       </div>
       <br />
       <p>
-        Küldtünk neeked egy visszaigazoló emailt erre a címre:
+        Küldtünk neked egy visszaigazoló e-mailt erre a címre:
         <b>{{ order.u_email }}</b>
       </p>
     </section>
@@ -99,9 +103,7 @@ section {
   align-items: center;
   justify-content: center;
 }
-.s1 {
-  height: 20px;
-}
+
 .s2 {
   background-color: lightsalmon;
   box-shadow: 0px 0px 10px black;
@@ -112,7 +114,7 @@ section {
 .s3 {
   align-items: flex-start;
   padding-left: 1rem;
-  height: 40px;
+
 }
 .flex {
   display: flex;
@@ -130,6 +132,7 @@ section {
   color: white;
   font-size: 22pt;
   width: 80%;
+  text-align: center;
 }
 .altext {
   color: white;

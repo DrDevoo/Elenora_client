@@ -130,9 +130,9 @@ export default {
                   <img v-if="!(item.img == null)" :src="imgurl + item.img" />
                 </div>
                 <div class="cart_item_desc">
-                  <p>{{ item.name }}</p>
-                  <p>Méret: {{ item.size }}</p>
-                  <p class="quantity">{{ item.quantity }}</p>
+                  <p class="lineh">{{ item.name }}</p>
+                  <p class="lineh" v-if="!item.visitno">Méret: {{ item.size }}</p>
+                  <p v-if="!item.visitno" class="quantity">{{ item.quantity }}</p>
                 </div>
               </div>
               <div class="cart_item_del">
@@ -398,20 +398,9 @@ footer {
   color: black;
 }
 
-.quantity {
-  padding: 0.2rem;
-  border-radius: 50px;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: lightsalmon;
-  color: white;
-}
 
 .cart_item {
-  height: 110px;
+  height: 130px;
   padding: 1rem;
   margin: auto;
   display: flex;
@@ -439,7 +428,7 @@ footer {
   align-content: center;
   justify-content: center;
 }
-.cart_item_desc p {
+.cart_item_desc .lineh {
   line-height: 0px;
 }
 
@@ -457,4 +446,17 @@ label {
   top: 0;
   left: 0;
 }
+.quantity {
+  padding: 0.2rem;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightsalmon;
+  color: white;
+  line-height: 20px;
+}
+
 </style>

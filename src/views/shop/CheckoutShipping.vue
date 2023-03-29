@@ -48,7 +48,25 @@ export default {
   methods: {
     next() {
       this.loading = true;
-      console.log(this.cart);
+
+      let foundshipping = this.order.cart.find(
+        (elem) => elem.name == "Szállítási díj"
+      );
+      if (foundshipping) {
+        var objsid = this.order.cart.findIndex(
+          (obj) => obj.name == "Szállítási díj"
+        );
+        this.order.cart.splice(objsid);
+      }
+
+      let foundpay = this.order.cart.find((elem) => elem.name == "Utánvét díj");
+      if (foundpay) {
+        var objsidutan = this.order.cart.findIndex(
+          (obj) => obj.name == "Utánvét díj"
+        );
+        this.order.cart.splice(objsidutan);
+      }
+
       if (this.order.shipping == "delivery-cash") {
         const cartamount = this.order.cart.reduce(
           (sum, item) =>
@@ -65,6 +83,7 @@ export default {
             quantity: 1,
             sale: 0,
             img: null,
+            visitno: true,
           });
           this.order.cart.push({
             id: 2,
@@ -73,6 +92,7 @@ export default {
             quantity: 1,
             sale: 0,
             img: null,
+            visitno: true,
           });
         } else {
           this.order.cart.push({
@@ -82,6 +102,7 @@ export default {
             quantity: 1,
             sale: 0,
             img: null,
+            visitno: true,
           });
           this.order.cart.push({
             id: 2,
@@ -90,6 +111,7 @@ export default {
             quantity: 1,
             sale: 0,
             img: null,
+            visitno: true,
           });
         }
         axios.post(
@@ -117,6 +139,7 @@ export default {
             quantity: 1,
             sale: 0,
             img: null,
+            visitno: true,
           });
         } else {
           this.order.cart.push({
@@ -126,6 +149,7 @@ export default {
             quantity: 1,
             sale: 0,
             img: null,
+            visitno: true,
           });
         }
         axios.post(
@@ -269,8 +293,10 @@ export default {
                 </div>
                 <div class="cart_item_desc">
                   <p>{{ item.name }}</p>
-                  <p>Méret: {{ item.size }}</p>
-                  <p class="quantity">{{ item.quantity }}</p>
+                  <p v-if="!item.visitno">Méret: {{ item.size }}</p>
+                  <p v-if="!item.visitno" class="quantity">
+                    {{ item.quantity }}
+                  </p>
                 </div>
               </div>
               <div class="cart_item_del">
