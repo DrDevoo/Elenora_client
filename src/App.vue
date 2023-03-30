@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
 import WaitView from "./components/Wait.vue";
 import OfflineView from "./components/Offline.vue";
 </script>
@@ -21,7 +21,7 @@ export default {
 
 <template>
   <RouterView v-if="status.value === 'online'" />
-  <RouterView v-else-if="status.value === 'wait'" />
+  <WaitView v-else-if="status.value === 'wait'" />
   <OfflineView v-else-if="status.value === 'offline'" />
 </template>
 
