@@ -39,18 +39,25 @@ export default {
       <h1 class="title">Köszönjük!</h1>
       <div class="flex">
         <p v-if="order.cart && order.shipping == 'delivery-cash'" class="count">
-          {{ (order.cart.reduce((sum, cartitem) => sum + cartitem.quantity, 0))-2 }}
+          {{
+            order.cart.reduce((sum, cartitem) => sum + cartitem.quantity, 0) - 2
+          }}
           termék
         </p>
         <p v-if="order.cart && order.shipping == 'delivery-card'" class="count">
-          {{ (order.cart.reduce((sum, cartitem) => sum + cartitem.quantity, 0))-1 }}
+          {{
+            order.cart.reduce((sum, cartitem) => sum + cartitem.quantity, 0) - 1
+          }}
           termék
         </p>
         <p v-if="order.cart && order.shipping == 'delivery-cash'" class="price">
           {{
             order.cart.reduce(
-              (sum, cartitem) => sum + cartitem.price * cartitem.quantity,
-              2880
+              (sum, item) =>
+                sum +
+                Math.round(item.price - (item.price / 100) * item.sale) *
+                  item.quantity,
+              0
             )
           }}
           Ft
@@ -114,7 +121,6 @@ section {
 .s3 {
   align-items: flex-start;
   padding-left: 1rem;
-
 }
 .flex {
   display: flex;

@@ -153,7 +153,7 @@ export default {
         <br />
 
         <h3>Szállítási cím</h3>
-        <input type="text" placeholder="Vezetéknév" v-model="user.u_first" />
+        <input type="text" placeholder="Vezetéknév" v-model="user.u_firstname" />
         <input type="text" placeholder="Utónév" v-model="user.u_name" /> <br />
         <br />
         <input
