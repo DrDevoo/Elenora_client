@@ -19,7 +19,7 @@ export default {
     <section class="number_s_w">
       <div class="box b1">
         <div class="data_b">
-          <h3>12</h3>
+          <h3>0</h3>
           <p>Heti rendelés</p>
         </div>
         <div class="icon_b">
@@ -28,7 +28,7 @@ export default {
       </div>
       <div class="box b2">
         <div class="data_b">
-          <h3>116</h3>
+          <h3>0</h3>
           <p>Összes rendelés</p>
         </div>
         <div class="icon_b">
@@ -37,7 +37,7 @@ export default {
       </div>
       <div class="box b3">
         <div class="data_b">
-          <h3>2</h3>
+          <h3>0</h3>
           <p>Aktív kampányok</p>
         </div>
         <div class="icon_b">
@@ -46,7 +46,7 @@ export default {
       </div>
       <div class="box b4">
         <div class="data_b">
-          <h3>92.000 Ft</h3>
+          <h3>0 Ft</h3>
           <p>Heti bevétel</p>
         </div>
         <div class="icon_b">

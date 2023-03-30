@@ -28,8 +28,8 @@ export default {
   },
   mounted() {
     axios
-      .get(import.meta.env.VITE_API_URL + "/products/getall")
-      .then((response) => (this.prods = response.data.products));
+      .get(import.meta.env.VITE_API_URL + "/products/getajanlott")
+      .then((response) => (this.prods = response.data));
   },
   methods: {
     pushto(location) {
@@ -52,6 +52,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 2rem;
 }
 .kategoriak h1 {
   font-weight: 300;
@@ -126,8 +127,8 @@ export default {
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
-  height: 100%;
 }
+
 .item {
   width: 20%;
   text-decoration: none;
@@ -150,7 +151,6 @@ export default {
   line-height: 1px;
   font-weight: 200;
 }
-
 
 .miketnyujtunk .list {
   display: flex;
@@ -264,9 +264,9 @@ export default {
       <div class="item-list">
         <RouterLink
           v-for="(value, index) in prods"
-          class="item"
           :key="value._id"
           :to="linkurl + value._id"
+          class="item"
         >
           <div v-if="index < 4" class="a">
             <img :src="imgurl + value.image" />

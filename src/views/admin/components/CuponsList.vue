@@ -30,6 +30,7 @@ export default {
         <tr>
           <th>Megnevezés</th>
           <th>Százalék</th>
+          <th>Beváltva</th>
           <th></th>
         </tr>
       </thead>
@@ -37,6 +38,7 @@ export default {
         <tr v-for="item in collections" :key="item._id">
           <td>{{ item.cupon_name }}</td>
           <td>{{ item.cupon_value }}</td>
+          <td>{{ item.cupon_used }}</td>
           <td @click="deletesale(item._id)"><ion-icon name="trash-outline"></ion-icon></td>
         </tr>
       </tbody>

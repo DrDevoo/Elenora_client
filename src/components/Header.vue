@@ -198,9 +198,7 @@ export default {
         ><h3 class="link">Fonott karkötők</h3>
         <h6>Készlet erejéig!</h6></RouterLink
       >
-      <RouterLink to="/shop/accessories"
-        ><h3 class="link">Kulcstartók</h3></RouterLink
-      >
+
       <RouterLink to="/asvany-katalogus"
         ><h3 class="linktitle">Ásvány Lexikon</h3></RouterLink
       >

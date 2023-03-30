@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       collections: [],
-      more: true,
+      more: false,
       moreprods: [],
       morename: "",
 

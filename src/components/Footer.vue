@@ -9,7 +9,6 @@
       <RouterLink to="/shop"><p>Karkötők</p></RouterLink>
       <RouterLink to="/shop/boravia"><p>Kiegészítők</p></RouterLink>
       <RouterLink to="/asvany-katalogus"><p>Ásvány katalógus</p></RouterLink>
-      <RouterLink to="/rolunk"><p>Rólunk</p></RouterLink>
     </div>
     <div class="right">
       <h4>Segítség</h4>

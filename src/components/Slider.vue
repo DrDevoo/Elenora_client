@@ -90,7 +90,7 @@ export default {
         <p>Oszd meg ásvány karkötődet barátoddal, pároddal</p>
       </div>
       <div class="slide">
-        <img src="../assets/images/webp/2.webp" />
+        <img src="../assets/images/webp/v.webp" />
         <h2>Változatosság</h2>
         <p>Válassz olyan karkötőt amiben megmutatkozik a sokszínűséged</p>
       </div>
