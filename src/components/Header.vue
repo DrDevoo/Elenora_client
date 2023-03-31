@@ -185,7 +185,7 @@ export default {
       >
       <RouterLink to="/shop/sets"><h3 class="link">Szettek</h3></RouterLink>
       <RouterLink to="/shop/aproko"
-        ><h3 class="link">Apró kő karkötők</h3></RouterLink
+        ><h3 class="link">Apró köves karkötők</h3></RouterLink
       >
       <RouterLink class="flexlink" to="/shop/sales"
         ><h3 class="link">Akciós karkötők</h3>

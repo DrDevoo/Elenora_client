@@ -251,7 +251,7 @@ export default {
                 disabled
               />
               <label style="color: gray" for="doboz"
-                >Dísz dobozban legyen a termék (+590 Ft)</label
+                >Díszdobozban legyen a termék (+590 Ft)</label
               >
             </div>
             <div>
