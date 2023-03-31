@@ -360,7 +360,7 @@ section {
       </div>
     </aside>
     <section class="s">
-      <h1 class="picked-t">Apró kő karkötők</h1>
+      <h1 class="picked-t">Apró köves karkötők</h1>
       <div class="list-header">
         <div>
           <p class="prod-count">{{ response.count }} termék</p>
