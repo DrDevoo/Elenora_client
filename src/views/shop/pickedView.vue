@@ -197,20 +197,20 @@ export default {
           />
           <v-lazy-image
             v-if="!(p_img == null)"
-            :src="imgurl + response.image"
+            :src="imgurl + p_img"
             class="pickedimg"
             alt="Termék képe"
           />
         </div>
         <div class="thumblist">
-          <img
+          <v-lazy-image
             @click="select(response.image)"
             v-if="response.image"
             class="thumbimg"
             :src="imgurl + response.image"
             alt="Termék képe"
           />
-          <img
+          <v-lazy-image
             @click="select(response.image2)"
             v-if="
               response.image2 &&
@@ -220,7 +220,7 @@ export default {
             :src="imgurl + response.image2"
             alt="Termék képe"
           />
-          <img
+          <v-lazy-image
             @click="select(response.image3)"
             v-if="
               response.image3 &&
