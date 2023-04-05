@@ -54,7 +54,7 @@ body {
 }
 .v-lazy-image {
   filter: blur(5px);
-  transition: filter 1.6s;
+  transition: filter 0.6s;
   will-change: filter;
 }
 .v-lazy-image-loaded {

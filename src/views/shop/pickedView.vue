@@ -192,14 +192,12 @@ export default {
           <v-lazy-image
             v-if="response.image && p_img == null"
             :src="imgurl + response.image"
-            :src-placeholder="imgurl + response.image"
             class="pickedimg"
             alt="Termék képe"
           />
           <v-lazy-image
             v-if="!(p_img == null)"
             :src="imgurl + response.image"
-            :src-placeholder="imgurl + response.image"
             class="pickedimg"
             alt="Termék képe"
           />
@@ -360,8 +358,9 @@ export default {
 
 <style scoped>
 .v-lazy-image {
-  filter: blur(10px);
-  transition: filter 0.7s;
+  filter: blur(5px);
+  transition: filter 0.6s;
+  will-change: filter;
 }
 .v-lazy-image-loaded {
   filter: blur(0);
