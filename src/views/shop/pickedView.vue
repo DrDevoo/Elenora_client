@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { RouterLink, RouterView } from "vue-router";
+import VLazyImage from "v-lazy-image";
 </script>
 <script>
 export default {
@@ -21,7 +22,7 @@ export default {
       p_stone_id: "",
       access: [],
       cart: [],
-      imgurl: '/prodimgs/',
+      imgurl: "/prodimgs/",
       quantity: 1,
       size: "M",
       key: 0,
@@ -188,15 +189,17 @@ export default {
     <section class="top-s">
       <setion class="images-s">
         <div>
-          <img
+          <v-lazy-image
             v-if="response.image && p_img == null"
             :src="imgurl + response.image"
+            :src-placeholder="imgurl + response.image"
             class="pickedimg"
             alt="Termék képe"
           />
-          <img
+          <v-lazy-image
             v-if="!(p_img == null)"
-            :src="imgurl + p_img"
+            :src="imgurl + response.image"
+            :src-placeholder="imgurl + response.image"
             class="pickedimg"
             alt="Termék képe"
           />
@@ -256,7 +259,7 @@ export default {
             </div>
             <div>
               <input type="checkbox" name="ko" id="ko" v-model="showPStone" />
-              <label for="ko">Kérek mellé ásvány követ  </label>
+              <label for="ko">Kérek mellé ásvány követ </label>
               <label v-if="p_stone_id && showPStone" for="ko">
                 ∙ ({{ p_stone_name }} +{{ p_stone_price }} Ft)</label
               >
@@ -265,7 +268,7 @@ export default {
               <div class="stone" v-for="stone in stones">
                 <img
                   class="s_img"
-                  :class="{selected: stone.prodname == p_stone_name}"
+                  :class="{ selected: stone.prodname == p_stone_name }"
                   :src="imgurl + stone.image"
                   @click="
                     selectStone(
@@ -356,6 +359,13 @@ export default {
 </template>
 
 <style scoped>
+.v-lazy-image {
+  filter: blur(10px);
+  transition: filter 0.7s;
+}
+.v-lazy-image-loaded {
+  filter: blur(0);
+}
 .selected {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.554);
   border: 3px solid white;
