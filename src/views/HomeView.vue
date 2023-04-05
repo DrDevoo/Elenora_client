@@ -24,6 +24,8 @@ export default {
       cartcount: 0,
 
       prods: [],
+
+      url: "/prodimgs/"
     };
   },
   mounted() {
@@ -229,14 +231,148 @@ export default {
     width: 40%;
   }
 }
+
+.osztott {
+  display: flex;
+  padding: 1rem;
+}
+.osztott .box {
+  width: 100%;
+}
+.osztott .osz_bal img {
+  width: 98%;
+  border-radius: 10px;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.417);
+}
+.osztott .osz_jobb a {
+  color: black;
+  text-decoration: none;
+}
+.home_list {
+}
+.home_list .list_head h1 {
+  text-align: center;
+  font-weight: 100;
+}
+.home_list .lis_cont {
+  display: flex;
+  justify-content: space-around;
+}
+.home_list .lis_cont {
+  text-align: center;
+}
+.home_list .list_foot a {
+  text-align: center;
+  color: gray;
+  text-decoration: none;
+  position: relative;
+  top: -1rem;
+}
+section{
+  margin-bottom: 2rem;
+}
 </style>
 
 <template>
   <Header />
   <main>
     <Slider />
+    <section class="osztott">
+      <div class="osz_bal box">
+        <img :src="url + 'c488558954a75149b7d6210518a73fb7'" />
+      </div>
+      <div class="osz_jobb box">
+        <h2>Egyedi karkötő tervezés</h2>
+        <p>
+          Az egyedi karkötő tervezőnkben csak a képzeleted szab határt milyen
+          ékszert készítesz magadnak vagy szeretteidnek!
+        </p>
+        <RouterLink to="/"><h5>Tervezés ❯</h5></RouterLink>
+      </div>
+    </section>
+    <section class="home_list">
+      <div class="list_head">
+        <h1>Kollekciók</h1>
+      </div>
+      <div class="lis_cont">
+        <RouterLink
+          v-for="(value, index) in prods"
+          :key="value._id"
+          :to="linkurl + value._id"
+          class="item"
+        >
+          <div class="list_box">
+            <img :src="imgurl + value.image" alt="" />
+            <h4>{{ value.prodname }}</h4>
+          </div>
+        </RouterLink>
+      </div>
+      <div class="list_foot">
+        <RouterLink to="/"><p>Továbbiak ❯</p></RouterLink>
+      </div>
+    </section>
+    <section class="osztott">
+      <div class="osz_jobb box">
+        <h2>Az ásványról</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates,
+          rerum!
+        </p>
+        <RouterLink to="/"><h5>Bővebben ❯</h5></RouterLink>
+      </div>
+      <div class="osz_bal box">
+        <img src="../assets/images/new/women.webp" />
+      </div>
+    </section>
+
+    <section class="home_list">
+      <div class="list_head">
+        <h1>Akciók</h1>
+      </div>
+      <div class="lis_cont">
+        <RouterLink
+          v-for="(value, index) in prods"
+          :key="value._id"
+          :to="linkurl + value._id"
+          class="item"
+        >
+          <div class="list_box">
+            <img :src="imgurl + value.image" alt="" />
+            <h4>{{ value.prodname }}</h4>
+          </div>
+        </RouterLink>
+      </div>
+      <div class="list_foot">
+        <RouterLink to="/"><p>Továbbiak ❯</p></RouterLink>
+      </div>
+    </section>
+
+    <section class="home_list">
+      <div class="list_head">
+        <h1>Újdonságok</h1>
+      </div>
+      <div class="lis_cont">
+        <RouterLink
+          v-for="(value, index) in prods"
+          :key="value._id"
+          :to="linkurl + value._id"
+          class="item"
+        >
+          <div class="list_box">
+            <img :src="imgurl + value.image" alt="" />
+            <h4>{{ value.prodname }}</h4>
+          </div>
+        </RouterLink>
+      </div>
+      <div class="list_foot">
+        <RouterLink to="/"><p>Továbbiak ❯</p></RouterLink>
+      </div>
+    </section>
+
     <section class="kategoriak">
-      <h1>Kollekciók</h1>
+      <h1>Kategóriák</h1>
       <div class="boxes">
         <div @click="pushto('man')" class="box">
           <img src="../assets/images/new/man.webp" alt="" />
@@ -256,26 +392,7 @@ export default {
         </div>
       </div>
     </section>
-    <section class="kiemeltek">
-      <div class="kiemelt-header">
-        <h3>Ezeket is nézd meg!</h3>
-        <RouterLink to="/shop"><h5>Megnézem</h5></RouterLink>
-      </div>
-      <div class="item-list">
-        <RouterLink
-          v-for="(value, index) in prods"
-          :key="value._id"
-          :to="linkurl + value._id"
-          class="item"
-        >
-          <div v-if="index < 4" class="a">
-            <img :src="imgurl + value.image" />
-            <h2>{{ value.prodname }}</h2>
-            <p>{{ value.price }} Ft</p>
-          </div>
-        </RouterLink>
-      </div>
-    </section>
+
     <section class="miketnyujtunk">
       <h2>Miket tudunk nyújtani</h2>
       <div class="list">
