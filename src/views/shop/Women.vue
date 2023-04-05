@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { RouterLink, RouterView } from "vue-router";
+import VLazyImage from "v-lazy-image";
 </script>
 <script>
 export default {
@@ -29,7 +30,14 @@ export default {
   font-family: "Heebo", sans-serif;
   box-sizing: border-box;
 }
-
+.v-lazy-image {
+  filter: blur(5px);
+  transition: filter 0.6s;
+  will-change: filter;
+}
+.v-lazy-image-loaded {
+  filter: blur(0);
+}
 body {
   margin: 0;
   padding: 0;
@@ -361,7 +369,7 @@ section {
         >
         <div class="item">
             <div class="img_w">
-              <img :src="imgurl + item.image" />
+              <v-lazy-image :src="imgurl + item.image" />
               <h5 class="saleprecent" v-if="item.activesale === 'true'">
                 {{ item.saleprecent }} %
               </h5>

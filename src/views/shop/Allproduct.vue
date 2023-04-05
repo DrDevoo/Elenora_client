@@ -386,9 +386,7 @@ section {
         >
           <div class="item">
             <div class="img_w">
-              <v-lazy-image
-                :src="imgurl + item.image"
-              />
+              <v-lazy-image :src="imgurl + item.image" />
               <h5 class="saleprecent" v-if="item.activesale === 'true'">
                 {{ item.saleprecent }} %
               </h5>
