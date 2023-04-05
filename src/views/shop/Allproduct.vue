@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { RouterLink } from "vue-router";
+import VLazyImage from "v-lazy-image";
 </script>
 <script>
 export default {
@@ -10,7 +11,7 @@ export default {
     return {
       response: [],
       filter: false,
-      imgurl: '/prodimgs/',
+      imgurl: "/prodimgs/",
       linkurl: "/shop/picked?id=",
       count: 0,
 
@@ -51,7 +52,13 @@ body {
   margin: 0;
   padding: 0;
 }
-
+.v-lazy-image {
+  filter: blur(10px);
+  transition: filter 0.7s;
+}
+.v-lazy-image-loaded {
+  filter: blur(0);
+}
 .rendezes {
   display: flex;
   align-items: center;
@@ -378,7 +385,10 @@ section {
         >
           <div class="item">
             <div class="img_w">
-              <img :src="imgurl + item.image" />
+              <v-lazy-image
+                :src="imgurl + item.image"
+                :src-placeholder="imgurl + item.image"
+              />
               <h5 class="saleprecent" v-if="item.activesale === 'true'">
                 {{ item.saleprecent }} %
               </h5>
@@ -391,7 +401,12 @@ section {
                   {{ item.price }} Ft
                 </h4>
                 <h4 class="newprice" v-if="item.activesale === 'true'">
-                  {{ Math.round(item.price - (item.price / 100) * item.saleprecent) }} Ft
+                  {{
+                    Math.round(
+                      item.price - (item.price / 100) * item.saleprecent
+                    )
+                  }}
+                  Ft
                 </h4>
               </div>
             </div>
