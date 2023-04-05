@@ -279,6 +279,7 @@ section{
   <Header />
   <main>
     <Slider />
+    <!--
     <section class="osztott">
       <div class="osz_bal box">
         <img :src="url + 'c488558954a75149b7d6210518a73fb7'" />
@@ -370,7 +371,7 @@ section{
         <RouterLink to="/"><p>Továbbiak ❯</p></RouterLink>
       </div>
     </section>
-
+-->
     <section class="kategoriak">
       <h1>Kategóriák</h1>
       <div class="boxes">

@@ -94,6 +94,7 @@ a{
       </ul>
       Ha kérdésed van a sütikkel kapcsolatban, írj egy emailt az informacio@elenora.hu email címünkre és mihamarabb válaszolunk!
     </p>
+    <img :src="'/prodimgs/c488558954a75149b7d6210518a73fb7'" alt="nemmegy">
   </main>
   <Footer />
 </template>
