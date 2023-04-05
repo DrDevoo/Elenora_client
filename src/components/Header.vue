@@ -1,6 +1,7 @@
 <script setup>
 import Loader from "./Loader.vue";
 import { RouterLink } from "vue-router";
+import VLazyImage from "v-lazy-image";
 </script>
 <script>
 import axios from "axios";
@@ -14,7 +15,7 @@ export default {
       header_title: "",
       cart: [],
       response: [],
-      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
+      imgurl: "/prodimgs/",
 
       loading: false,
       cartcount: 0,
@@ -218,7 +219,7 @@ export default {
       <div class="cart_item" v-for="(item, index) in cart" :key="index">
         <div class="cart_item_imgtext">
           <div class="cart_item_img">
-            <img v-if="item.img" :src="imgurl + item.img" />
+            <v-lazy-image v-if="item.img" :src="imgurl + item.img" />
           </div>
           <div class="cart_item_desc">
             <p class="prodname">{{ item.name }}</p>
@@ -303,6 +304,14 @@ export default {
 </template>
 
 <style>
+.v-lazy-image {
+  filter: blur(5px);
+  transition: filter 0.6s;
+  will-change: filter;
+}
+.v-lazy-image-loaded {
+  filter: blur(0);
+}
 .cart_content {
   height: 70%;
   overflow-y: scroll;
