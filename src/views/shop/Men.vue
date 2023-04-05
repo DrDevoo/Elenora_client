@@ -10,7 +10,7 @@ export default {
     return {
       response: [],
       filter: false,
-      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
+      imgurl: '/prodimgs/',
       linkurl: "/shop/picked?id=",
     };
   },

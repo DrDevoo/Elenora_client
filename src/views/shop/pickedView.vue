@@ -21,7 +21,7 @@ export default {
       p_stone_id: "",
       access: [],
       cart: [],
-      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
+      imgurl: '/prodimgs/',
       quantity: 1,
       size: "M",
       key: 0,

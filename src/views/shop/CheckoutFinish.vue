@@ -8,7 +8,7 @@ export default {
     return {
       showCart: false,
 
-      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
+      imgurl: '/prodimgs/',
       orderid: this.$route.query.order,
       loading: false,
 
