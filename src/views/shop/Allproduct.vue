@@ -53,8 +53,9 @@ body {
   padding: 0;
 }
 .v-lazy-image {
-  filter: blur(10px);
-  transition: filter 0.7s;
+  filter: blur(5px);
+  transition: filter 1.6s;
+  will-change: filter;
 }
 .v-lazy-image-loaded {
   filter: blur(0);
