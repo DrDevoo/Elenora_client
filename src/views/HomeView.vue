@@ -230,6 +230,7 @@ export default {
   .item {
     width: 40%;
   }
+
 }
 
 .osztott {
@@ -241,6 +242,7 @@ export default {
 }
 .osztott .osz_bal img {
   width: 98%;
+  height: 100%;
   border-radius: 10px;
   aspect-ratio: 16/9;
   object-fit: cover;
@@ -282,7 +284,7 @@ section{
     
     <section class="osztott">
       <div class="osz_bal box">
-        <img src="../assets/images/new/man.webp" />
+        <img src="../assets/images/custom.webp" />
       </div>
       <div class="osz_jobb box">
         <h2>Egyedi karkötő tervezés</h2>
