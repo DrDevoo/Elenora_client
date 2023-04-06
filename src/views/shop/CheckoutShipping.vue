@@ -293,6 +293,13 @@ export default {
                 </div>
                 <div class="cart_item_desc">
                   <p>{{ item.name }}</p>
+                  <div v-if="item.custom == true" class="result">
+                    <div v-for="p in item.pearls">
+                      <img
+                        :src="'https://elenora.hu:444/getimage/' + p + '.webp'"
+                      />
+                    </div>
+                  </div>
                   <p v-if="!item.visitno">Méret: {{ item.size }}</p>
                   <p v-if="!item.visitno" class="quantity">
                     {{ item.quantity }}
@@ -522,7 +529,17 @@ main {
 .inputflex input {
   width: 50%;
 }
-
+.result {
+  display: flex;
+}
+.result div {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 4.76%;
+}
+.result img {
+  width: 100%;
+}
 .szamla_b {
   width: 60%;
   padding: 1rem;

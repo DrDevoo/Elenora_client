@@ -10,7 +10,7 @@ export default {
       sub: false,
       cart: [],
       user: [],
-      imgurl: '/prodimgs/',
+      imgurl: "/prodimgs/",
       orderid: this.$route.query.order,
       loading: false,
     };
@@ -112,8 +112,17 @@ export default {
                 </div>
                 <div class="cart_item_desc">
                   <p>{{ item.name }}</p>
+                  <div v-if="item.custom == true" class="result">
+                    <div v-for="p in item.pearls">
+                      <img
+                        :src="'https://elenora.hu:444/getimage/' + p + '.webp'"
+                      />
+                    </div>
+                  </div>
                   <p v-if="!item.visitno">Méret: {{ item.size }}</p>
-                  <p v-if="!item.visitno" class="quantity">{{ item.quantity }}</p>
+                  <p v-if="!item.visitno" class="quantity">
+                    {{ item.quantity }}
+                  </p>
                 </div>
               </div>
               <div class="cart_item_del">
@@ -153,7 +162,11 @@ export default {
         <br />
 
         <h3>Szállítási cím</h3>
-        <input type="text" placeholder="Vezetéknév" v-model="user.u_firstname" />
+        <input
+          type="text"
+          placeholder="Vezetéknév"
+          v-model="user.u_firstname"
+        />
         <input type="text" placeholder="Utónév" v-model="user.u_name" /> <br />
         <br />
         <input
@@ -228,6 +241,17 @@ export default {
 main {
   display: flex;
   flex-direction: column;
+}
+.result {
+  display: flex;
+}
+.result div {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 4.76%;
+}
+.result img {
+  width: 100%;
 }
 .prices {
   padding-left: 1rem;

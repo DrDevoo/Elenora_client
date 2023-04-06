@@ -131,6 +131,13 @@ export default {
                 </div>
                 <div class="cart_item_desc">
                   <p class="lineh">{{ item.name }}</p>
+                  <div v-if="item.custom == true" class="result">
+                    <div v-for="p in item.pearls">
+                      <img
+                        :src="'https://elenora.hu:444/getimage/' + p + '.webp'"
+                      />
+                    </div>
+                  </div>
                   <p class="lineh" v-if="!item.visitno">Méret: {{ item.size }}</p>
                   <p v-if="!item.visitno" class="quantity">{{ item.quantity }}</p>
                 </div>
@@ -284,7 +291,17 @@ h3 {
   left: 5%;
   font-weight: 300;
 }
-
+.result {
+  display: flex;
+}
+.result div {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 4.76%;
+}
+.result img {
+  width: 100%;
+}
 .btntovabb{
   position: relative;
   left: 10%;
