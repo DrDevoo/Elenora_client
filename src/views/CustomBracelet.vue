@@ -162,10 +162,6 @@ export default {
           },
         }
       );
-
-      console.log(res.data);
-      this.resid = res.data._id;
-
       this.cart.push({
         id: res.data._id,
         name: "Egyedi ásvány karkötő",
