@@ -114,6 +114,11 @@ const router = createRouter({
       component: () => import("../views/CatalogView.vue"),
     },
     {
+      path: "/egyedikarkoto",
+      name: "egyedikarkoto",
+      component: () => import("../views/CustomBracelet.vue"),
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "404",
       component: HomeView,

@@ -200,6 +200,9 @@ export default {
         <h6>Készlet erejéig!</h6></RouterLink
       >
 
+      <RouterLink to="/egyedikarkoto"
+        ><h3 class="linktitle">Karkötő tervező</h3></RouterLink
+      >
       <RouterLink to="/asvany-katalogus"
         ><h3 class="linktitle">Ásvány Lexikon</h3></RouterLink
       >
@@ -223,6 +226,11 @@ export default {
           </div>
           <div class="cart_item_desc">
             <p class="prodname">{{ item.name }}</p>
+            <div v-if="item.custom == true" class="result">
+              <div v-for="p in item.pearls">
+                <img :src="'https://elenora.hu:444/getimage/' + p + '.webp'" />
+              </div>
+            </div>
             <p v-if="item.size" class="size">Méret: {{ item.size }}</p>
             <div class="quantity_b" v-if="!item.visitno">
               <ion-icon
@@ -304,6 +312,17 @@ export default {
 </template>
 
 <style>
+.result {
+  display: flex;
+}
+.result div {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 4.76%;
+}
+.result img {
+  width: 100%;
+}
 .v-lazy-image {
   filter: blur(5px);
   transition: filter 0.6s;

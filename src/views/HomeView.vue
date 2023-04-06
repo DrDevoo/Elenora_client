@@ -279,10 +279,10 @@ section{
   <Header />
   <main>
     <Slider />
-    <!--
+    
     <section class="osztott">
       <div class="osz_bal box">
-        <img :src="url + 'c488558954a75149b7d6210518a73fb7'" />
+        <img src="../assets/images/new/man.webp" />
       </div>
       <div class="osz_jobb box">
         <h2>Egyedi karkötő tervezés</h2>
@@ -290,9 +290,10 @@ section{
           Az egyedi karkötő tervezőnkben csak a képzeleted szab határt milyen
           ékszert készítesz magadnak vagy szeretteidnek!
         </p>
-        <RouterLink to="/"><h5>Tervezés ❯</h5></RouterLink>
+        <RouterLink to="/egyedikarkoto"><h3>Tervezés ❯</h3></RouterLink>
       </div>
     </section>
+    <!--
     <section class="home_list">
       <div class="list_head">
         <h1>Kollekciók</h1>
