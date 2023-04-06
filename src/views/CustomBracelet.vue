@@ -109,6 +109,11 @@ export default {
       }
     },
     settext() {
+      let test = /^[A-Za-z0-9]*$/.test(this.bracelet.text)
+      if(test == false){
+        alert("Csak angol ABC használhatsz!")
+        this.bracelet.text = "ELENORA"
+      }
       this.bracelet.text = this.bracelet.text.toUpperCase();
       const name = this.bracelet.pearl;
       this.bracelet.pearl = name;
