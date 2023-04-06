@@ -323,6 +323,21 @@ h3 {
   font-size: 16pt;
   font-weight: 300;
 }
+
+@media only screen and (max-width: 400px){
+  .plist .box {
+  width: 22%;
+  padding: 0.5rem;
+  border-radius: 10px;
+  text-align: center;
+  height: fit-content;
+  font-size: 10pt;
+}
+  .plist .box img {
+  width: 80%;
+  text-align: center;
+}
+}
 </style>
 
 <template>
