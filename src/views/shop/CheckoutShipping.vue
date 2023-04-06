@@ -88,7 +88,7 @@ export default {
           this.order.cart.push({
             id: 2,
             name: "Utánvét díj",
-            price: 890,
+            price: 790,
             quantity: 1,
             sale: 0,
             img: null,
@@ -98,7 +98,7 @@ export default {
           this.order.cart.push({
             id: 1,
             name: "Szállítási díj",
-            price: 1990,
+            price: 1290,
             quantity: 1,
             sale: 0,
             img: null,
@@ -107,7 +107,7 @@ export default {
           this.order.cart.push({
             id: 2,
             name: "Utánvét díj",
-            price: 890,
+            price: 790,
             quantity: 1,
             sale: 0,
             img: null,
