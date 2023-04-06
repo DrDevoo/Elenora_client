@@ -473,7 +473,7 @@ h3 {
               @click="pickpearl('matt-feher-jade')"
             >
               <img src="../assets/pearls/matt-feher-jade.webp" />
-              <p>Matt fehéér jáde</p>
+              <p>Matt fehér jáde</p>
             </div>
             <div
               :class="{ active: bracelet.pearl == 'matt-fekete-achat' }"
@@ -499,6 +499,105 @@ h3 {
               <img src="../assets/pearls/rozsakvarc.webp" />
               <p>Rózsakvarc</p>
             </div>
+
+
+            <div
+              :class="{ active: bracelet.pearl == 'rodonit' }"
+              class="box"
+              @click="pickpearl('rodonit')"
+            >
+              <img src="../assets/pearls/rodonit.webp" />
+              <p>Rodonit</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'roppantott-hegyikristaly' }"
+              class="box"
+              @click="pickpearl('roppantott-hegyikristaly')"
+            >
+              <img src="../assets/pearls/roppantott-hegyikristaly.webp" />
+              <p>Roppantott hegyikristály</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'rozsaszin-hegyi' }"
+              class="box"
+              @click="pickpearl('rozsaszin-hegyi')"
+            >
+              <img src="../assets/pearls/rozsaszin-hegyi.webp" />
+              <p>Rózsaszín hegyikristály</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'rozsaszin-jade' }"
+              class="box"
+              @click="pickpearl('rozsaszin-jade')"
+            >
+              <img src="../assets/pearls/rozsaszin-jade.webp" />
+              <p>Rózsaszín jáde</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'szurke-lavako' }"
+              class="box"
+              @click="pickpearl('szurke-lavako')"
+            >
+              <img src="../assets/pearls/szurke-lavako.webp" />
+              <p>Szürke lávakő</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'tigrisszem' }"
+              class="box"
+              @click="pickpearl('tigrisszem')"
+            >
+              <img src="../assets/pearls/tigrisszem.webp" />
+              <p>Tigrisszem</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'turkiz-regalit' }"
+              class="box"
+              @click="pickpearl('turkiz-regalit')"
+            >
+              <img src="../assets/pearls/turkiz-regalit.webp" />
+              <p>Türkiz regalit</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'unakit' }"
+              class="box"
+              @click="pickpearl('unakit')"
+            >
+              <img src="../assets/pearls/unakit.webp" />
+              <p>Unakit</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'voros-jaspis' }"
+              class="box"
+              @click="pickpearl('voros-jaspis')"
+            >
+              <img src="../assets/pearls/voros-jaspis.webp" />
+              <p>Vörös jáspis</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'zebra-jaspis' }"
+              class="box"
+              @click="pickpearl('zebra-jaspis')"
+            >
+              <img src="../assets/pearls/zebra-jaspis.webp" />
+              <p>Zebra jáspis</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'zold-aventurin' }"
+              class="box"
+              @click="pickpearl('zold-aventurin')"
+            >
+              <img src="../assets/pearls/zold-aventurin.webp" />
+              <p>Zöld aventurin</p>
+            </div>
+            <div
+              :class="{ active: bracelet.pearl == 'zold-szezamko' }"
+              class="box"
+              @click="pickpearl('zold-szezamko')"
+            >
+              <img src="../assets/pearls/zold-szezamko.webp" />
+              <p>Zöld szezámkő</p>
+            </div>
+            
           </div>
           <button class="nextbtn" @click="ctext">Következő</button>
         </div>

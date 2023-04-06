@@ -282,7 +282,7 @@ section{
   <main>
     <Slider />
     
-    <section class="osztott">
+    <section class="osztott scroll">
       <div class="osz_bal box">
         <img src="../assets/images/custom.webp" />
       </div>
