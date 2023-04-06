@@ -145,7 +145,7 @@ export default {
           this.order.cart.push({
             id: 1,
             name: "Szállítási díj",
-            price: 1990,
+            price: 1290,
             quantity: 1,
             sale: 0,
             img: null,
@@ -468,7 +468,7 @@ export default {
               <label for="id1">Házhozszállítás - Online fizetés</label>
             </div>
             <div>
-              <h6>1990 Ft</h6>
+              <h6>1290 Ft</h6>
             </div>
           </div>
           <div class="flex_option">
@@ -484,7 +484,7 @@ export default {
               <label for="id2">Házhozszállítás - Utánvétes fizetés</label>
             </div>
             <div>
-              <h6>2880 Ft</h6>
+              <h6>2080 Ft</h6>
             </div>
           </div>
         </div>
