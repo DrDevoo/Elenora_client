@@ -258,7 +258,9 @@ export default {
             v-if="response.price && response.activesale == 'true'"
           >
             {{
-              Math.round(response.price - (response.price / 100) * response.saleprecent)
+              Math.round(
+                response.price - (response.price / 100) * response.saleprecent
+              )
             }}
             Ft
           </h3>
@@ -679,6 +681,35 @@ input[type="number"] {
     line-height: 0;
     color: gray;
     font-size: 10pt;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .thumbimg {
+    box-shadow: 0px 0px 5px gray;
+    border-radius: 10px;
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+    border: 5px solid white;
+  }
+  .thumblist {
+    position: relative;
+    top: 1.2rem;
+    left: 1rem;
+    gap: 10px;
+    display: flex;
+  }
+  .texts-s {
+    position: relative;
+    top: -0.5rem;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 .description-s {
