@@ -258,7 +258,7 @@ export default {
             v-if="response.price && response.activesale == 'true'"
           >
             {{
-              Math.round(item.price - (item.price / 100) * item.saleprecent)
+              Math.round(response.price - (response.price / 100) * response.saleprecent)
             }}
             Ft
           </h3>
