@@ -355,7 +355,7 @@ section {
         <div>
           <p class="prod-count">{{ response.count }} termék</p>
         </div>
-        <div @click="filter = !filter">
+        <div @click="filter = !filter" style="visibility: hidden;">
           <p class="rendezes">
             Szűrés<ion-icon name="ellipsis-vertical-outline"></ion-icon>
           </p>
