@@ -51,6 +51,15 @@ export default {
   },
   methods: {
     addToCart(product, quantity, size) {
+      let itemprice = 0;
+      if (this.response.activesale == "true") {
+        itemprice = Math.round(
+          product.price - (product.price / 100) * this.response.saleprecent
+        );
+      } else {
+        itemprice = product.price;
+      }
+
       if (this.forbox) {
         var vane = this.cart.find(
           (elem) => elem.name == product.prodname + " (díszdobozos)"
@@ -81,7 +90,7 @@ export default {
             name: product.prodname + " (díszdobozos)",
             img: product.image,
             size: size,
-            price: product.price + 590,
+            price: itemprice + 590,
             quantity: quantity,
             sale: 0,
           });
@@ -104,7 +113,7 @@ export default {
             name: product.prodname,
             img: product.image,
             size: size,
-            price: product.price,
+            price: itemprice,
             quantity: quantity,
             sale: 0,
           });
@@ -235,7 +244,24 @@ export default {
       <setion class="texts-s">
         <div class="texts-b">
           <h1 v-if="response.prodname">{{ response.prodname }}</h1>
-          <h3 v-if="response.price">{{ response.price }} Ft</h3>
+          <h3 v-if="response.price && response.activesale == 'false'">
+            {{ response.price }} Ft
+          </h3>
+          <h3
+            class="oldprice"
+            v-if="response.price && response.activesale == 'true'"
+          >
+            {{ response.price }} Ft
+          </h3>
+          <h3
+            class="newprice"
+            v-if="response.price && response.activesale == 'true'"
+          >
+            {{
+              Math.round(item.price - (item.price / 100) * item.saleprecent)
+            }}
+            Ft
+          </h3>
         </div>
         <div>
           <div class="plus_w">
@@ -361,6 +387,12 @@ export default {
   filter: blur(5px);
   transition: filter 0.6s;
   will-change: filter;
+}
+.oldprice {
+  text-decoration: line-through;
+}
+.newprice {
+  color: tomato;
 }
 .v-lazy-image-loaded {
   filter: blur(0);

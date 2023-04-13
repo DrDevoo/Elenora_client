@@ -222,7 +222,7 @@ export default {
       <div class="cart_item" v-for="(item, index) in cart" :key="index">
         <div class="cart_item_imgtext">
           <div class="cart_item_img">
-            <v-lazy-image v-if="item.img" :src="imgurl + item.img" />
+            <img v-if="item.img" :src="'/newimgs/' + item.img + '.webp'" />
           </div>
           <div class="cart_item_desc">
             <p class="prodname">{{ item.name }}</p>
