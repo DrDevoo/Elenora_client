@@ -191,13 +191,13 @@ export default {
         <div>
           <v-lazy-image
             v-if="response.image && p_img == null"
-            :src="imgurl + response.image"
+            :src="'/newimgs/' + response.image + '.webp'"
             class="pickedimg"
             alt="Termék képe"
           />
           <v-lazy-image
             v-if="!(p_img == null)"
-            :src="imgurl + p_img"
+            :src="'/newimgs/' + p_img + '.webp'"
             class="pickedimg"
             alt="Termék képe"
           />
@@ -207,7 +207,7 @@ export default {
             @click="select(response.image)"
             v-if="response.image"
             class="thumbimg"
-            :src="imgurl + response.image"
+            :src="'/newimgs/' + response.image + '.webp'"
             alt="Termék képe"
           />
           <v-lazy-image
@@ -217,7 +217,7 @@ export default {
               !(response.image2 == '46bea41c0363d722467defc2f1ecc234')
             "
             class="thumbimg"
-            :src="imgurl + response.image2"
+            :src="'/newimgs/' + response.image2 + '.webp'"
             alt="Termék képe"
           />
           <v-lazy-image
@@ -227,7 +227,7 @@ export default {
               !(response.image3 == '46bea41c0363d722467defc2f1ecc234')
             "
             class="thumbimg"
-            :src="imgurl + response.image3"
+            :src="'/newimgs/' + response.image3 + '.webp'"
             alt="Termék képe"
           />
         </div>
