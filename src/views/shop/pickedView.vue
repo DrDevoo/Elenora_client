@@ -267,7 +267,7 @@ export default {
                 <img
                   class="s_img"
                   :class="{ selected: stone.prodname == p_stone_name }"
-                  :src="imgurl + stone.image"
+                  :src="'/newimgs/' + stone.image + '.webp'"
                   @click="
                     selectStone(
                       stone.prodname,
