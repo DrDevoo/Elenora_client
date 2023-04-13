@@ -11,7 +11,8 @@ export default {
     return {
       response: [],
       filter: false,
-      imgurl: "/prodimgs/",
+      imgurl: "/newimgs/",
+      imgpath: ".webp",
       linkurl: "/shop/picked?id=",
       count: 0,
 
@@ -386,7 +387,7 @@ section {
         >
           <div class="item">
             <div class="img_w">
-              <v-lazy-image :src="imgurl + item.image" />
+              <v-lazy-image :src="imgurl + item.image + imgpath" />
               <h5 class="saleprecent" v-if="item.activesale === 'true'">
                 {{ item.saleprecent }} %
               </h5>
