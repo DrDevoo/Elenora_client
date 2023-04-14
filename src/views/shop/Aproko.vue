@@ -147,9 +147,11 @@ section {
   aspect-ratio: 1/1;
   border-radius: 0.5rem 0.5rem 0 0;
   object-fit: cover;
+  transform: rotate(90deg);
 }
 .item img:hover{
   transform: scale(1.0);
+  transform: rotate(90deg);
   width: 100%;
 }
 .item h3 {

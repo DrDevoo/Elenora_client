@@ -146,10 +146,12 @@ section {
   aspect-ratio: 1/1;
   border-radius: 0.5rem 0.5rem 0 0;
   object-fit: cover;
+  transform: rotate(90deg);
 }
 .item img:hover {
   transform: scale(1);
   width: 100%;
+  transform: rotate(90deg);
 }
 .item h3 {
   font-weight: 300;

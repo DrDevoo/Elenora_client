@@ -581,7 +581,9 @@ input[type="number"] {
   display: flex;
   gap: 0.5rem;
 }
-
+img{
+  transform: rotate(90deg);
+}
 .selects-b .box {
   width: 50%;
   height: 70px;
