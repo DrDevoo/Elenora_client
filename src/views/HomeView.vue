@@ -270,6 +270,9 @@ export default {
 }
 .home_list {
 }
+.list_box img{
+transform: rotate(90deg);
+}
 .home_list .list_head h1 {
   text-align: center;
   font-weight: 100;
