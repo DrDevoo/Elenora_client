@@ -24,14 +24,22 @@ export default {
       cartcount: 0,
 
       prods: [],
+      news: [],
+      saled: [],
 
-      url: "/prodimgs/"
+      url: "/prodimgs/",
     };
   },
   mounted() {
     axios
       .get(import.meta.env.VITE_API_URL + "/products/getajanlott")
       .then((response) => (this.prods = response.data));
+    axios
+      .get(import.meta.env.VITE_API_URL + "/products/getsaled")
+      .then((response) => (this.saled = response.data));
+    axios
+      .get(import.meta.env.VITE_API_URL + "/products/getnews")
+      .then((response) => (this.news = response.data));
   },
   methods: {
     pushto(location) {
@@ -231,6 +239,14 @@ export default {
     width: 40%;
   }
 
+  .home_list .lis_cont {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 3px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
 }
 
 .osztott {
@@ -261,6 +277,9 @@ export default {
 .home_list .lis_cont {
   display: flex;
   justify-content: space-around;
+  gap: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .home_list .lis_cont {
   text-align: center;
@@ -272,7 +291,7 @@ export default {
   position: relative;
   top: -1rem;
 }
-section{
+section {
   margin-bottom: 2rem;
 }
 </style>
@@ -281,7 +300,7 @@ section{
   <Header />
   <main>
     <Slider />
-    
+
     <section class="osztott scroll">
       <div class="osz_bal box">
         <img src="../assets/images/custom.webp" />
@@ -330,26 +349,26 @@ section{
         <img src="../assets/images/new/women.webp" />
       </div>
     </section>
-
+-->
     <section class="home_list">
       <div class="list_head">
         <h1>Akciók</h1>
       </div>
       <div class="lis_cont">
         <RouterLink
-          v-for="(value, index) in prods"
+          v-for="(value, index) in saled"
           :key="value._id"
           :to="linkurl + value._id"
           class="item"
         >
           <div class="list_box">
-            <img :src="imgurl + value.image" alt="" />
+            <img :src="'/newimgs/' + value.image + '.webp'" />
             <h4>{{ value.prodname }}</h4>
           </div>
         </RouterLink>
       </div>
       <div class="list_foot">
-        <RouterLink to="/"><p>Továbbiak ❯</p></RouterLink>
+        <RouterLink to="/shop/sales"><p>Továbbiak ❯</p></RouterLink>
       </div>
     </section>
 
@@ -359,22 +378,22 @@ section{
       </div>
       <div class="lis_cont">
         <RouterLink
-          v-for="(value, index) in prods"
+          v-for="(value, index) in news"
           :key="value._id"
           :to="linkurl + value._id"
           class="item"
         >
           <div class="list_box">
-            <img :src="imgurl + value.image" alt="" />
+            <img :src="'/newimgs/' + value.image + '.webp'" />
             <h4>{{ value.prodname }}</h4>
           </div>
         </RouterLink>
       </div>
       <div class="list_foot">
-        <RouterLink to="/"><p>Továbbiak ❯</p></RouterLink>
+        <RouterLink to="/shop/aproko"><p>Továbbiak ❯</p></RouterLink>
       </div>
     </section>
--->
+
     <section class="kategoriak">
       <h1>Kategóriák</h1>
       <div class="boxes">
