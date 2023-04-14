@@ -152,6 +152,7 @@ export default {
 }
 .item img:hover {
   transform: scale(1.1);
+  transform: rotate(90deg);
 }
 .item h2 {
   line-height: 20px;
