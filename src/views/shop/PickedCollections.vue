@@ -130,7 +130,7 @@ section {
 .item img {
   width: 100%;
   aspect-ratio: 1/1;
-  border-radius: 0.5rem 0.5rem 0 0;
+  border-radius: 0.5rem;
   object-fit: cover;
   transform: rotate(90deg);
 }
