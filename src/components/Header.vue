@@ -193,6 +193,7 @@ export default {
         <h6>Új kedvezmények!</h6></RouterLink
       >
       <RouterLink to="/shop"><h3 class="link">Összes karkötő</h3></RouterLink>
+      <RouterLink to="/shop/collections"><h3 class="link">Kollekciók</h3></RouterLink>
 
       <h3 class="linktitle">Kiegészítők</h3>
       <RouterLink class="flexlink" to="/shop/boravia"

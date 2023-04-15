@@ -54,6 +54,16 @@ const router = createRouter({
       component: () => import("../views/shop/pickedView.vue"),
     },
     {
+      path: "/shop/collections",
+      name: "webshop_collections",
+      component: () => import("../views/shop/Collections.vue"),
+    },
+    {
+      path: "/shop/pcollection",
+      name: "webshop_pcollections",
+      component: () => import("../views/shop/PickedCollections.vue"),
+    },
+    {
       path: "/shop/checkout",
       name: "webshop_checkout",
       component: () => import("../views/shop/checkout.vue"),
