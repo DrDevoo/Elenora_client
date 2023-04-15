@@ -11,7 +11,7 @@ export default {
     return {
       response: [],
       filter: false,
-      imgurl: '/prodimgs/',
+      imgurl: '/newcoverimgs/',
       linkurl: "/shop/pcollection?id=",
       linkurl2: "&n=",
       count: 0,
@@ -364,7 +364,7 @@ section {
           :to="linkurl + item._id + linkurl2 + item.col_name"
         >
           <div class="item">
-            <img :src="'/coverimgs/'+item.coverimg">
+            <img :src="'/newcoverimgs/'+item.coverimg+'.webp'">
             <h2>{{ item.col_name }} kollekció</h2>
           </div>
         </RouterLink>
