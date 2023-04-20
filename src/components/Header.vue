@@ -429,6 +429,7 @@ input[type="number"] {
   aspect-ratio: 1/1;
   width: 100px;
   border-radius: 10px;
+  transform: rotate(90deg);
 }
 .cart_item_desc {
   position: relative;

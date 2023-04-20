@@ -108,7 +108,7 @@ export default {
             <div class="cart_item" v-for="(item, index) in cart" :key="index">
               <div class="cart_item_imgtext">
                 <div class="cart_item_img">
-                  <img v-if="!(item.img == null)" :src="imgurl + item.img" />
+                  <img v-if="!(item.img == null)" :src="'/newimgs/' + item.img + '.webp'" />
                 </div>
                 <div class="cart_item_desc">
                   <p>{{ item.name }}</p>
@@ -427,6 +427,7 @@ footer {
   aspect-ratio: 1/1;
   width: 100px;
   border-radius: 10px;
+  transform: rotate(90deg);
 }
 .cart_item_desc {
   max-height: 100px;
