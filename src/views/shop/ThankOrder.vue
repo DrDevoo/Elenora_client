@@ -65,8 +65,11 @@ export default {
         <p v-if="order.cart && order.shipping == 'delivery-card'" class="price">
           {{
             order.cart.reduce(
-              (sum, cartitem) => sum + cartitem.price * cartitem.quantity,
-              1990
+              (sum, item) =>
+                sum +
+                Math.round(item.price - (item.price / 100) * item.sale) *
+                  item.quantity,
+              0
             )
           }}
           Ft
