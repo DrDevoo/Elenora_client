@@ -1,5 +1,6 @@
 <script setup>
 import Loader from "./Loader.vue";
+import Redirecter from "./Redirect.vue";
 import { RouterLink } from "vue-router";
 import VLazyImage from "v-lazy-image";
 </script>
@@ -144,6 +145,7 @@ export default {
 </script>
 
 <template>
+  <Redirecter />
   <header>
     <div class="header_wrapper">
       <div>

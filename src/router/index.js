@@ -128,6 +128,61 @@ const router = createRouter({
       name: "egyedikarkoto",
       component: () => import("../views/CustomBracelet.vue"),
     },
+
+
+    //Admin oldalért felelős Routerek
+    {
+      path: "/rgvar49wadmin",
+      name: "admin_index",
+      component: () => import("../views/admin/Index.vue"),
+    },
+    {
+      path: "/rgvar49wadmin/dashboard",
+      name: "admin_dashboard",
+      component: () => import("../views/admin/Dashboard.vue"),
+    },
+    {
+      path: "/rgvar49wadmin/products",
+      name: "admin_products",
+      component: () => import("../views/admin/Products.vue"),
+    },
+    {
+      path: "/rgvar49wadmin/collections",
+      name: "admin_collections",
+      component: () => import("../views/admin/Collections.vue"),
+    },
+    {
+      path: "/rgvar49wadmin/sales",
+      name: "admin_sales",
+      component: () => import("../views/admin/Sales.vue"),
+    },
+    {
+      path: "/rgvar49wadmin/orders",
+      name: "admin_orders",
+      component: () => import("../views/admin/Orders.vue"),
+    },
+    {
+      path: "/rgvar49wadmin/inventory",
+      name: "admin_inventory",
+      component: () => import("../views/admin/Inventory.vue"),
+    },
+    {
+      path: "/rgvar49wadmin/mail",
+      name: "admin_mail",
+      component: () => import("../views/admin/Mail.vue"),
+    },
+    {
+      path: "/rgvar49wadmin/settings",
+      name: "admin_settings",
+      component: () => import("../views/admin/Settings.vue"),
+    },
+    {
+      path: "/rgvar49wadmin/marketing",
+      name: "admin_marketing",
+      component: () => import("../views/admin/Marketing.vue"),
+    },
+
+
     {
       path: "/:pathMatch(.*)*",
       name: "404",
