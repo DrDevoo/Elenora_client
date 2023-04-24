@@ -27,7 +27,7 @@ export default {
         @click="showMenu = !showMenu"
       ></ion-icon>
       <div>
-        <p>{{this.fullname}}</p>
+        <p>{{fullname}}</p>
       </div>
     </header>
   </section>
