@@ -85,22 +85,22 @@ export default {
   <div class="slider-wrapper">
     <div class="slides">
       <div class="slide active">
-        <img src="../assets/images/optimalized/s1.webp" rel="preload" />
+        <img src="../assets/images/optimalized/s1g.webp" rel="preload" />
         <h2>Páros karkötő</h2>
         <p>Oszd meg ásvány karkötődet barátoddal, pároddal</p>
       </div>
       <div class="slide">
-        <img src="../assets/images/optimalized/s2.webp" rel="preload" />
+        <img src="../assets/images/optimalized/s2g.webp" rel="preload" />
         <h2>Változatosság</h2>
         <p>Válassz olyan karkötőt amiben megmutatkozik a sokszínűséged</p>
       </div>
       <div class="slide">
-        <img src="../assets/images/optimalized/s3.webp" rel="preload" />
+        <img src="../assets/images/optimalized/s3g.webp" rel="preload" />
         <h2>Elegáns</h2>
         <p>Hordd egy ünnepélyes eseményhez, egészítse ki az öltözéked</p>
       </div>
       <div class="slide">
-        <img src="../assets/images/optimalized/s4.webp" rel="preload" />
+        <img src="../assets/images/optimalized/s4g.webp" rel="preload" />
         <h2>Mindennapokban</h2>
         <p>Viseld a szürke hétköznapokban, hogy feldobják a kedved</p>
       </div>
