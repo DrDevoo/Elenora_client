@@ -26,12 +26,16 @@ export default {
       if (status == "200") {
         const { user, token } = await response.json();
         localStorage.name = user.name;
+        localStorage.adminaccess = "true"
         this.$router.push("/rgvar49wadmin/dashboard");
       } else {
         alert("Hibas felhasználónév vagy jelszó!");
       }
     },
   },
+  created(){
+    localStorage.adminaccess = "false"
+  }
 };
 </script>
 
@@ -75,7 +79,7 @@ export default {
   </main>
 </template>
 
-<style>
+<style scoped>
 * {
   font-family: "Heebo", sans-serif;
   box-sizing: border-box;

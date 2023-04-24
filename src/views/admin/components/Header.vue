@@ -1,3 +1,6 @@
+<script setup>
+import Validate from "./Validate.vue";
+</script>
 <script>
 export default {
   data() {
@@ -15,6 +18,7 @@ export default {
 </script>
 
 <template>
+  <Validate/>
   <section class="header">
     <header>
       <ion-icon
