@@ -307,7 +307,7 @@ section {
 
     <section class="osztott scroll">
       <div class="osz_bal box">
-        <img src="../assets/images/custom.webp" />
+        <img src="../assets/images/custom.webp" rel="preload" />
       </div>
       <div class="osz_jobb box">
         <h2>Egyedi karkötő tervezés</h2>
