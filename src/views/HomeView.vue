@@ -402,19 +402,19 @@ section {
       <h1>Kategóriák</h1>
       <div class="boxes">
         <div @click="pushto('man')" class="box">
-          <img src="../assets/images/new/man.webp" alt="" />
+          <img src="../assets/images/optimalized/man.webp" />
           <h1>Férfi karkötők</h1>
         </div>
         <div @click="pushto('women')" class="box">
-          <img src="../assets/images/new/women.webp" alt="" />
+          <img src="../assets/images/optimalized/women.webp" />
           <h1>Női karkötők</h1>
         </div>
         <div @click="pushto('couple')" class="box">
-          <img src="../assets/images/new/couple.webp" alt="" />
+          <img src="../assets/images/optimalized/couple.webp" />
           <h1>Páros karkötők</h1>
         </div>
         <div @click="pushto('sales')" class="box">
-          <img src="../assets/images/new/sales.webp" alt="" />
+          <img src="../assets/images/optimalized/sales.webp" />
           <h1>Akciós karkötők</h1>
         </div>
       </div>
