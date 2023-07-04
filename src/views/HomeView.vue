@@ -354,49 +354,9 @@ section {
       </div>
     </section>
 -->
-    <section class="home_list">
-      <div class="list_head">
-        <h1>Akciók</h1>
-      </div>
-      <div class="lis_cont">
-        <RouterLink
-          v-for="(value, index) in saled"
-          :key="value._id"
-          :to="linkurl + value._id"
-          class="item"
-        >
-          <div class="list_box">
-            <img :src="'/newimgs/' + value.image + '.webp'" />
-            <h4>{{ value.prodname }}</h4>
-          </div>
-        </RouterLink>
-      </div>
-      <div class="list_foot">
-        <RouterLink to="/shop/sales"><p>Továbbiak ❯</p></RouterLink>
-      </div>
-    </section>
 
-    <section class="home_list">
-      <div class="list_head">
-        <h1>Újdonságok</h1>
-      </div>
-      <div class="lis_cont">
-        <RouterLink
-          v-for="(value, index) in news"
-          :key="value._id"
-          :to="linkurl + value._id"
-          class="item"
-        >
-          <div class="list_box">
-            <img :src="'/newimgs/' + value.image + '.webp'" />
-            <h4>{{ value.prodname }}</h4>
-          </div>
-        </RouterLink>
-      </div>
-      <div class="list_foot">
-        <RouterLink to="/shop/aproko"><p>Továbbiak ❯</p></RouterLink>
-      </div>
-    </section>
+
+
 
     <section class="kategoriak">
       <h1>Kategóriák</h1>
