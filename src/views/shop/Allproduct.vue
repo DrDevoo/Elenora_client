@@ -11,7 +11,7 @@ export default {
     return {
       response: [],
       filter: false,
-      imgurl: "/newimgs/",
+      imgurl: import.meta.env.VITE_API_URL + "/getimage/",
       imgpath: ".webp",
       linkurl: "/shop/picked?id=",
       count: 0,
@@ -389,7 +389,7 @@ section {
         >
           <div class="item">
             <div class="img_w">
-              <img :src="'/newimgs/'+item.image+'.webp'"/>
+              <img :src="imgurl+item.image"/>
               <h5 class="saleprecent" v-if="item.activesale === 'true'">
                 {{ item.saleprecent }} %
               </h5>
